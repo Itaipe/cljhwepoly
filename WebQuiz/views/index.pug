@@ -1,0 +1,26 @@
+extends layout
+
+block content
+    h1
+        | Bienvenue sur 
+        strong WebQuiz
+        |  !
+      // Connexion section
+      section#a.class
+        form(action='dashboard.html')
+          label(for='email') Courriel : 
+          input#email(type='email', required='')
+          br
+          label(for='password') Mot de passe : 
+          input#password(type='password', required='')
+          br
+          br
+          input(type='submit', value='Se connecter')
+      // Website presentation
+      section
+        p
+          | Ce site vous permet de tester vos connaissances sur un vaste choix
+          | de domaines liés aux technologies du web (HTML, CSS, JavaScript, NodeJS ...).
+          | Chaque compétence peut être évaluée en mode examen ou à l'aide d'un test rapide.
+          | De plus, vos résultats sauvegardés vous permettent de suivre votre progression !
+  

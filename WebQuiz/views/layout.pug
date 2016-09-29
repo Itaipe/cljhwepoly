@@ -7,13 +7,13 @@ html(lang='fr')
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
     header
-      a(href='index.html')
+      a(href='/')
         img(src='/images/logo.png', alt='WebQuiz Logo', width='200', height='100')
     if nav=="true"
       nav
-        a(href='index.html') Accueil
-        a(href='dashboard.html') Tableau de bord
-        a(href='instructions.html') Instructions
+        a(href='/') Accueil
+        a(href='dashboard') Tableau de bord
+        a(href='instructions') Instructions
     main
       block content
     footer

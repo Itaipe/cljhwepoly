@@ -1,0 +1,30 @@
+extends layout
+
+block content
+    header
+        h1 Test rapide
+        p
+          | Répondez à la question et appuyez sur "Suivant" pour passer à la prochaine question. À tout moment vous pouvez arrêter et revenir sur le tableau de bord en cliquant sur le lien "Tableau de bord".
+      section
+        p Question n°1 (HTML) : Quelle est la dernière version de HTML ?
+      section
+        | Réponses :
+        form(action='fastTest2')
+          label(for='HTML45')
+            input#HTML45(type='radio', name='answer', value='1')
+            | HTML 4.5
+          br
+          label(for='HTML55')
+            input#HTML55(type='radio', name='answer', value='2')
+            | HTML 5.5
+          br
+          label(for='HTML5')
+            input#HTML5(type='radio', name='answer', value='3')
+            | HTML 5
+          br
+          input(type='submit', value='Suivant')
+      section
+        p
+          a.button(href='dashboard') Tableau de bord
+      section
+        p Note courante :

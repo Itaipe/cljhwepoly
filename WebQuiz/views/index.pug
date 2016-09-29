@@ -2,11 +2,11 @@ extends layout
 
 block content
     h1
-        | Bienvenue sur 
-        strong WebQuiz
-        |  !
+      | Bienvenue sur 
+      strong WebQuiz
+      |  !
       // Connexion section
-      section#a.class
+      section
         form(action='dashboard.html')
           label(for='email') Courriel : 
           input#email(type='email', required='')

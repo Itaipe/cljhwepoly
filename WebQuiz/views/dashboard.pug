@@ -2,56 +2,56 @@ extends layout
 
 block content
 
-  main
+    // Launch an exam
+    div.flexblock
+        div
+            section#examen
+              h1 Lancer un examen officiel
+              form(action='examination')
+                p
+                  i Remplissez les champs ci-dessous
+                label(for='field') Domaine
+                select#field
+                  option(value='html') HTML
+                  option(value='css') CSS
+                  option(value='javascript') JavaScript
+                br
+                label(for='nbquestion') Nombre de questions
+                input#nbquestion(type='number', value='10', min='1', required='')
+                br
+                input(type='submit', value='Commencer')
 
-      // Launch an exam
-      section
-        h1 Lancer un examen officiel
-        form(action='examination')
-          p
-            i Remplissez les champs ci-dessous
-          label(for='field') Domaine
-          select#field
-            option(value='html') HTML
-            option(value='css') CSS
-            option(value='javascript') JavaScript
-          br
-          label(for='nbquestion') Nombre de questions
-          input#nbquestion(type='number', value='10', min='1', required='')
-          br
-          input(type='submit', value='Commencer')
+            // Launch a fast test
+            aside
+              form(action='fastTest')
+                p
+                  input(type='submit', value='Effectuer un test rapide')
+        // Results preview
+        article#stats
+          h1 Resultats
+          // Fast tests results
+          section
+            h2 Tests rapides
+            ul
+              li
+                strong 8
+                |  tests rapides réussis
+              li
+                strong 12
+                |  tests rapides effectués
+          // Exams results preview
+          section
+            h2 Examens officiels
+            ul
+              li
+                | Votre moyenne pour les examens est de
+                strong 15.2/20
+              li
+                strong 6
+                |  examens officiels effectués
+          section
+            form(action='Result')
+                p
+                  input(type='submit', value='Details')
 
-      // Launch a fast test
-      aside
-        form(action='fastTest')
-          p
-            input(type='submit', value='Effectuer un test rapide')
-
-      // Results preview
-      article
-        h1 Resultats
-        // Fast tests results
-        section
-          h2 Tests rapides
-          ul
-            li
-              strong 8
-              |  tests rapides réussis
-            li
-              strong 12
-              |  tests rapides effectués
-
-        // Exams results preview
-        section
-          h2 Examens officiels
-          ul
-            li
-              | Votre moyenne pour les examens est de
-              strong 15.2/20
-            li
-              strong 6
-              |  examens officiels effectués
-          p
-            | Cliquez
-            a(href='results') ici
-            |  pour plus de détails.
+     

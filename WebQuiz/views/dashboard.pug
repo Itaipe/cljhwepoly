@@ -1,0 +1,65 @@
+doctype html
+html(lang='fr')
+  head
+    title WebQuiz : Tableau de bord
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+  body
+    header
+      a(href='index.html')
+        img(src='logo.png', alt='WebQuiz Logo', width='200', height='100')
+    nav
+      a(href='index.html') Accueil
+      a(href='dashboard.html') Tableau de bord
+      a(href='instructions') Insctructionssdfdfsdsdfsfs
+    main
+      // Launch an exam
+      section
+        h1 Lancer un examen officiel
+        form(action='examination.html')
+          p
+            i Remplissez les champs ci-dessous
+          label(for='field') Domaine
+          select#field
+            option(value='html') HTML
+            option(value='css') CSS
+            option(value='javascript') JavaScript
+          br
+          label(for='nbquestion') Nombre de questions
+          input#nbquestion(type='number', value='10', min='1', required='')
+          br
+          input(type='submit', value='Commencer')
+      // Launch a fast test
+      aside
+        form(action='fastTest.html')
+          p
+            input(type='submit', value='Effectuer un test rapide')
+      // Results preview
+      article
+        h1 Resultats
+        // Fast tests results
+        section
+          h2 Tests rapides
+          ul
+            li
+              strong 8
+              |  tests rapides réussis
+            li
+              strong 12
+              |  tests rapides effectués
+        // Exams results preview
+        section
+          h2 Examens officiels
+          ul
+            li
+              | Votre moyenne pour les examens est de
+              strong 15.2/20
+            li
+              strong 6
+              |  examens officiels effectués
+          p
+            | Cliquez
+            a(href='results.html') ici
+            |  pour plus de détails.
+    footer
+      p Lorent CARAVAKU 1864618 - Charles-Henri JEANJEAN 1864901

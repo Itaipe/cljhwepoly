@@ -10,4 +10,16 @@ router.get('/dashboard', function(req, res, next) {
   res.render('dashboard', { title: 'WebQuiz : Tableau de bord', nav: 'true'});
 });
 
+router.get('/examination', function(req, res, next) {
+  res.render('examination', { title: 'WebQuiz : Examen', nav: 'true'});
+});
+
+router.get('/examination2', function(req, res, next) {
+  res.render('examination2', { title: 'WebQuiz : Examen', nav: 'true'});
+});
+
+router.get('/examinationResult', function(req, res, next) {
+  res.render('examinationResult', { title: 'WebQuiz : Resulat examen', nav: 'true'});
+});
+
 module.exports = router;

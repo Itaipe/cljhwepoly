@@ -1,0 +1,35 @@
+extends layout
+
+block content
+    header
+        h1 Examen
+        p
+          | Répondez à la question et appuyez sur "Suivant" pour passer à la prochaine question.
+      section
+        p Question 2/2 (HTTP) : Que contient l'URI dans une requête HTTP ?
+      section
+        | Réponses :
+        form(action='examinationResult')
+          label(for='protocole')
+            input#protocole(type='checkbox', name='answer', value='1')
+            | Le protocole
+          br
+          label(for='hote')
+            input#hote(type='checkbox', name='answer', value='2')
+            | L'hôte
+          br
+          label(for='mac')
+            input#mac(type='checkbox', name='answer', value='3')
+            | L'adresse MAC
+          br
+          label(for='port')
+            input#port(type='checkbox', name='answer', value='4')
+            | Le port
+          br
+          input(type='submit', value='Suivant')
+      section
+        p
+          a.button(href='dashboard') Abandonner l'examen
+        p Si vous abandonnez la note de 0 vous sera attribuée
+      section
+        p Note courante : 1/1

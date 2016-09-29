@@ -3,10 +3,11 @@ extends layout
 block content
 
   main
+
       // Launch an exam
       section
         h1 Lancer un examen officiel
-        form(action='examination.html')
+        form(action='examination')
           p
             i Remplissez les champs ci-dessous
           label(for='field') Domaine
@@ -22,7 +23,7 @@ block content
 
       // Launch a fast test
       aside
-        form(action='fastTest.html')
+        form(action='fastTest')
           p
             input(type='submit', value='Effectuer un test rapide')
 
@@ -39,6 +40,7 @@ block content
             li
               strong 12
               |  tests rapides effectués
+
         // Exams results preview
         section
           h2 Examens officiels
@@ -51,5 +53,5 @@ block content
               |  examens officiels effectués
           p
             | Cliquez
-            a(href='results.html') ici
+            a(href='results') ici
             |  pour plus de détails.

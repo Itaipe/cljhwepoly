@@ -8,6 +8,7 @@ a {
   color: #00B7FF;
 }
 
+
 /* Header */
 #header {
   background-color: #D3D3D3;
@@ -50,3 +51,53 @@ a {
     color: white;
 }
 */
+
+.flexblock {
+    display: flex;
+}
+
+#examen {
+    background-color: red;
+}
+
+#stats {
+    background-color: blue;
+}
+
+#results:target {
+    display: block;
+}
+
+#results{
+    display: none;
+    position: fixed;
+    top:0; right:0; bottom:0; left:0;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+}
+
+.popup{
+    background: #fff;
+    padding: 20px;
+    border: 20px solid #ddd;
+    position: relative;
+    margin: 5% auto;
+    width: 40%;
+    height: 70%;
+    overflow: scroll;
+    box-shadow: 0px 0px 20px #000;
+    border-radius: 10px;
+}
+
+img.close_pic {
+    float: right;
+    margin: -20px -20px 0 0;
+}
+
+#image_instr {
+    float: right;
+}
+
+#instructions {
+    width: 70%;
+}

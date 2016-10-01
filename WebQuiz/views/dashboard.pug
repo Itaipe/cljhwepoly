@@ -2,56 +2,104 @@ extends layout
 
 block content
 
-  main
+    // Launch an exam
+    div.flexblock
+        div
+            section#examen
+              h1 Lancer un examen officiel
+              form(action='examination')
+                p
+                  i Remplissez les champs ci-dessous
+                label(for='field') Domaine
+                select#field
+                  option(value='html') HTML
+                  option(value='css') CSS
+                  option(value='javascript') JavaScript
+                br
+                label(for='nbquestion') Nombre de questions
+                input#nbquestion(type='number', value='10', min='1', required='')
+                br
+                input(type='submit', value='Commencer')
 
-      // Launch an exam
-      section
-        h1 Lancer un examen officiel
-        form(action='examination')
-          p
-            i Remplissez les champs ci-dessous
-          label(for='field') Domaine
-          select#field
-            option(value='html') HTML
-            option(value='css') CSS
-            option(value='javascript') JavaScript
-          br
-          label(for='nbquestion') Nombre de questions
-          input#nbquestion(type='number', value='10', min='1', required='')
-          br
-          input(type='submit', value='Commencer')
-
-      // Launch a fast test
-      aside
-        form(action='fastTest')
-          p
-            input(type='submit', value='Effectuer un test rapide')
-
-      // Results preview
-      article
-        h1 Resultats
-        // Fast tests results
-        section
-          h2 Tests rapides
-          ul
-            li
-              strong 8
-              |  tests rapides réussis
-            li
-              strong 12
-              |  tests rapides effectués
-
-        // Exams results preview
-        section
-          h2 Examens officiels
-          ul
-            li
-              | Votre moyenne pour les examens est de
-              strong 15.2/20
-            li
-              strong 6
-              |  examens officiels effectués
-          p
-            | Cliquez
-            a(href='results') ici
-            |  pour plus de détails.
+            // Launch a fast test
+            aside
+              form(action='fastTest')
+                p
+                  input(type='submit', value='Effectuer un test rapide')
+        // Results preview
+        article#stats
+          h1 Resultats
+          // Fast tests results
+          section
+            h2 Tests rapides
+            ul
+              li
+                strong 8
+                |  tests rapides réussis
+              li
+                strong 12
+                |  tests rapides effectués
+          // Exams results preview
+          section
+            h2 Examens officiels
+            ul
+              li
+                | Votre moyenne pour les examens est de
+                strong 15.2/20
+              li
+                strong 6
+                |  examens officiels effectués
+          section
+            form(action='#results')
+                p#details
+                  input(type='submit', value='Details')
+    article#results        
+        div.popup
+            a(href='#nowhere')
+                img(src='/images/close.png', alt='Fermer', title='Fermer la fenêtre').close_pic
+            h1 Résultats
+                section
+                    h2 HTML
+                    table
+                        tr
+                            td Note
+                            td Date
+                            td Heure
+                        tr
+                            td 12/20
+                            td 01/01/2016
+                            td 14:35:00
+                        tr
+                            td 15/20
+                            td 05/02/2016
+                            td 19:26:54
+                section
+                    h2 CSS
+                    table
+                        tr
+                            td Note
+                            td Date
+                            td Heure
+                        tr
+                            td 9/20
+                            td 05/03/2016
+                            td 07:17:42
+                        tr
+                            td 13/20
+                            td 16/04/2016
+                            td 11:46:11
+                section
+                    h2 JavaScript
+                    table
+                        tr
+                            td Note
+                            td Date
+                            td Heure
+                        tr
+                            td 16/20
+                            td 20/08/2016
+                            td 10:06:57
+                        tr
+                            td 19/20
+                            td 12/09/2016
+                            td 12:40:23

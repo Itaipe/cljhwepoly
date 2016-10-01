@@ -1,0 +1,14 @@
+extends layout
+
+block content
+    header
+      h1 Examen
+      p
+        | Répondez à la question et appuyez sur "Suivant" pour passer à la prochaine question.
+      block content
+      section
+        p
+          a.button(href='dashboard') Abandonner l'examen
+        p Si vous abandonnez la note de 0 vous sera attribuée
+      section
+        p Note courante : #{note_courante}

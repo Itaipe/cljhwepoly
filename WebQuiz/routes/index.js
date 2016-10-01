@@ -11,11 +11,11 @@ router.get('/dashboard', function(req, res, next) {
 });
 
 router.get('/examination', function(req, res, next) {
-  res.render('examination', { title: 'WebQuiz : Examen', nav: 'true'});
+  res.render('examination', { title: 'WebQuiz : Examen', nav: 'true', note_courate:''});
 });
 
 router.get('/examination2', function(req, res, next) {
-  res.render('examination2', { title: 'WebQuiz : Examen', nav: 'true'});
+  res.render('examination2', { title: 'WebQuiz : Examen', nav: 'true', note_courante:'1/1'});
 });
 
 router.get('/examinationResult', function(req, res, next) {
@@ -23,11 +23,11 @@ router.get('/examinationResult', function(req, res, next) {
 });
 
 router.get('/fastTest', function(req, res, next) {
-  res.render('fastTest', { title: 'WebQuiz : Test Rapide', nav: 'true'});
+  res.render('fastTest', { title: 'WebQuiz : Test Rapide', nav: 'true', note_courante:''});
 });
 
 router.get('/fastTest2', function(req, res, next) {
-  res.render('fastTest2', { title: 'WebQuiz : Test Rapide', nav: 'true'});
+  res.render('fastTest2', { title: 'WebQuiz : Test Rapide', nav: 'true', note_courante:'1/1'});
 });
 
 router.get('/results', function(req, res, next) {

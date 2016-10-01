@@ -1,29 +1,21 @@
-extends layout
+extends examtemplate
 
 block content
-    header
-      h1 Examen
-      section
-        p Question 1/2 (HTML) : Quelle est la dernière version de HTML ?
-      section
-        | Réponses :
-        form(action='examination2')
-          label(for='HTML45')
-            input#HTML45(type='radio', name='answer', value='1')
-            | HTML 4.5
-          br
-          label(for='HTML55')
-            input#HTML55(type='radio', name='answer', value='2')
-            | HTML 5.5
-          br
-          label(for='HTML5')
-            input#HTML5(type='radio', name='answer', value='3')
-            | HTML 5
-          br
-          input(type='submit', value='Suivant')
-      section
-        p
-          a.button(href='dashboard') Abandonner l'examen
-        p Si vous abandonnez la note de 0 vous sera attribuée
-      section
-        p Note courante : 
+    section
+      p Question 1/2 (HTML) : Quelle est la dernière version de HTML ?
+    section
+      | Réponses :
+      form(action='examination2')
+        label(for='HTML45')
+          input#HTML45(type='radio', name='answer', value='1')
+          | HTML 4.5
+        br
+        label(for='HTML55')
+          input#HTML55(type='radio', name='answer', value='2')
+          | HTML 5.5
+        br
+        label(for='HTML5')
+          input#HTML5(type='radio', name='answer', value='3')
+          | HTML 5
+        br
+        input(type='submit', value='Suivant')

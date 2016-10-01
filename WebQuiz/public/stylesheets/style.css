@@ -88,8 +88,12 @@ a {
     background-color: red;
 }
 
-#stats {
-    background-color: blue;
+.stats {
+    background-color: #BBE9F0;
+    padding : 20px;
+    border: 10px solid #14545E;
+    margin: 5%;
+    border-radius : 10px;
 }
 
 #results:target {
@@ -127,5 +131,5 @@ img.close_pic {
 }
 
 #instructions {
-    width: 70%;
+    width: 60%;
 }

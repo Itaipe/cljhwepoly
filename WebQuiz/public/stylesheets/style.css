@@ -4,6 +4,9 @@ body {
   background-color: #ededed;
 }
 
+
+
+/* Hyper Lien */
 a {
   color: #00B7FF;
 }
@@ -22,6 +25,7 @@ a {
   left: 0;
   top: 0;
   width: 100%;
+  z-index: 6;
 }
 
 /* Barre de navigation */
@@ -53,17 +57,9 @@ a {
 }
 
 #footer {
-    position: relative;
-    top: 500px;
-    padding-bottom: 50px;
+
 }
 
-/*
-.active {
-    background-color: #4CAF50;
-    color: white;
-}
-*/
 
 .flexblock {
     display: flex;

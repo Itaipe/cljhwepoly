@@ -45,6 +45,19 @@ a {
 #nav li a:hover {
     background-color: #808080;
 }
+
+/* main */
+#main {
+  position: relative;
+  top: 100px;
+}
+
+#footer {
+    position: relative;
+    top: 500px;
+    padding-bottom: 50px;
+}
+
 /*
 .active {
     background-color: #4CAF50;

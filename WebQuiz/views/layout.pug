@@ -13,12 +13,24 @@ html(lang='fr')
       if nav=="true"
         nav#nav
           ul
-            li
-              a(href='/') Accueil
-            li
-              a(href='dashboard') Tableau de bord
-            li
-              a(href='instructions') Instructions
+            if title=="WebQuiz : Accueil"
+              li.colored_nav
+                a(href='/') Accueil
+            else
+              li
+                a(href='/') Accueil
+            if title=="WebQuiz : Tableau de bord"
+              li.colored_nav
+                a(href='dashboard') Tableau de bord
+            else
+              li
+                a(href='dashboard') Tableau de bord
+            if title=="WebQuiz : Instructions"
+              li.colored_nav
+                a(href='instructions') Instructions
+            else
+              li
+                a(href='instructions') Instructions
     main#main
       block content
     footer#footer

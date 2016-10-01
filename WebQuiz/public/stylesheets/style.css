@@ -50,6 +50,10 @@ a {
     background-color: #808080;
 }
 
+.colored_nav {
+    background-color: #A0A0A0;
+}
+
 /* main */
 #main {
   position: relative;

@@ -280,14 +280,14 @@ div.container {
 .popup{
     background: #BBE9F0;
     padding: 20px;
-    border: 20px solid #14545E;
+    border: 20px solid #036b80;
     position: relative;
     margin: 5% auto;
     width: 40%;
     height: 70%;
     overflow: auto;
     box-shadow: 0px 0px 20px #000;
-    border-radius: 10px;
+    border-radius: 7px;
 }
 
 img.close_pic {
@@ -349,6 +349,7 @@ h1#home {
   line-height: 58px;
   margin: 20px auto 10px auto;
   width: auto;
+  text-align: center;
 }
 
 /* "Start button" dans la page d'accueil */

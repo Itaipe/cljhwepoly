@@ -90,7 +90,7 @@ a {
 
 /* Image de la page d'accueil */
 div.polaroid {
-  width: 80%;
+  width: 60%;
   background-color: white;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   margin-bottom: 25px;
@@ -193,7 +193,7 @@ h1#home {
 
 /* "Start button" dans la page d'accueil */
 div#startbutton {
-  width: 80%;
+  width: 60%;
   margin: auto;
   margin: 20px auto;
 

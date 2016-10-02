@@ -73,7 +73,21 @@ a {
 /* main */
 #main {
   position: relative;
-  top: 100px;
+  top: 30px;
+  margin-bottom: 40px;
+}
+
+/* Image de la page d'accueil */
+div.polaroid {
+  width: 80%;
+  background-color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin-bottom: 25px;
+  margin: auto;
+}
+div.container {
+  text-align: center;
+  padding: 10px 20px;
 }
 
 #footer {
@@ -150,16 +164,17 @@ img.close_pic {
     width: 60%;
 }
 
-
-#homeimage {
-  border: solid 10px;
-  border-color: #7f7f7f;
-  border-radius: 5px;
-  display: block;
-  margin: auto;
-}
-
 .questions {
     width: 60%;
 
+}
+
+h1#home {
+  color: #5b5b5b;
+  font-family: 'Lato', sans-serif;
+  font-size: 40px;
+  font-weight: 300;
+  line-height: 58px;
+  margin: 20px auto 10px auto;
+  width: auto;
 }

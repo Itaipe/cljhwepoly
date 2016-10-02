@@ -8,13 +8,13 @@ block content
                 i Répondez à la question et appuyez sur "Suivant" pour passer à la prochaine question.
             block content
             section
-                p 
+                p
                     strong Note courante : #{note_courante}
             section
                 p
                     a.button(href='dashboard') Abandonner l'examen
                 p.abandon Si vous abandonnez, la note 0 vous sera attribuée.
-        article.stats
+        article.box#stats
             h1 Statistiques
             // Fast tests results
             section
@@ -31,7 +31,7 @@ block content
                 h2 Examens officiels
                 ul
                     li
-                        | Votre moyenne pour les examens est de : 
+                        | Votre moyenne pour les examens est de :
                         strong 15.2/20
                     li
                         strong 6

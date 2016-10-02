@@ -8,12 +8,12 @@ block content
                 i Répondez à la question et appuyez sur "Suivant" pour passer à la prochaine question. À tout moment vous pouvez arrêter et revenir sur le tableau de bord en cliquant sur le lien "Tableau de bord".
             block content
             section
-                p 
+                p
                     strong Note courante : #{note_courante}
             section
                 p
                     a.button(href='dashboard') Tableau de bord
-        article.stats
+        article.box#stats
           h1 Statistiques
           // Fast tests results
           section
@@ -30,7 +30,7 @@ block content
             h2 Examens officiels
             ul
               li
-                | Votre moyenne pour les examens est de : 
+                | Votre moyenne pour les examens est de :
                 strong 15.2/20
               li
                 strong 6

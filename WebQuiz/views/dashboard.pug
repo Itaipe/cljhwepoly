@@ -4,7 +4,7 @@ block content
 
     // Launch an exam
     div.flexblock
-        div
+        div.box#exams
             section#examen
               h1 Lancer un examen officiel
               form(action='examination')
@@ -19,15 +19,15 @@ block content
                 label(for='nbquestion') Nombre de questions
                 input#nbquestion(type='number', value='10', min='1', required='')
                 br
-                input(type='submit', value='Commencer')
+                input.button(type='submit', value='Commencer')
 
             // Launch a fast test
             aside
               form(action='fastTest')
                 p
-                  input(type='submit', value='Effectuer un test rapide')
+                  input.button(type='submit', value='Effectuer un test rapide')
         // Results preview
-        article.stats
+        article.box#stats
           h1 Statistiques
           // Fast tests results
           section
@@ -44,7 +44,7 @@ block content
             h2 Examens officiels
             ul
               li
-                | Votre moyenne pour les examens est de : 
+                | Votre moyenne pour les examens est de :
                 strong 15.2/20
               li
                 strong 6
@@ -52,7 +52,7 @@ block content
           section
             form(action='#results')
                 p#details
-                  input(type='submit', value='Details')
+                  input.button(type='submit', value='Details')
     article#results
         div.popup
             a(href='#nowhere')
@@ -62,11 +62,11 @@ block content
                 h2 HTML
                 table
                     tr
-                        td 
+                        td
                             strong Note
-                        td 
+                        td
                             strong Date
-                        td 
+                        td
                             strong Heure
                     tr
                         td 12/20
@@ -80,11 +80,11 @@ block content
                 h2 CSS
                 table
                     tr
-                        td 
+                        td
                             strong Note
-                        td 
+                        td
                             strong Date
-                        td 
+                        td
                             strong Heure
                     tr
                         td 9/20
@@ -98,11 +98,11 @@ block content
                 h2 JavaScript
                 table
                     tr
-                        td 
+                        td
                             strong Note
-                        td 
+                        td
                             strong Date
-                        td 
+                        td
                             strong Heure
                     tr
                         td 16/20

@@ -79,11 +79,13 @@ a {
   position: relative;
   top: 75px;
   margin-bottom: 40px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Image de la page d'accueil */
 div.polaroid {
-  width: 60%;
+  width: 650px;
   background-color: white;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   margin-bottom: 25px;
@@ -114,18 +116,37 @@ div.container {
 
 .flexblock {
     display: flex;
+    margin: 25px auto;
 }
 
-#examen {
-    background-color: red;
+/*
+#rcorners6 {
+    border-radius: 15px 50px;
+    background: #73AD21;
+    padding: 20px;
+    width: 200px;
+    height: 150px;
+}
+*/
+
+#exams {
+  width: 600px;
 }
 
-.stats {
-    background-color: #BBE9F0;
+#stats {
+  width: 400px;
+}
+
+#examen .button {
+  margin-top: 10px;
+}
+
+.box {
+    background-color: white;
     padding : 10px;
-    border: 10px solid #14545E;
-    margin: 5%;
-    border-radius : 10px;
+    margin: 10px;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 #results:target {
@@ -212,7 +233,7 @@ h1#home {
 
 /* "Start button" dans la page d'accueil */
 div#startbutton {
-  width: 60%;
+  width: auto;
   margin: auto;
   margin: 20px auto;
 

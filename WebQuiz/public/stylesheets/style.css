@@ -6,7 +6,21 @@ body {
   flex-direction: column;
 }
 
+/* Formatage du texte */
+h1 {
+    font-size: xx-large;
+    text-align: center;
+}
 
+h2 {
+    font-size: large;
+    text-align: center;
+}
+
+p, li {
+    font-size: medium;
+    text-align: justify;
+}
 
 /* Hyper Lien */
 a {
@@ -90,7 +104,7 @@ a {
 
 .stats {
     background-color: #BBE9F0;
-    padding : 20px;
+    padding : 10px;
     border: 10px solid #14545E;
     margin: 5%;
     border-radius : 10px;
@@ -100,6 +114,7 @@ a {
     display: block;
 }
 
+/* Affichage du détails des résultats en pop up */
 #results{
     display: none;
     position: fixed;
@@ -126,6 +141,7 @@ img.close_pic {
     margin: -20px -20px 0 0;
 }
 
+/* Image flotante dans la page instructions */
 #image_instr {
     float: right;
 }
@@ -134,10 +150,16 @@ img.close_pic {
     width: 60%;
 }
 
+
 #homeimage {
   border: solid 10px;
   border-color: #7f7f7f;
   border-radius: 5px;
   display: block;
   margin: auto;
+}
+
+.questions {
+    width: 60%;
+
 }

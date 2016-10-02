@@ -2,9 +2,11 @@ extends examtemplate
 
 block content
     section
-      p Question 1/2 (HTML) : Quelle est la dernière version de HTML ?
+      p 
+        u
+            strong Question 1/2 (HTML) : 
+            | Quelle est la dernière version de HTML ?
     section
-      | Réponses :
       form(action='examination2')
         label(for='HTML45')
           input#HTML45(type='radio', name='answer', value='1')
@@ -18,4 +20,4 @@ block content
           input#HTML5(type='radio', name='answer', value='3')
           | HTML 5
         br
-        input(type='submit', value='Suivant')
+        input(type='submit', value='Valider')

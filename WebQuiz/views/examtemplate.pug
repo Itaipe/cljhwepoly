@@ -5,14 +5,15 @@ block content
         div.question
             h1 Examen
             p
-                | Répondez à la question et appuyez sur "Suivant" pour passer à la prochaine question.
+                i Répondez à la question et appuyez sur "Suivant" pour passer à la prochaine question.
             block content
+            section
+                p 
+                    strong Note courante : #{note_courante}
             section
                 p
                     a.button(href='dashboard') Abandonner l'examen
-                p Si vous abandonnez la note de 0 vous sera attribuée
-            section
-                p Note courante : #{note_courante}
+                p.abandon Si vous abandonnez, la note 0 vous sera attribuée.
         article.stats
             h1 Statistiques
             // Fast tests results

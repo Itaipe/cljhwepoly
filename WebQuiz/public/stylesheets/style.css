@@ -22,6 +22,10 @@ p, li {
     text-align: justify;
 }
 
+.abandon {
+    color: red;
+}
+
 /* Hyper Lien */
 a {
   color: #00B7FF;
@@ -124,14 +128,14 @@ a {
 }
 
 .popup{
-    background: #fff;
+    background: #BBE9F0;
     padding: 20px;
-    border: 20px solid #ddd;
+    border: 20px solid #14545E;
     position: relative;
     margin: 5% auto;
     width: 40%;
     height: 70%;
-    overflow: scroll;
+    overflow: auto;
     box-shadow: 0px 0px 20px #000;
     border-radius: 10px;
 }
@@ -150,6 +154,6 @@ img.close_pic {
     width: 60%;
 }
 
-.questions {
+.question {
     width: 60%;
 }

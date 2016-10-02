@@ -2,9 +2,11 @@ extends examtemplate
 
 block content
     section
-      p Question 2/2 (HTTP) : Que contient l'URI dans une requête HTTP ?
+      p 
+        u
+            strong Question 2/2 (HTTP) : 
+            | Que contient l'URI dans une requête HTTP ?
     section
-      | Réponses :
       form(action='examinationResult')
         label(for='protocole')
           input#protocole(type='checkbox', name='answer', value='1')
@@ -22,4 +24,4 @@ block content
           input#port(type='checkbox', name='answer', value='4')
           | Le port
         br
-        input(type='submit', value='Suivant')
+        input(type='submit', value='Valider')

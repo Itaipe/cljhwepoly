@@ -1,10 +1,10 @@
 extends examtemplate
 
 block content
-    section
-      p 
-        u
-            strong Question 1/2 (HTML) : 
+    section.question0
+      p
+            Strong Question 1/2 (HTML) : 
+            br
             | Quelle est la dernière version de HTML ?
     section
       form(action='examination2')
@@ -20,4 +20,4 @@ block content
           input#HTML5(type='radio', name='answer', value='3')
           | HTML 5
         br
-        input(type='submit', value='Valider')
+        input.button(type='submit', value='Valider')

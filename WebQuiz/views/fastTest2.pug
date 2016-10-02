@@ -1,10 +1,10 @@
 extends fasttesttemplate
 
 block content
-    section
-        p 
-          u
-            strong Question n°2 (HTTP) : 
+    section.question0
+        p
+            strong Question n°2 (HTTP) :
+            br
             | Que contient l'URI dans une requête HTTP ?
     section
         form(action='dashboard')
@@ -24,4 +24,4 @@ block content
                 input#port(type='checkbox', name='answer', value='4')
                 | Le port
             br
-            input(type='submit', value='Valider')
+            input.button(type='submit', value='Valider')

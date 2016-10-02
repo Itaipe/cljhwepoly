@@ -2,7 +2,7 @@ extends layout
 
 block content
     header.flexblock
-        div.question
+        div.question.box
             h1 Examen
             p
                 i Répondez à la question et appuyez sur "Suivant" pour passer à la prochaine question.
@@ -17,7 +17,7 @@ block content
         article.box#stats
             h1 Statistiques
             // Fast tests results
-            section
+            section.section0
                 h2 Tests rapides
                 ul
                     li
@@ -27,7 +27,7 @@ block content
                         strong 12
                         |  tests rapides effectués
             // Exams results preview
-            section
+            section.section0
                 h2 Examens officiels
                 ul
                     li

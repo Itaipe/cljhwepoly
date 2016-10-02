@@ -53,7 +53,7 @@ a {
 }
 
 .colored_nav {
-    background-color: #A0A0A0;
+    background-color: #7f7f7f;
 }
 
 /* main */
@@ -132,4 +132,12 @@ img.close_pic {
 
 #instructions {
     width: 60%;
+}
+
+#homeimage {
+  border: solid 10px;
+  border-color: #7f7f7f;
+  border-radius: 5px;
+  display: block;
+  margin: auto;
 }

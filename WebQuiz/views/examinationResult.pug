@@ -1,12 +1,13 @@
 extends layout
 
 block content
-    header.box
+    header.box#result
         h1 Examen
         section
             p L'examen est terminé.
-        section
-            p Note : 12/20
+        section.note
+            p
+              Strong Note : 12/20
         section
             p
                 a.button(href='dashboard') Revenir sur le tableau de bord

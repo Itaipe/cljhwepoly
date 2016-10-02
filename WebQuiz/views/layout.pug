@@ -31,7 +31,9 @@ html(lang='fr')
             else
               li
                 a(href='instructions') Instructions
-    main#main
+    if nav=="true"
+      main#main
+    main#mainhome
       block content
       footer#footer
         p Lorent CARAVAKU 1864618 - Charles-Henri JEANJEAN 1864901

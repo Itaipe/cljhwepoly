@@ -6,31 +6,14 @@ body {
   flex-direction: column;
 }
 
-/* Formatage du texte */
-
-/*
-h1 {
-    font-size: xx-large;
-    text-align: center;
-}
-
-h2 {
-    font-size: large;
-    text-align: center;
-}
-
-p, li {
-    font-size: medium;
-    text-align: justify;
-}
-*/
-
+/* Text en italic dans une boite */
 .box p i {
   color: gray;
   display: block;
   margin-top: 40px;
 }
 
+/* Format de la question */
 .question0 {
   font-size: 20px;
   color: black;
@@ -38,10 +21,12 @@ p, li {
   margin: 0 0;
 }
 
+/* Bouton "Suivant"/"Valider" */
 .answer .button {
   margin-top: 20px;
 }
 
+/* La balise "label" d'une réponse parmis les réponses possibles */
 .question label {
   display: inline-block;
   cursor: pointer;
@@ -54,29 +39,30 @@ p, li {
   box-shadow: 0 1px 2px rgba(0,0,0,.1);
   min-width: 400px;
 }
-
+/* La note */
 .box .note p {
   display: block;
   font-size: 18px;
   padding: 5px;
   background: #FFD700;
 }
-
+/* Le resultat de l'examen */
 #result {
   margin: 100px auto 0;
   width: 300px;
 }
-
+/* h1 de la boite */
 .box h1 {
   border-bottom: solid 2px;
   border-color: gray;
   padding-bottom: 3px;
 }
+/* h2 de la boite */
 .box h2 {
   font-size: 16px;
   margin-top: 0;
 }
-
+/* Balise "li" de la sections stats */
 #stats li {
   padding-bottom: 2px;
   padding-top: 4px;
@@ -84,6 +70,7 @@ p, li {
   border-color: gray;
 }
 
+/* La section qui englobe le bouton pour faire un test rapide */
 .box #fasttest {
   margin-top: 40px;
   padding-top: 1px;
@@ -91,7 +78,7 @@ p, li {
   border-color: gray;
 }
 
-
+/* Text concernant l'abandon de l'examen */
 .abandon {
     color: #FF4500;
 }
@@ -100,7 +87,6 @@ p, li {
 a {
   color: #00B7FF;
 }
-
 
 /* Header */
 #header {
@@ -187,26 +173,17 @@ div.container {
   margin-left: 10px;
 }
 
-
 .flexblock {
     display: flex;
     margin: 25px auto;
 }
 
-/*
-#rcorners6 {
-    border-radius: 15px 50px;
-    background: #73AD21;
-    padding: 20px;
-    width: 200px;
-    height: 150px;
-}
-*/
-
+/* Largeur de la boite "Exams" */
 #exams {
   width: 600px;
 }
 
+/* Largeur de la boite "Stats" */
 #stats {
   width: 400px;
 }
@@ -215,7 +192,7 @@ div.container {
   margin-top: 10px;
 }
 
-
+/* Les sections de la boite "stats" */
 #stats .section0 {
   padding: 10px;
   border: solid 0.5px;
@@ -225,6 +202,7 @@ div.container {
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 3px 10px 0 rgba(0, 0, 0, 0.095);
 }
 
+/* Format des boites */
 .box {
     background-color: white;
     padding : 15px;
@@ -233,6 +211,7 @@ div.container {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+/* Format de l'input du thème de l'examen */
 #field {
     width: 595px;
     height: 40px;
@@ -243,6 +222,7 @@ div.container {
     font-size: 16px;
 }
 
+/* Format de l'input "nombre de questions" */
 #nbquestion {
   width: 585px;
   height: 40px;
@@ -256,6 +236,7 @@ div.container {
   border-radius: 4px;
 }
 
+/* Format des réponses */
 #examen label {
   font-size: 20px;
 }
@@ -333,15 +314,18 @@ td {
     margin-top: 30px;
 }
 
+/* Format de la page d'instructions */
 #instructions {
     width: 60%;
     margin: 30px 0;
 }
 
+/* h1 de la page d'instructions */
 #instructions h1 {
   font-size: 28px;
 }
 
+/* Format de la question */
 .question {
     width: 600px;
 }
@@ -382,14 +366,8 @@ div#startbutton > .button {
 .button:hover {
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
-/*
-#details {
-  position: absolute;
-  bottom: 40px;
-}
-*/
 
-/* */
+/* Adaptation lorsque l'on se trouve en dessous de 1024px de largeur */
 @media all and (max-width: 1024px)
 {
     nav {
@@ -459,7 +437,7 @@ div#startbutton > .button {
 }
 
 
-
+/* Adaptation lorsque l'on se trouve en dessous de 425px de largeur */
 @media all and (max-width: 425px)
 {
     #main {

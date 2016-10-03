@@ -382,3 +382,28 @@ div#startbutton > .button {
   position: absolute;
   bottom: 40px;
 }
+
+/* */
+@media all and (max-width: 1024px)
+{
+    nav {
+        width: auto;
+        text-align: left;
+    }
+    
+    .flexblock {
+        display: block;
+    }
+}
+
+@media all and (max-width: 1024px)
+{
+    #image_instr {
+        display: none;
+    }
+    
+    #instructions {
+        width: 100%;
+        margin-top: 30px;
+    }
+}

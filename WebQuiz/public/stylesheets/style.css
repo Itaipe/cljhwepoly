@@ -63,7 +63,8 @@ p, li {
 }
 
 #result {
-  margin-top: 100px;
+  margin: 100px auto 0;
+  width: 300px;
 }
 
 .box h1 {
@@ -153,9 +154,7 @@ a {
 #main {
   position: relative;
   top: 75px;
-  margin-bottom: 40px;
-  margin-left: auto;
-  margin-right: auto;
+  margin-bottom: 0 auto 40px;
 }
 
 /* Image de la page d'accueil */
@@ -336,7 +335,7 @@ td {
 
 #instructions {
     width: 60%;
-    margin-top: 30px;
+    margin: 30px 0;
 }
 
 #instructions h1 {
@@ -361,13 +360,12 @@ h1#home {
 
 /* "Start button" dans la page d'accueil */
 div#startbutton {
-  width: auto;
-  margin: auto;
+  width: 650px;
   margin: 20px auto;
-
 }
 div#startbutton > .button {
   width: auto;
+  margin: auto;
 }
 
 .button {
@@ -413,19 +411,137 @@ div#startbutton > .button {
     }
 
     #stats {
-      width: 300px;
-      margin: auto;
+      width: auto;
+    }
+
+    #main {
+      min-width: 273px;
     }
 
     #exams {
-      width: 300px;
+      width: auto;
+      margin-bottom: 20px;
     }
 
     #field {
-      width: 290px;
+      width: 90%;
     }
 
     #nbquestion {
-      width: 280px;
+      width: 90%;
     }
+
+    .question {
+        width: auto;
+    }
+
+    .question label {
+      min-width: 0;
+      width: auto;
+    }
+
+    div.polaroid {
+      width: auto;
+    }
+
+    div#startbutton {
+      width: auto;
+    }
+
+    #instructions {
+        width: 100%;
+    }
+
+    #result {
+      margin: 100px auto 0;
+      width: auto;
+    }
+}
+
+
+
+@media all and (max-width: 425px)
+{
+    #main {
+      position: absolute;
+      left: 0;
+      top: 165px;
+    }
+
+    nav {
+        width: auto;
+        text-align: left;
+    }
+
+    .flexblock {
+        display: block;
+    }
+
+    #image_instr {
+        display: none;
+    }
+
+    #stats {
+      width: auto;
+    }
+
+    #main {
+      min-width: 273px;
+    }
+
+    #exams {
+      width: auto;
+      margin-bottom: 20px;
+    }
+
+    #field {
+      width: 90%;
+    }
+
+    #nbquestion {
+      width: 90%;
+    }
+
+    .question {
+        width: auto;
+    }
+
+    .question label {
+      min-width: 0;
+      width: auto;
+    }
+
+    div.polaroid {
+      width: auto;
+    }
+
+    div#startbutton {
+      width: auto;
+      padding-bottom: 30px;
+    }
+
+    #instructions {
+        width: 100%;
+        padding-bottom: 40px;
+    }
+
+    #result {
+      margin: 100px auto 0;
+      width: auto;
+    }
+
+    .popup{
+        background: #BBE9F0;
+        padding: 15px;
+        border: 0 solid #036b80;
+        position: relative;
+        margin: auto;
+        width: 80%;
+        height: 80%;
+        overflow: auto;
+        box-shadow: 0px 0px 20px #000;
+        border-radius: 0px;
+    }
+
+
 }

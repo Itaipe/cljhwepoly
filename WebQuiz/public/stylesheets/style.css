@@ -394,10 +394,7 @@ div#startbutton > .button {
     .flexblock {
         display: block;
     }
-}
-
-@media all and (max-width: 1024px)
-{
+    
     #image_instr {
         display: none;
     }

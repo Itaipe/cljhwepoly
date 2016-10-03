@@ -7,18 +7,18 @@ body {
 }
 
 /* Formatage du texte */
+
 /*
 h1 {
     font-size: xx-large;
     text-align: center;
-}*/
-/*
+}
+
 h2 {
     font-size: large;
     text-align: center;
 }
-*/
-/*
+
 p, li {
     font-size: medium;
     text-align: justify;
@@ -239,7 +239,6 @@ div.container {
 #field {
     width: 595px;
     height: 40px;
-    padding: 16px 20px;
     border: none;
     background-color: #f1f1f1;
     margin-top: 5px;
@@ -288,6 +287,16 @@ div.container {
     overflow: auto;
     box-shadow: 0px 0px 20px #000;
     border-radius: 7px;
+}
+
+#results h1 {
+    font-size: xx-large;
+    text-align: center;
+}
+
+#results h2 {
+    font-size: large;
+    text-align: center;
 }
 
 img.close_pic {

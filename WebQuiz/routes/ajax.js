@@ -3,7 +3,7 @@ var router = express.Router();
 
 router.get('/next', function(req, res, next) {
 
-  var val = "Hello world";
+  var val = "Hello World !";
 
   // Ceci pour le debugg
   console.log(val);

@@ -1,5 +1,5 @@
 $(function(){
- $('.answer .button').on('click', function(e){
+  $('.answer .button').on('click', function(e){
     $.get( '/ajax/next');
   });
 });

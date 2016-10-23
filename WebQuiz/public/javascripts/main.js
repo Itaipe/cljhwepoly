@@ -1,21 +1,22 @@
 $(function(){
-    
+
     var titre = $(document).attr('title');
     //alert(titre);
     var nbquestion = 0;
     
     //Si on vient de charger la page test rapide, on génère une question aléatoire
     if (titre === 'WebQuiz : Test Rapide') {
-        //alert("YEAHHHH");
         $.getJSON("/ajax/fasttest", function(data) {
             $("#idquestion").text(data.id);
             $("#domaine").text(data.domaine);
             $("#enonce").text(data.enonce);
             for (i = 0; i < data.nbreponses; i++) {
-                $("#reponse" + i).text(data.reponses[i]);
+              $('.answer').prepend("<label id=\"answer" + i + "\" for=\"" + i + "\"><input type=\"radio\" name=\"answer\" value=\"" + i + "\" id=\"" + i + "\"><span id=\"span" + i + "\"></span></label><br>");
+              $('#span'+i).text("  " + data.reponses[i]);
             }
         });
     }
+
     if (titre === 'WebQuiz : Examen') {
         if(typeof(Storage) !== "undefined"){
             var field = sessionStorage.getItem("field");
@@ -53,13 +54,16 @@ $(function(){
     });
 
     //Quand on est déja en test rapide, pour obtenir une nouvelle question lorsqu'on valide
+
     $('#validerfasttest').on('click', function(e){
         $.getJSON("/ajax/fasttest", function(data) {
+            $('label, .answer br').remove();
             $("#idquestion").text(data.id);
             $("#domaine").text(data.domaine);
             $("#enonce").text(data.enonce);
             for (i = 0; i < data.nbreponses; i++) {
-                $("#reponse" + i).text(data.reponses[i]);
+                $('.answer').prepend("<label id=\"answer" + i + "\" for=\"" + i + "\"><input type=\"radio\" name=\"answer\" value=\"" + i + "\" id=\"" + i + "\"><span id=\"span" + i + "\"></span></label><br>");
+                $('#span'+i).text("  " + data.reponses[i]);
             }
         });
     });

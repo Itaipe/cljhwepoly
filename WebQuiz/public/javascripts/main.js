@@ -9,6 +9,9 @@ $(function(){
             $("#enonce").text(data.enonce);
         });
         alert("apres get");
+
   });
+  
+  alert("apres fonction click" + $("#domaine".text()));
   
 });

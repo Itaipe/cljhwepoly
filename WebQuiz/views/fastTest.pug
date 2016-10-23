@@ -5,19 +5,19 @@ block content
         p
                 strong Question n°1 (HTML) :
                 br
-                | Quelle est la dernière version de HTML ?
+                span#enonce
     section.answer
         form(action='fastTest2')
             label(for='HTML45')
                 input#HTML45(type='radio', name='answer', value='1')
-                | HTML 4.5
+                span#reponse0
             br
             label(for='HTML55')
                 input#HTML55(type='radio', name='answer', value='2')
-                | HTML 5.5
+                span#reponse1
             br
             label(for='HTML5')
                 input#HTML5(type='radio', name='answer', value='3')
-                | HTML 5
+                span#reponse2
             br
             input.button(type='submit', value='Valider')

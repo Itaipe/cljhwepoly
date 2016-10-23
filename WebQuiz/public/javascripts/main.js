@@ -1,5 +1,7 @@
 $(function(){
 
+  reponse = ""; // la variable qui permet de récuperer la réponse
+
    // $('.answer .button').on('click', function(e){
    //     alert("avanttt get");
         //$.get('/ajax/next');
@@ -14,7 +16,12 @@ $(function(){
   //alert("apres fonction click" + $("#domaine".text()));
 
   $('#boutondetest').on('click', function(e){
+    reponse = $('input[name=answer]:checked').val();
+    console.log(reponse);
     $.getJSON("/ajax/next", function(data) {
+      if (reponse == 1) {
+        console.log("Vous avez trouvé la bonne réponse !");
+      }
       $("#idquestion").text(data.id);
       $("#domaine").text(data.domaine);
       $("#enonce").text(data.enonce);

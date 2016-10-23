@@ -11,15 +11,15 @@ block content
                 p
                   i Remplissez les champs ci-dessous
                 label(for='field') Domaine
-                select#field
+                select#fieldinput(name='field')
                   option(value='html') HTML
                   option(value='css') CSS
                   option(value='javascript') JavaScript
                 br
                 label(for='nbquestion') Nombre de questions
-                input#nbquestion(type='number', value='10', min='1', required='')
+                input#nbquestioninput(type='number', name='nbquestion', value='10', min='1', required='')
                 br
-                input.button(type='submit', value='Commencer')
+                input.button#commencerexamen(type='submit', value='Commencer')
 
             // Launch a fast test
             aside#fasttest

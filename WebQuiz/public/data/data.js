@@ -1,7 +1,9 @@
+//Une question est identifiée par son id ainsi que son domaine
+
 questions =
 [
   {
-    "id" : 12,
+    "id" : 1,
     "domaine"    : "HTML",
     "enonce"     : "Quelle est la dernière version de HTML ?",
     "nbreponses" : 3,
@@ -81,7 +83,7 @@ questions =
     "bonnerep"   : 1
   },
   {
-    "id" : 11,
+    "id" : 1,
     "domaine"    : "CSS",
     "enonce"     : "Que doit-on écrire en CSS pour appliquer un style aux balises de titre de niveau 2 et 3 ?",
     "nbreponses" : 4,
@@ -89,7 +91,7 @@ questions =
     "bonnerep"   : 4
   },
   {
-    "id" : 12,
+    "id" : 2,
     "domaine"    : "CSS",
     "enonce"     : "Quelle est la particularité de l'attribut class par rapport à l'attribut id ?",
     "nbreponses" : 3,
@@ -97,7 +99,7 @@ questions =
     "bonnerep"   : 1
   },
   {
-    "id" : 13,
+    "id" : 3,
     "domaine"    : "CSS",
     "enonce"     : "Lequel de ces alignements fait prendre au texte toute la largeur disponible ?",
     "nbreponses" : 4,
@@ -105,7 +107,7 @@ questions =
     "bonnerep"   : 2
   },
   {
-    "id" : 14,
+    "id" : 4,
     "domaine"    : "CSS",
     "enonce"     : "Si je donne la valeur 1 à la propriété opacity sur un élément, que se passera-t-il ?",
     "nbreponses" : 4,
@@ -113,7 +115,7 @@ questions =
     "bonnerep"   : 4
   },
   {
-    "id" : 15,
+    "id" : 5,
     "domaine"    : "CSS",
     "enonce"     : "Laquelle de ces règles CSS permet de modifier l'apparence d'un lien déjà visité ?",
     "nbreponses" : 3,
@@ -121,7 +123,7 @@ questions =
     "bonnerep"   : 2
   },
   {
-    "id" : 16,
+    "id" : 6,
     "domaine"    : "CSS",
     "enonce"     : "Que se passe-t-il quand un élément est rendu flottant ?",
     "nbreponses" : 3,
@@ -129,7 +131,7 @@ questions =
     "bonnerep"   : 3
   },
   {
-    "id" : 17,
+    "id" : 7,
     "domaine"    : "CSS",
     "enonce"     : "En web, le CSS sert à décrire :",
     "nbreponses" : 3,
@@ -137,7 +139,7 @@ questions =
     "bonnerep"   : 3
   },
   {
-    "id" : 18,
+    "id" : 8,
     "domaine"    : "CSS",
     "enonce"     : "Que signifie CSS ?",
     "nbreponses" : 3,
@@ -145,7 +147,7 @@ questions =
     "bonnerep"   : 2
   },
   {
-    "id" : 19,
+    "id" : 9,
     "domaine"    : "CSS",
     "enonce"     : "Combien de règles peut contenir un fichier CSS ?",
     "nbreponses" : 3,
@@ -153,7 +155,7 @@ questions =
     "bonnerep"   : 1
   },
   {
-    "id" : 20,
+    "id" : 10,
     "domaine"    : "CSS",
     "enonce"     : "Quel élément sépare la propriété de sa valeur ?",
     "nbreponses" : 3,
@@ -161,7 +163,7 @@ questions =
     "bonnerep"   : 3
   },
   {
-    "id" : 21,
+    "id" : 1,
     "domaine"    : "JavaScript",
     "enonce"     : "En web, le JavaScript sert à décrire :",
     "nbreponses" : 3,
@@ -169,7 +171,7 @@ questions =
     "bonnerep"   : 1
   },
   {
-    "id" : 22,
+    "id" : 2,
     "domaine"    : "JavaScript",
     "enonce"     : "Exemple de question3",
     "nbreponses" : 4,
@@ -177,7 +179,7 @@ questions =
     "bonnerep"   : 3
   },
   {
-    "id" : 23,
+    "id" : 3,
     "domaine"    : "JavaScript",
     "enonce"     : "Exemple de question3",
     "nbreponses" : 4,
@@ -185,7 +187,7 @@ questions =
     "bonnerep"   : 3
   },
   {
-    "id" : 24,
+    "id" : 4,
     "domaine"    : "JavaScript",
     "enonce"     : "Exemple de question3",
     "nbreponses" : 4,
@@ -193,7 +195,7 @@ questions =
     "bonnerep"   : 3
   },
   {
-    "id" : 25,
+    "id" : 5,
     "domaine"    : "JavaScript",
     "enonce"     : "Exemple de question3",
     "nbreponses" : 4,
@@ -201,7 +203,7 @@ questions =
     "bonnerep"   : 3
   },
   {
-    "id" : 26,
+    "id" : 6,
     "domaine"    : "JavaScript",
     "enonce"     : "Exemple de question3",
     "nbreponses" : 4,
@@ -209,7 +211,7 @@ questions =
     "bonnerep"   : 3
   },
   {
-    "id" : 27,
+    "id" : 7,
     "domaine"    : "JavaScript",
     "enonce"     : "Exemple de question3",
     "nbreponses" : 4,
@@ -217,7 +219,7 @@ questions =
     "bonnerep"   : 3
   },
   {
-    "id" : 28,
+    "id" : 8,
     "domaine"    : "JavaScript",
     "enonce"     : "Exemple de question3",
     "nbreponses" : 4,
@@ -225,7 +227,7 @@ questions =
     "bonnerep"   : 3
   },
   {
-    "id" : 29,
+    "id" : 9,
     "domaine"    : "JavaScript",
     "enonce"     : "Exemple de question3",
     "nbreponses" : 4,
@@ -233,7 +235,7 @@ questions =
     "bonnerep"   : 3
   },
   {
-    "id" : 30,
+    "id" : 10,
     "domaine"    : "JavaScript",
     "enonce"     : "Exemple de question3",
     "nbreponses" : 4,

@@ -3,21 +3,25 @@ extends fasttesttemplate
 block content
     section.question0
         p
-                strong Question n°1 (HTML) :
+                strong Question n°
+                    span#idquestion 
+                    | 
+                    |(
+                    span#domaine
+                    |) :
                 br
                 span#enonce
     section.answer
-        form(action='fastTest2')
-            label(for='HTML45')
-                input#HTML45(type='radio', name='answer', value='1')
-                span#reponse0
-            br
-            label(for='HTML55')
-                input#HTML55(type='radio', name='answer', value='2')
-                span#reponse1
-            br
-            label(for='HTML5')
-                input#HTML5(type='radio', name='answer', value='3')
-                span#reponse2
-            br
-            input.button(type='submit', value='Valider')
+        label(for='HTML45')
+            input#HTML45(type='radio', name='answer', value='1')
+            span#reponse0
+        br
+        label(for='HTML55')
+            input#HTML55(type='radio', name='answer', value='2')
+            span#reponse1
+        br
+        label(for='HTML5')
+            input#HTML5(type='radio', name='answer', value='3')
+            span#reponse2
+        br
+        button.button#validerfasttest Valider

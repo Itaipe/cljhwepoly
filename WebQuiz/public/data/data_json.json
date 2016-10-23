@@ -1,0 +1,13 @@
+[
+  {
+    "id": 1,
+    "domaine": "HTML",
+    "answers": [{"reponse1": "A1"}, {"reponse2": "B1"}, {"reponse3": "C1"}]
+  }
+
+  {
+    "id": 2,
+    "domaine": "CSS",
+    "answers": [{"reponse1": "A2"}, {"reponse2": "B2"}, {"reponse3": "C2"}]
+  }
+]

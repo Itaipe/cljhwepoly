@@ -13,24 +13,15 @@ $(function(){
         });
     }
   
-  $('#boutondetest').on('click', function(e){
-    $.getJSON("/ajax/next", function(data) {
-      $("#idquestion").text(data.id);
-      $("#domaine").text(data.domaine);
-      $("#enonce").text(data.enonce);
-      for (i = 0; i < data.nbreponses; i++) {
-          $("#reponse" + i).text(data.reponses[i]);
-      }
+    $('#boutondetest').on('click', function(e){
+        $.getJSON("/ajax/next", function(data) {
+            $("#idquestion").text(data.id);
+            $("#domaine").text(data.domaine);
+            $("#enonce").text(data.enonce);
+            for (i = 0; i < data.nbreponses; i++) {
+                $("#reponse" + i).text(data.reponses[i]);
+            }
+        });
     });
-  });
-  
-  /*$('#fasttestbutton').on('click', function(e){
-      //alert("coucou");
-    $.getJSON("/ajax/fasttest", function(data) {
-        alert("dans function");
-        //res.render('fastTest', { title: 'WebQuiz : Test Rapide', nav: 'true', note_courante:''});
-    });
-  });
-  */
-  
+
 });

@@ -15,8 +15,12 @@ $(function(){
   
   $('#boutondetest').on('click', function(e){
     $.getJSON("/ajax/next", function(data) {
+      $("#idquestion").text(data.id);
       $("#domaine").text(data.domaine);
       $("#enonce").text(data.enonce);
+      for (i = 0; i < data.nbreponses; i++) {
+          $("#reponse" + i).text(data.reponses[i]);
+      }
     });
   });
   

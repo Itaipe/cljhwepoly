@@ -3,7 +3,9 @@ extends examtemplate
 block content
     section.question0
       p
-            Strong Question 1/2 (
+            Strong Question 
+                span#idquestion 1
+                |/2 (
                 span#domaine HTML
                 |) :
             br
@@ -11,14 +13,14 @@ block content
     section.answer
         label(for='HTML45')
           input#HTML45(type='radio', name='answer', value='1')
-          | HTML 4.5
+          span#reponse0 HTML 4.5
         br
         label(for='HTML55')
           input#HTML55(type='radio', name='answer', value='2')
-          | HTML 5.5
+          span#reponse1 HTML 5.5
         br
         label(for='HTML5')
           input#HTML5(type='radio', name='answer', value='3')
-          | HTML 5
+          span#reponse2 HTML 5
         br
         button#boutondetest.button Valider

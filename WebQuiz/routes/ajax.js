@@ -43,7 +43,7 @@ router.get('/next', function(req, res, next) {
     //console.log("fin de l'examen");
     //COMPLETER LACTION A FAIRE
     // /!\/!\ On fait la redirection vers la page du résultat du coté du client,
-    // pas besoin de passer par le serveur (On ne doit récupérer aucun information, la note est du coté client !)
+    // pas besoin de passer par le serveur (On ne doit récupérer aucune information, la note est du coté client !)
   } else {
     res.json(eval(questions[questionsrestantes]));
     console.log(questions[questionsrestantes]);

@@ -14,12 +14,13 @@ $(function(){
     //Si on vient de charger la page test rapide, on génère une question aléatoire
     if (titre === 'WebQuiz : Test Rapide') {
         $.getJSON("/ajax/fasttest", function(data) {
+            laBonneReponse = data.bonnerep;
             nbquestionfasttest = 1;
             $("#idquestion").text(nbquestionfasttest);
             $("#domaine").text(data.domaine);
             $("#enonce").text(data.enonce);
             for (i = 0; i < data.nbreponses; i++) {
-              $('.answer').prepend("<label id=\"answer" + i + "\" for=\"" + i + "\"><input type=\"radio\" name=\"answer\" value=\"" + i + "\" id=\"" + (i+1) + "\"><span id=\"span" + i + "\"></span></label><br>");
+              $('.answer').prepend("<label id=\"answer" + i + "\" for=\"" + i + "\"><input type=\"radio\" name=\"answer\" value=\"" + (i+1) + "\" id=\"" + i + "\"><span id=\"span" + i + "\"></span></label><br>");
               $('#span'+i).text("  " + data.reponses[i]);
             }
         });
@@ -66,6 +67,19 @@ $(function(){
 
     //Quand on est déja en test rapide, pour obtenir une nouvelle question lorsqu'on valide
     $('#validerfasttest').on('click', function(e){
+
+        var reponseCourante = $('input[name=answer]:checked').val(); // La réponse de l'utilisateur
+        console.log("Réponse de l'utilisateur: " + reponseCourante);
+        console.log("La bonne réponse: " + laBonneReponse);
+        if (laBonneReponse != reponseCourante)
+        {
+          console.log("Mauvaise réponse !");
+        } else {
+          console.log("Bonne réponse !");
+          note++;
+        }
+        console.log(">>>>> Note: " + note);
+
         $.getJSON("/ajax/fasttest", function(data) {
             $('label, .answer br').remove();
             $("#nbquestionposees").text(nbquestionfasttest);
@@ -73,6 +87,8 @@ $(function(){
             $("#idquestion").text(nbquestionfasttest);
             $("#domaine").text(data.domaine);
             $("#enonce").text(data.enonce);
+            $("#nbquestionreussies").text(note);
+            laBonneReponse = data.bonnerep;
             for (i = 0; i < data.nbreponses; i++) {
                 $('.answer').prepend("<label id=\"answer" + i + "\" for=\"" + i + "\"><input type=\"radio\" name=\"answer\" value=\"" + (i+1) + "\" id=\"" + i + "\"><span id=\"span" + i + "\"></span></label><br>");
                 $('#span'+i).text("  " + data.reponses[i]);

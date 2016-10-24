@@ -34,10 +34,12 @@ block content
             h2 Tests rapides
             ul
               li
-                strong 8
+                strong
+                    span.nb_fasttest_reussis 0
                 |  tests rapides réussis
               li
-                strong 12
+                strong
+                    span.nb_fasttest_effectues 0
                 |  tests rapides effectués
           // Exams results preview
           section.section0
@@ -49,6 +51,9 @@ block content
               li
                 strong 6
                 |  examens officiels effectués
+              li
+                strong 0
+                |  examens officiels abandonnés
           section
             form(action='#results')
                 p#details

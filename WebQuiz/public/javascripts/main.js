@@ -8,8 +8,11 @@ $(function(){
     var note = 0; // Variable contenant la note
 
     var nbquestionfasttest = 1;
-
-
+    
+    
+    //Affichage des bonnes statistiques au chargement de la page
+    $(".nb_fasttest_effectues").text(localStorage.getItem("nb_fasttest_effectues"));
+    $(".nb_fasttest_reussis").text(localStorage.getItem("nb_fasttest_reussis"));
 
     //Si on vient de charger la page test rapide, on génère une question aléatoire
     if (titre === 'WebQuiz : Test Rapide') {
@@ -73,11 +76,20 @@ $(function(){
         console.log("La bonne réponse: " + laBonneReponse);
         if (laBonneReponse != reponseCourante)
         {
-          console.log("Mauvaise réponse !");
+            console.log("Mauvaise réponse !");
+          
         } else {
-          console.log("Bonne réponse !");
-          note++;
+            console.log("Bonne réponse !");
+            note++;
+            //Si la réponse est juste, on change le nombre de fasttest réussis dans les statistiques (et donc dans la BD locale).
+            var nb_fasttest_reussis = parseInt(localStorage.getItem("nb_fasttest_reussis")) + 1;
+            localStorage.setItem("nb_fasttest_reussis", nb_fasttest_reussis);
+            $(".nb_fasttest_reussis").text(nb_fasttest_reussis);
         }
+        //On incrémente de 1 le nombre de fasttest effectues dans les statistiques (et donc dans la BD locale).
+        var nb_fasttest_effectues = parseInt(localStorage.getItem("nb_fasttest_effectues")) + 1;
+        localStorage.setItem("nb_fasttest_effectues", nb_fasttest_effectues);
+        $(".nb_fasttest_effectues").text(nb_fasttest_effectues);
         console.log(">>>>> Note: " + note);
 
         $.getJSON("/ajax/fasttest", function(data) {
@@ -117,7 +129,7 @@ $(function(){
 
         // On fait la redirection vers le resutat du coté du client car passer par le serveur n'est pas nécessaire /!\
         if (nbquestionsexamrestantes === 0) {
-          localStorage.setItem("note", note);
+          sessionStorage.setItem("note", note);
           document.location.href="/examinationResult";
         }
         else {
@@ -139,7 +151,7 @@ $(function(){
     });
 
     if (titre === 'WebQuiz : Resulat examen') {
-        var result = localStorage.getItem("note");
+        var result = sessionStorage.getItem("note");
         var nombreTotaleDeQuestion = sessionStorage.getItem("nbquestion");
         // ICI IL RESTE PLUS QU'A SAUVEGARDER LA note DANS LA SESSION AFIN QU'ELLE APPARAISSE DANS LES STATS
         $("#noteFinale").text(result + "/" + nombreTotaleDeQuestion);

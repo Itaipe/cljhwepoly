@@ -17,7 +17,7 @@ block content
                   option(value='javascript') JavaScript
                 br
                 label(for='nbquestion') Nombre de questions
-                input#nbquestioninput(type='number', name='nbquestion', value='10', min='1', required='')
+                input#nbquestioninput(type='number', name='nbquestion', value='10', min='1', max='10', required='')
                 br
                 input.button#commencerexamen(type='submit', value='Commencer')
 
@@ -44,7 +44,7 @@ block content
             h2 Examens officiels
             ul
               li
-                | Votre moyenne pour les examens est de : 
+                | Votre moyenne pour les examens est de :
                 strong 15.2/20
               li
                 strong 6

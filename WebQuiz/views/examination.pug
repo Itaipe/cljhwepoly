@@ -3,26 +3,14 @@ extends examtemplate
 block content
     section.question0
       p
-            Strong Question
-                span#idquestion 1
-                |/
-                span#nombrequestion 2 
-                |(
-                span#domaine HTML
-                |) :
-            br
-            span#enonce Quelle est la dernière version de HTML ?
+          Strong Question&nbsp
+              span#idquestion
+              |/
+              span#nombrequestion
+              |&nbsp[
+              span#domaine
+              |] :
+          br
+          span#enonce
     section.answer
-        label(for='HTML45')
-          input#HTML45(type='radio', name='answer', value='1')
-          span#reponse0 HTML 4.5
-        br
-        label(for='HTML55')
-          input#HTML55(type='radio', name='answer', value='2')
-          span#reponse1 HTML 5.5
-        br
-        label(for='HTML5')
-          input#HTML5(type='radio', name='answer', value='3')
-          span#reponse2 HTML 5
-        br
         button#nextquestionexam.button Valider

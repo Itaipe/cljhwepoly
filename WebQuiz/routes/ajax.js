@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-require('./../public/data/data');
+require('./../data');
 
 var questionsrestantes = 0;
 
@@ -38,14 +38,17 @@ router.get('/examjavascript', function(req, res, next) {
 });
 
 router.get('/next', function(req, res, next) {
-    questionsrestantes = questionsrestantes - 1;
-    if (questionsrestantes === -1 || questionsrestantes === 9 || questionsrestantes === 19) {
-        console.log("fin de l'examen");
-        //COMPLETER LACTION A FAIRE
-    } else {
-        res.json(eval(questions[questionsrestantes]));
-        console.log(questions[questionsrestantes]);
-    }
+  questionsrestantes = questionsrestantes - 1;
+  if (questionsrestantes === -1 || questionsrestantes === 9 || questionsrestantes === 19) {
+    //console.log("fin de l'examen");
+    //COMPLETER LACTION A FAIRE
+    // /!\/!\ On fait la redirection vers la page du résultat du coté du client,
+    // pas besoin de passer par le serveur (On ne doit récupérer aucun information, la note est du coté client !)
+  } else {
+    res.json(eval(questions[questionsrestantes]));
+    console.log(questions[questionsrestantes]);
+  }
+
 });
 
 module.exports = router;

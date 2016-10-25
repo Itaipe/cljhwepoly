@@ -13,6 +13,8 @@ $(function(){
     //Affichage des bonnes statistiques au chargement de la page
     $(".nb_fasttest_effectues").text(localStorage.getItem("nb_fasttest_effectues"));
     $(".nb_fasttest_reussis").text(localStorage.getItem("nb_fasttest_reussis"));
+    $(".nb_exam_effectues").text(localStorage.getItem("nb_exam_effectues"));
+    $(".nb_exam_abandonnes").text(localStorage.getItem("nb_exam_abandonnes"));
 
     //Si on vient de charger la page test rapide, on génère une question aléatoire
     if (titre === 'WebQuiz : Test Rapide') {
@@ -155,5 +157,20 @@ $(function(){
         var nombreTotaleDeQuestion = sessionStorage.getItem("nbquestion");
         // ICI IL RESTE PLUS QU'A SAUVEGARDER LA note DANS LA SESSION AFIN QU'ELLE APPARAISSE DANS LES STATS
         $("#noteFinale").text(result + "/" + nombreTotaleDeQuestion);
+        
+        //On incrémente de 1 le nombre d'examens effetué (ie fini sans avoir abandonné)
+        var nb_exam_effectues = parseInt(localStorage.getItem("nb_exam_effectues")) + 1;
+        localStorage.setItem("nb_exam_effectues", nb_exam_effectues);
+        $(".nb_exam_effectues").text(nb_exam_effectues);
     }
+    
+    //Si on abandonne un examen, on va à la page terminale avec la note 0
+    $('#abandonexam').on('click', function(e){
+        sessionStorage.setItem("note", 0);
+        var nb_exam_abandonnes = parseInt(localStorage.getItem("nb_exam_abandonnes")) + 1;
+        localStorage.setItem("nb_exam_abandonnes", nb_exam_abandonnes);
+        document.location.href="/examinationResult";
+        //On incrémente le nombre d'examen abandonnés
+    });
+          
 });

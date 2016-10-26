@@ -58,6 +58,11 @@ $(function(){
             $("#nombrequestion").text(nbquestionexam);
             $("#idquestion").text(nbquestionexam - data.id + 1);
             $("#domaine").text(data.domaine);
+            //On stocke le domaine courant dans la session pour que l'on puisse l'afficher ensuite dans la bonne catégorie sur la page de résultats (détails)
+            var domaine = data.domaine;
+            if (sessionStorage.getItem("domaine") !== domaine) {
+                sessionStorage.setItem("domaine", domaine);
+            }
             $("#enonce").text(data.enonce);
             for (i = 0; i < data.nbreponses; i++) {
                 $('.answer').prepend("<label id=\"answer" + i + "\" for=\"" + i + "\"><input type=\"radio\" name=\"answer\" value=\"" + (i+1) + "\" id=\"" + i + "\"><span id=\"span" + i + "\"></span></label><br>");
@@ -98,14 +103,39 @@ $(function(){
             }
             localStorage.setItem("nb_question_exam_correctes", nb_question_exam_correctes);
             localStorage.setItem("nb_question_exam_totales", nb_question_exam_totales);
-            alert("nb_question_exam_correctes : " + nb_question_exam_correctes);
-            alert("nb_question_exam_totales" + nb_question_exam_totales);
             var tauxexam = parseInt(100 * (nb_question_exam_correctes / nb_question_exam_totales));
             localStorage.setItem("tauxexam", tauxexam);
             $(".tauxexam").text(tauxexam + " % ");
+            
+            var now = new Date();
+            var annee   = now.getFullYear();
+            var mois    = now.getMonth() + 1;
+            var jour    = now.getDate();
+            var heure   = now.getHours();
+            if (parseInt(heure) < 10) {
+                heure = "0"+heure;
+            }
+            var minute  = now.getMinutes();
+            if (parseInt(minute) < 10) {
+                minute = "0"+minute;
+            }
+            var seconde = now.getSeconds();
+            if (parseInt(seconde) < 10) {
+                seconde = "0"+seconde;
+            }
+            var domaine = sessionStorage.getItem("domaine");
+            //Insertion de l'examen dans la BD localStorage
+            var ligne_exam = {
+                domaine : domaine,
+                note : result + "/" + nombreTotaleDeQuestion,
+                date : jour + "/" + mois + "/" + annee,
+                heure : heure + ":" + minute + ":" + seconde
+            };
+            var ligne_exam_json = JSON.stringify(ligne_exam);
+            localStorage.setItem("ligne_exam_" + localStorage.getItem("nb_exam_effectues"), ligne_exam_json);
         }
     }
-
+    
     //Quand on est déja en test rapide, pour obtenir une nouvelle question lorsqu'on valide
     $('#validerfasttest').on('click', function(e){
 
@@ -235,6 +265,31 @@ $(function(){
         $(".nb_exam_effectues").text("0");
         $(".nb_exam_abandonnes").text("0");
         $(".tauxexamphrase").text("Aucun examen n'a été effectué pour l'instant");
+        
+        //On réinitialise la liste des résultats des examens (details)
+        $("#htmlresults").html("<tr><td><strong>Note</strong></td><td><strong>Date</strong></td><td><strong>Heure</strong></td></tr>");
+        $("#cssresults").html("<tr><td><strong>Note</strong></td><td><strong>Date</strong></td><td><strong>Heure</strong></td></tr>");
+        $("#javascriptresults").html("<tr><td><strong>Note</strong></td><td><strong>Date</strong></td><td><strong>Heure</strong></td></tr>");
     });
+    
+    //Si on est sur la page du tableau de bord (ou sont les détails des résultats), on charge la BD (localStorage) des examens effectués pour les afficher 
+    //$('#details').on('click', function(e){
+    if (titre === 'WebQuiz : Tableau de bord') {
+        var nb_totaux_exam_effectues = localStorage.getItem("nb_exam_effectues");
+        //alert("nb totaux : " + nb_totaux_exam_effectues);
+        for(i=1; i < parseInt(nb_totaux_exam_effectues)+1; i++) {
+            //alert("i " + i);
+            var ligne_exam_courant_json = localStorage.getItem("ligne_exam_" + i);
+            var ligne_exam_courant = JSON.parse(ligne_exam_courant_json);
+            var domaine = ligne_exam_courant.domaine;
+            if (domaine === "HTML") {
+                $("#htmlresults").append("<tr><td>" + ligne_exam_courant.note + "</td><td>" + ligne_exam_courant.date + "</td><td>" + ligne_exam_courant.heure + "</td></tr>");
+            } else if (domaine === "CSS") {
+                $("#cssresults").append("<tr><td>" + ligne_exam_courant.note + "</td><td>" + ligne_exam_courant.date + "</td><td>" + ligne_exam_courant.heure + "</td></tr>");
+            } else if (domaine === "JavaScript") {
+                $("#javascriptresults").append("<tr><td>" + ligne_exam_courant.note + "</td><td>" + ligne_exam_courant.date + "</td><td>" + ligne_exam_courant.heure + "</td></tr>");
+            }
+        }
+    }
           
 });

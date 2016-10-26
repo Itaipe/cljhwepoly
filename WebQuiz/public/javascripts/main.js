@@ -80,6 +80,7 @@ $(function(){
         //Si l'examen a été abandonné (n'a pas été effectué), on ne fait rien
         if(sessionStorage.getItem("examcourantabandonne")==="true") {
             sessionStorage.setItem("examcourantabandonne", "false");
+            $("#message").text("Vous avez abandonné l'examen. Il ne sera donc pas pris en compte pour la moyenne des examens effectués.");
         } else {
             //Si c'est le premier examen effectué, on met la variable initiale à 0
             if (localStorage.getItem("nb_exam_effectues") === null) {
@@ -89,6 +90,18 @@ $(function(){
             var nb_exam_effectues = parseInt(localStorage.getItem("nb_exam_effectues")) + 1;
             localStorage.setItem("nb_exam_effectues", nb_exam_effectues);
             $(".nb_exam_effectues").text(nb_exam_effectues);
+            
+            //Affichage du message de fin d'examen
+            var notemessage = parseInt(100 * (parseInt(result) / parseInt(nombreTotaleDeQuestion)));
+            if (notemessage < 25) {
+                $("#message").text("Aïe, ça ne vas pas du tout !");
+            } else if (notemessage < 50) {
+                $("#message").text("Votre note n'est pas très bonne, vous pouvez progresser!");
+            } else if (notemessage < 75) {
+                $("#message").text("C'est bien mais vous pouvez encore mieux faire!");
+            } else {
+                $("#message").text("Excellent, félicitations !");
+            }
             
             //Calcul du nouveau taux de réussite des examens effectués
             if(localStorage.getItem("nb_question_exam_correctes")===null){

@@ -17,7 +17,7 @@ block content
                   option(value='javascript') JavaScript
                 br
                 label(for='nbquestion') Nombre de questions
-                input#nbquestioninput(type='number', name='nbquestion', value='10', min='1', max='10', required='')
+                input#nbquestioninput(type='number', name='nbquestion', value='5', min='1', max='10', required='')
                 br
                 input.button#commencerexamen(type='submit', value='Commencer')
 
@@ -45,9 +45,9 @@ block content
           section.section0
             h2 Examens officiels
             ul
-              li
-                | Votre moyenne pour les examens est de :
-                strong 15.2/20
+              li.tauxexamphrase
+                strong.tauxexam 
+                | de réussite pour les examens effectués
               li
                 strong 
                    span.nb_exam_effectues 0
@@ -56,10 +56,13 @@ block content
                 strong
                     span.nb_exam_abandonnes 0
                 |  examens officiels abandonnés
-          section
+          section.flex
             form(action='#results')
                 p#details
                   input.button(type='submit', value='Details')
+            form(action='')
+                p#remiseazero
+                  input.button(type='submit', value='Remise à zéro')
     article#results
         div.popup
             a(href='#nowhere')

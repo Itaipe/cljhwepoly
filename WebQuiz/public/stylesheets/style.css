@@ -367,6 +367,11 @@ div#startbutton > .button {
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 
+.flex{
+    display : flex;
+    justify-content: space-around;
+}
+
 /* Adaptation lorsque l'on se trouve en dessous de 1024px de largeur */
 @media all and (max-width: 1024px)
 {

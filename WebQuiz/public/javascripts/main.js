@@ -32,7 +32,10 @@ $(function(){
     if (titre === 'WebQuiz : Test Rapide') {
         $.getJSON("/ajax/fasttest", function(data) {
             laBonneReponse = data.bonnerep;
+
             sessionStorage.setItem("bonneReponse", laBonneReponse);
+            // Cette variable est mise dans la sessionStorage pour pouvoir la récupérer dans les fonctions qui permettent de gérer le drag and drop
+
             nbquestionfasttest = 1;
             $("#idquestion").text(nbquestionfasttest);
             $("#domaine").text(data.domaine);
@@ -56,7 +59,10 @@ $(function(){
         //alert("nbquestion : " + nbquestion);
         $.getJSON("/ajax/exam" + field + "?nbquestion=" + nbquestionexam, function(data) {
             laBonneReponse = data.bonnerep;
+
             sessionStorage.setItem("bonneReponse", laBonneReponse);
+            // Cette variable est mise dans la sessionStorage pour pouvoir la récupérer dans les fonctions qui permettent de gérer le drag and drop
+
             $("#nombrequestion").text(nbquestionexam);
             $("#idquestion").text(nbquestionexam - data.id + 1);
             $("#domaine").text(data.domaine);
@@ -154,15 +160,14 @@ $(function(){
     //Quand on est déja en test rapide, pour obtenir une nouvelle question lorsqu'on valide
     $('#validerfasttest').on('click', function(e){
 
-        $('#chosenAnswer').css('background-color', '#F5F5F5');
+        $('#chosenAnswer').css('background-color', '#F5F5F5'); // Remet la couleur de base de la case où l'utilisateur dépose la réponse
 
         var reponseCourante = $('#chosenAnswer input[name=answer]').val(); // La réponse de l'utilisateur
-        console.log("Réponse de l'utilisateur: " + reponseCourante);
-        console.log("La bonne réponse: " + laBonneReponse);
+        //console.log("Réponse de l'utilisateur: " + reponseCourante);
+        //console.log("La bonne réponse: " + laBonneReponse);
         if (laBonneReponse != reponseCourante)
         {
             console.log("Mauvaise réponse !");
-
         } else {
             console.log("Bonne réponse !");
             note++;
@@ -192,7 +197,7 @@ $(function(){
             $("#enonce").text(data.enonce);
             $("#nbquestionreussies").text(note);
             laBonneReponse = data.bonnerep;
-            sessionStorage.setItem("bonneReponse", laBonneReponse);
+            sessionStorage.setItem("bonneReponse", laBonneReponse); // Pour l'appel des fonctions pour drag and drop
             for (i = 0; i < data.nbreponses; i++) {
                 $('.answer').prepend("<label draggable='true' ondragstart='drag(event)' id=\"answer" + i + "\" for=\"" + i + "\"><input type=\"hidden\" name=\"answer\" value=\"" + (i+1) + "\" id=\"" + i + "\"><span id=\"span" + i + "\"></span></label><br>");
                 $('#span'+i).text("  " + data.reponses[i]);
@@ -222,8 +227,8 @@ $(function(){
         $('#chosenAnswer').css('background-color', '#F5F5F5');
 
         var reponseCourante = $('#chosenAnswer input[name=answer]').val(); // La réponse de l'utilisateur
-        console.log("Réponse de l'utilisateur: " + reponseCourante);
-        console.log("La bonne réponse: " + laBonneReponse);
+        //console.log("Réponse de l'utilisateur: " + reponseCourante);
+        //console.log("La bonne réponse: " + laBonneReponse);
         if (laBonneReponse != reponseCourante)
         {
           console.log("Mauvaise réponse !");
@@ -233,9 +238,9 @@ $(function(){
         }
         console.log(">>>>> Note: " + note);
 
-        console.log("Le nombre de questions choisi par l'utilisateur: " + nbquestionexam);
+        //console.log("Le nombre de questions choisi par l'utilisateur: " + nbquestionexam);
         nbquestionsexamrestantes = nbquestionsexamrestantes - 1 ;
-        console.log("Nombre des questions restantes: " + nbquestionsexamrestantes);
+        //console.log("Nombre des questions restantes: " + nbquestionsexamrestantes);
 
         // On fait la redirection vers le resutat du coté du client car passer par le serveur n'est pas nécessaire /!\
         if (nbquestionsexamrestantes === 0) {
@@ -321,7 +326,7 @@ function allowDrop(ev) {
 
 function drag(ev) {
     ev.dataTransfer.setData("text", ev.target.id);
-    var reponseCourante = ev.target.id;
+    var reponseCourante = ev.target.id; // On récupére la réponse de l'utilisateur (Pendant le drag)
     if (reponseCourante == "answer0") {
         reponseCourante = 1;
     } else if (reponseCourante == "answer1") {
@@ -333,12 +338,13 @@ function drag(ev) {
     } else if (reponseCourante == "answer4") {
         reponseCourante = 5;
     }
-    sessionStorage.setItem("reponseCouranteDrag",reponseCourante);
+    sessionStorage.setItem("reponseCouranteDrag",reponseCourante); // Ceci pour pouvoir accéder à la variable dans les fonctions pour le drag and drop
     console.log("Réponse séléctionnée : " + reponseCourante);
 }
 
 function drop(ev) {
 
+    // On récupére les deux variables concernant la bonne réponse et la réponse choisi par l'utilisateur
     var laBonneReponse = sessionStorage.getItem("bonneReponse");
     var reponseCourante = sessionStorage.getItem("reponseCouranteDrag");
 
@@ -349,6 +355,8 @@ function drop(ev) {
     $('label').attr("draggable", 'false');
     $('#drag_and_drop').remove();
     console.log("_____________\nLa réponse : " + laBonneReponse + "\nRéponse choisie : " + reponseCourante);
+
+    // On fixe la couleur en fonction de la réponse même avant de valider la réponse
     if (laBonneReponse != reponseCourante)
     {
         $('#chosenAnswer').css('background-color', '#FA8072');

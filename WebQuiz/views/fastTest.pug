@@ -11,4 +11,8 @@ block content
                 br
                 span#enonce
     section.answer
+        p Glisser-Déposer la réponse dans la case ci-dessous :
+        div#chosenAnswerBox
+            div#chosenAnswer(ondrop='drop(event)', ondragover='allowDrop(event)')
+                img#drag_and_drop(src='/images/drag_and_drop.png', alt='Drag and drop')
         button.button#validerfasttest Valider

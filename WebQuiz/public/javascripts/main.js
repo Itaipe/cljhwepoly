@@ -8,8 +8,8 @@ $(function(){
     var note = 0; // Variable contenant la note
 
     var nbquestionfasttest = 1;
-    
-    
+
+
     //Affichage des bonnes statistiques au chargement de la page
     $(".nb_fasttest_effectues").text(localStorage.getItem("nb_fasttest_effectues"));
     $(".nb_fasttest_reussis").text(localStorage.getItem("nb_fasttest_reussis"));
@@ -20,12 +20,13 @@ $(function(){
     if (titre === 'WebQuiz : Test Rapide') {
         $.getJSON("/ajax/fasttest", function(data) {
             laBonneReponse = data.bonnerep;
+            sessionStorage.setItem("bonneReponse", laBonneReponse);
             nbquestionfasttest = 1;
             $("#idquestion").text(nbquestionfasttest);
             $("#domaine").text(data.domaine);
             $("#enonce").text(data.enonce);
             for (i = 0; i < data.nbreponses; i++) {
-              $('.answer').prepend("<label id=\"answer" + i + "\" for=\"" + i + "\"><input type=\"radio\" name=\"answer\" value=\"" + (i+1) + "\" id=\"" + i + "\"><span id=\"span" + i + "\"></span></label><br>");
+              $('.answer').prepend("<label draggable='true' ondragstart='drag(event)' id=\"answer" + i + "\" for=\"" + i + "\"><input type=\"hidden\" name=\"answer\" value=\"" + (i+1) + "\" id=\"" + i + "\"><span id=\"span" + i + "\"></span></label><br>");
               $('#span'+i).text("  " + data.reponses[i]);
             }
         });
@@ -43,12 +44,13 @@ $(function(){
         //alert("nbquestion : " + nbquestion);
         $.getJSON("/ajax/exam" + field + "?nbquestion=" + nbquestionexam, function(data) {
             laBonneReponse = data.bonnerep;
+            sessionStorage.setItem("bonneReponse", laBonneReponse);
             $("#nombrequestion").text(nbquestionexam);
             $("#idquestion").text(nbquestionexam - data.id + 1);
             $("#domaine").text(data.domaine);
             $("#enonce").text(data.enonce);
             for (i = 0; i < data.nbreponses; i++) {
-                $('.answer').prepend("<label id=\"answer" + i + "\" for=\"" + i + "\"><input type=\"radio\" name=\"answer\" value=\"" + (i+1) + "\" id=\"" + i + "\"><span id=\"span" + i + "\"></span></label><br>");
+                $('.answer').prepend("<label draggable='true' ondragstart='drag(event)' id=\"answer" + i + "\" for=\"" + i + "\"><input type=\"hidden\" name=\"answer\" value=\"" + (i+1) + "\" id=\"" + i + "\"><span id=\"span" + i + "\"></span></label><br>");
                 $('#span'+i).text("  " + data.reponses[i]);
             }
         });
@@ -73,13 +75,15 @@ $(function(){
     //Quand on est déja en test rapide, pour obtenir une nouvelle question lorsqu'on valide
     $('#validerfasttest').on('click', function(e){
 
-        var reponseCourante = $('input[name=answer]:checked').val(); // La réponse de l'utilisateur
+        $('#chosenAnswer').css('background-color', '#F5F5F5');
+
+        var reponseCourante = $('#chosenAnswer input[name=answer]').val(); // La réponse de l'utilisateur
         console.log("Réponse de l'utilisateur: " + reponseCourante);
         console.log("La bonne réponse: " + laBonneReponse);
         if (laBonneReponse != reponseCourante)
         {
             console.log("Mauvaise réponse !");
-          
+
         } else {
             console.log("Bonne réponse !");
             note++;
@@ -103,8 +107,9 @@ $(function(){
             $("#enonce").text(data.enonce);
             $("#nbquestionreussies").text(note);
             laBonneReponse = data.bonnerep;
+            sessionStorage.setItem("bonneReponse", laBonneReponse);
             for (i = 0; i < data.nbreponses; i++) {
-                $('.answer').prepend("<label id=\"answer" + i + "\" for=\"" + i + "\"><input type=\"radio\" name=\"answer\" value=\"" + (i+1) + "\" id=\"" + i + "\"><span id=\"span" + i + "\"></span></label><br>");
+                $('.answer').prepend("<label draggable='true' ondragstart='drag(event)' id=\"answer" + i + "\" for=\"" + i + "\"><input type=\"hidden\" name=\"answer\" value=\"" + (i+1) + "\" id=\"" + i + "\"><span id=\"span" + i + "\"></span></label><br>");
                 $('#span'+i).text("  " + data.reponses[i]);
             }
         });
@@ -113,7 +118,9 @@ $(function(){
     //Quand on est déja en examen, pour obtenir une nouvelle question lorsqu'on valide
     $('#nextquestionexam').on('click', function(e){
 
-        var reponseCourante = $('input[name=answer]:checked').val(); // La réponse de l'utilisateur
+        $('#chosenAnswer').css('background-color', '#F5F5F5');
+
+        var reponseCourante = $('#chosenAnswer input[name=answer]').val(); // La réponse de l'utilisateur
         console.log("Réponse de l'utilisateur: " + reponseCourante);
         console.log("La bonne réponse: " + laBonneReponse);
         if (laBonneReponse != reponseCourante)
@@ -144,8 +151,9 @@ $(function(){
               $("#enonce").text(data.enonce);
               $("#nbquestionreussies").text(note);
               laBonneReponse = data.bonnerep;
+              sessionStorage.setItem("bonneReponse", laBonneReponse);
               for (i = 0; i < data.nbreponses; i++) {
-                  $('.answer').prepend("<label id=\"answer" + i + "\" for=\"" + i + "\"><input type=\"radio\" name=\"answer\" value=\"" + (i+1) + "\" id=\"" + i + "\"><span id=\"span" + i + "\"></span></label><br>");
+                  $('.answer').prepend("<label draggable='true' ondragstart='drag(event)' id=\"answer" + i + "\" for=\"" + i + "\"><input type=\"hidden\" name=\"answer\" value=\"" + (i+1) + "\" id=\"" + i + "\"><span id=\"span" + i + "\"></span></label><br>");
                   $('#span'+i).text("  " + data.reponses[i]);
               }
           });
@@ -157,13 +165,13 @@ $(function(){
         var nombreTotaleDeQuestion = sessionStorage.getItem("nbquestion");
         // ICI IL RESTE PLUS QU'A SAUVEGARDER LA note DANS LA SESSION AFIN QU'ELLE APPARAISSE DANS LES STATS
         $("#noteFinale").text(result + "/" + nombreTotaleDeQuestion);
-        
+
         //On incrémente de 1 le nombre d'examens effetué (ie fini sans avoir abandonné)
         var nb_exam_effectues = parseInt(localStorage.getItem("nb_exam_effectues")) + 1;
         localStorage.setItem("nb_exam_effectues", nb_exam_effectues);
         $(".nb_exam_effectues").text(nb_exam_effectues);
     }
-    
+
     //Si on abandonne un examen, on va à la page terminale avec la note 0
     $('#abandonexam').on('click', function(e){
         sessionStorage.setItem("note", 0);
@@ -172,5 +180,49 @@ $(function(){
         document.location.href="/examinationResult";
         //On incrémente le nombre d'examen abandonnés
     });
-          
+
+
+
 });
+
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+
+function drag(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+    var reponseCourante = ev.target.id;
+    if (reponseCourante == "answer0") {
+        reponseCourante = 1;
+    } else if (reponseCourante == "answer1") {
+        reponseCourante = 2;
+    } else if (reponseCourante == "answer2") {
+        reponseCourante = 3;
+    } else if (reponseCourante == "answer3") {
+        reponseCourante = 4;
+    } else if (reponseCourante == "answer4") {
+        reponseCourante = 5;
+    }
+    sessionStorage.setItem("reponseCouranteDrag",reponseCourante);
+    console.log("Réponse séléctionnée : " + reponseCourante);
+}
+
+function drop(ev) {
+
+    var laBonneReponse = sessionStorage.getItem("bonneReponse");
+    var reponseCourante = sessionStorage.getItem("reponseCouranteDrag");
+
+    ev.preventDefault();
+    $('#chosenAnswer input').remove();
+    var data = ev.dataTransfer.getData("text");
+    ev.target.appendChild(document.getElementById(data));
+    $('label').attr("draggable", 'false');
+    $('#drag_and_drop').remove();
+    console.log("_____________\nLa réponse : " + laBonneReponse + "\nRéponse choisie : " + reponseCourante);
+    if (laBonneReponse != reponseCourante)
+    {
+        $('#chosenAnswer').css('background-color', '#FA8072');
+    } else {
+        $('#chosenAnswer').css('background-color', '#90EE90');
+    }
+}

@@ -165,81 +165,81 @@ questions =
   {
     "id" : 1,
     "domaine"    : "JavaScript",
-    "enonce"     : "En web, le JavaScript sert à décrire :",
-    "nbreponses" : 3,
-    "reponses"   : ["La logique", "La structure", "La mise en forme"],
-    "bonnerep"   : 1
+    "enonce"     : "Quel est le rapport entre Java et JavaScript ?",
+    "nbreponses" : 4,
+    "reponses"   : ["C'est le même langage, mais le nom  JavaScript  est utilisé pour le code s'exécutant dans une page Web.", "Ce sont deux langages différents, malgré quelques points communs dans la syntaxe.", "Java est une version améliorée de JavaScript.", "Java est une île, ça n'a rien à voir !"],
+    "bonnerep"   : 2
   },
   {
     "id" : 2,
     "domaine"    : "JavaScript",
-    "enonce"     : "Exemple de question3",
+    "enonce"     : "Laquelle de ces syntaxes est correcte ?",
     "nbreponses" : 4,
-    "reponses"   : ["réponse A3", "réponse B3", "réponse C3", "réponse D3"],
-    "bonnerep"   : 3
+    "reponses"   : [" if (a != 2) {}", "if a != 2 {}", "if (a <> 2) {}", "if a <> 2 {}"],
+    "bonnerep"   : 1
   },
   {
     "id" : 3,
     "domaine"    : "JavaScript",
-    "enonce"     : "Exemple de question3",
+    "enonce"     : "Quel attribut des noeuds de l'arbre DOM correspond à l'attribut (X)HTML class ?",
     "nbreponses" : 4,
-    "reponses"   : ["réponse A3", "réponse B3", "réponse C3", "réponse D3"],
+    "reponses"   : ["class", "CLASS", "className", "kiwi"],
     "bonnerep"   : 3
   },
   {
     "id" : 4,
     "domaine"    : "JavaScript",
-    "enonce"     : "Exemple de question3",
+    "enonce"     : "Dans un fichier JavaScript externe (.js), il faut :",
     "nbreponses" : 4,
-    "reponses"   : ["réponse A3", "réponse B3", "réponse C3", "réponse D3"],
-    "bonnerep"   : 3
+    "reponses"   : ["entourer le code avec les balises <script> et </script>.", "préciser l’encodage du fichier avec la règle @charset.", "échapper les caractères spéciaux (X)HTML.", "Aucune des réponses précédentes."],
+    "bonnerep"   : 4
   },
   {
     "id" : 5,
     "domaine"    : "JavaScript",
-    "enonce"     : "Exemple de question3",
+    "enonce"     : "Lequel de ces types d'événements n'existe pas ?",
     "nbreponses" : 4,
-    "reponses"   : ["réponse A3", "réponse B3", "réponse C3", "réponse D3"],
+    "reponses"   : ["blur", "load", "mouseclick", "mouseout"],
     "bonnerep"   : 3
   },
   {
     "id" : 6,
     "domaine"    : "JavaScript",
-    "enonce"     : "Exemple de question3",
+    "enonce"     : "Quelle méthode n'existe pas dans le DOM ?",
     "nbreponses" : 4,
-    "reponses"   : ["réponse A3", "réponse B3", "réponse C3", "réponse D3"],
+    "reponses"   : ["document.getElementsByClassName", "document.getElementsByTagName", "document.getElementsByAttribute", "document.getElementById"],
     "bonnerep"   : 3
   },
   {
     "id" : 7,
     "domaine"    : "JavaScript",
-    "enonce"     : "Exemple de question3",
-    "nbreponses" : 4,
-    "reponses"   : ["réponse A3", "réponse B3", "réponse C3", "réponse D3"],
-    "bonnerep"   : 3
+    "enonce"     : "Laquelle de ces propositions est un nom de variable valide en JavaScript ?",
+    "nbreponses" : 5,
+    "reponses"   : ["var", "2a", "NaN", "$b", "default"],
+    "bonnerep"   : 4
   },
   {
     "id" : 8,
     "domaine"    : "JavaScript",
-    "enonce"     : "Exemple de question3",
+    "enonce"     : "Dans une boucle, l'instruction continue permet de :",
     "nbreponses" : 4,
-    "reponses"   : ["réponse A3", "réponse B3", "réponse C3", "réponse D3"],
-    "bonnerep"   : 3
+    "reponses"   : ["continuer l'exécution du code après la boucle.", "passer à l'itération suivante.", "revenir au début de l'itération courante.", "supprimer toutes les variables globales."],
+    "bonnerep"   : 2
   },
   {
     "id" : 9,
     "domaine"    : "JavaScript",
-    "enonce"     : "Exemple de question3",
+    "enonce"     : "var iNum = 12; iNum %= 2; A la suite de cette expression, combien vaut iNum ?",
     "nbreponses" : 4,
-    "reponses"   : ["réponse A3", "réponse B3", "réponse C3", "réponse D3"],
-    "bonnerep"   : 3
+    "reponses"   : ["6", "14", "0.12", "0"],
+    "bonnerep"   : 4
   },
   {
     "id" : 10,
     "domaine"    : "JavaScript",
-    "enonce"     : "Exemple de question3",
+    "enonce"     : "Quelle méthode permet de comparer deux chaînes texte ?",
     "nbreponses" : 4,
-    "reponses"   : ["réponse A3", "réponse B3", "réponse C3", "réponse D3"],
-    "bonnerep"   : 3
+    "reponses"   : ["charAt()", "charCodeAt()", "indexOf()", "localeCompare()"],
+    "bonnerep"   : 4
   }
 ];

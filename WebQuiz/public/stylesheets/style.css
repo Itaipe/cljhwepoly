@@ -1,29 +1,29 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background-color: #ededed;
-  display: flex;
-  flex-direction: column;
+    padding: 50px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    background-color: #ededed;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Text en italic dans une boite */
 .box p i {
-  color: gray;
-  display: block;
-  margin-top: 40px;
+    color: gray;
+    display: block;
+    margin-top: 40px;
 }
 
 /* Format de la question */
 .question0 {
-  font-size: 20px;
-  color: black;
-  font-family: 'Lato', sans-serif;
-  margin: 0 0;
+    font-size: 20px;
+    color: black;
+    font-family: 'Lato', sans-serif;
+    margin: 0 0;
 }
 
 /* Bouton "Suivant"/"Valider" */
 .answer .button {
-  margin-top: 20px;
+    margin-top: 20px;
 }
 
 /* La balise "label" d'une réponse parmis les réponses possibles */
@@ -31,55 +31,55 @@ body {
     background-color: #ffffff;
     padding-right: 5px;
     margin-bottom: 5px;
-  display: inline-block;
-  cursor: pointer;
-  position: relative;
-  padding-left: 15px;
-  font-size: 16px;
-  padding-top: 1px;
-  padding-bottom: 1px;
-  text-align: left;
-  box-shadow: 0 2px 3px rgba(0,0,0,.5);
-  width: auto;
-  /*min-width: 400px;*/
+    display: inline-block;
+    cursor: pointer;
+    position: relative;
+    padding-left: 15px;
+    font-size: 16px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    text-align: left;
+    box-shadow: 0 2px 3px rgba(0,0,0,.5);
+    width: auto;
+    /*min-width: 400px;*/
 }
 /* La note */
 .box .note p {
-  display: block;
-  font-size: 18px;
-  padding: 5px;
-  background: #FFD700;
+    display: block;
+    font-size: 18px;
+    padding: 5px;
+    background: #FFD700;
 }
 /* Le resultat de l'examen */
 #result {
-  margin: 100px auto 0;
-  width: 300px;
+    margin: 100px auto 0;
+    width: 300px;
 }
 /* h1 de la boite */
 .box h1 {
-  border-bottom: solid 2px;
-  border-color: gray;
-  padding-bottom: 3px;
+    border-bottom: solid 2px;
+    border-color: gray;
+    padding-bottom: 3px;
 }
 /* h2 de la boite */
 .box h2 {
-  font-size: 16px;
-  margin-top: 0;
+    font-size: 16px;
+    margin-top: 0;
 }
 /* Balise "li" de la sections stats */
 #stats li {
-  padding-bottom: 2px;
-  padding-top: 4px;
-  border-bottom: solid 1px;
-  border-color: gray;
+    padding-bottom: 2px;
+    padding-top: 4px;
+    border-bottom: solid 1px;
+    border-color: gray;
 }
 
 /* La section qui englobe le bouton pour faire un test rapide */
 .box #fasttest {
-  margin-top: 40px;
-  padding-top: 1px;
-  border-top: solid 2px;
-  border-color: gray;
+    margin-top: 40px;
+    padding-top: 1px;
+    border-top: solid 2px;
+    border-color: gray;
 }
 
 /* Text concernant l'abandon de l'examen */
@@ -89,29 +89,29 @@ body {
 
 /* Hyper Lien */
 a {
-  color: #00B7FF;
+    color: #00B7FF;
 }
 
 /* Header */
 #header {
-  background-color: #D3D3D3;
-  padding-top: 10px;
-  padding-bottom: 5px;
+    background-color: #D3D3D3;
+    padding-top: 10px;
+    padding-bottom: 5px;
 }
 
 /* Header + Nav */
 #top {
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
-  z-index: 6;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    z-index: 6;
 }
 
 #stats ul {
-  list-style-type: none;
-  padding-left: 10px;
-  margin-bottom: 2px;
+    list-style-type: none;
+    padding-left: 10px;
+    margin-bottom: 2px;
 }
 
 /* Barre de navigation */
@@ -142,39 +142,39 @@ a {
 
 /* main des autres pages */
 #main {
-  position: relative;
-  top: 75px;
-  margin-bottom: 0 auto 40px;
+    position: relative;
+    top: 75px;
+    margin-bottom: 0 auto 40px;
 }
 
 /* Image de la page d'accueil */
 div.polaroid {
-  width: 650px;
-  background-color: white;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  margin-bottom: 25px;
-  margin: auto;
+    width: 650px;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-bottom: 25px;
+    margin: auto;
 }
 div.container {
-  text-align: center;
-  padding: 10px 20px;
+    text-align: center;
+    padding: 10px 20px;
 }
 
 /* Le footer */
 #footer {
-  background-color: #5b5b5b;
-  opacity: 0.95;
-  color: #c4c4c4;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  z-index: 5;
-  width: 100%;
+    background-color: #5b5b5b;
+    opacity: 0.95;
+    color: #c4c4c4;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 5;
+    width: 100%;
 }
 #footer > p {
-  font-size: 10px;
-  display: block;
-  margin-left: 10px;
+    font-size: 10px;
+    display: block;
+    margin-left: 10px;
 }
 
 .flexblock {
@@ -184,26 +184,26 @@ div.container {
 
 /* Largeur de la boite "Exams" */
 #exams {
-  width: 600px;
+    width: 600px;
 }
 
 /* Largeur de la boite "Stats" */
 #stats {
-  width: 400px;
+    width: 400px;
 }
 
 #examen .button {
-  margin-top: 10px;
+    margin-top: 10px;
 }
 
 /* Les sections de la boite "stats" */
 #stats .section0 {
-  padding: 10px;
-  border: solid 0.5px;
-  border-radius: 3px;
-  border-color: gray;
-  margin-bottom: 10px;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 3px 10px 0 rgba(0, 0, 0, 0.095);
+    padding: 10px;
+    border: solid 0.5px;
+    border-radius: 3px;
+    border-color: gray;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 3px 10px 0 rgba(0, 0, 0, 0.095);
 }
 
 /* Format des boites */
@@ -228,21 +228,21 @@ div.container {
 
 /* Format de l'input "nombre de questions" */
 #nbquestion {
-  width: 585px;
-  height: 40px;
-  border: none;
-  border-radius: 1px;
-  background-color: #f1f1f1;
-  margin-top: 5px;
-  margin-bottom: 10px;
-  font-size: 16px;
-  padding-left: 10px;
-  border-radius: 4px;
+    width: 585px;
+    height: 40px;
+    border: none;
+    border-radius: 1px;
+    background-color: #f1f1f1;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    padding-left: 10px;
+    border-radius: 4px;
 }
 
 /* Format des réponses */
 #examen label {
-  font-size: 20px;
+    font-size: 20px;
 }
 
 #results:target {
@@ -326,7 +326,7 @@ td {
 
 /* h1 de la page d'instructions */
 #instructions h1 {
-  font-size: 28px;
+    font-size: 28px;
 }
 
 /* Format de la question */
@@ -336,24 +336,24 @@ td {
 
 /* Le titre de la page d'accueil */
 h1#home {
-  color: #5b5b5b;
-  font-family: 'Lato', sans-serif;
-  font-size: 40px;
-  font-weight: 300;
-  line-height: 58px;
-  margin: 20px auto 10px auto;
-  width: auto;
-  text-align: center;
+    color: #5b5b5b;
+    font-family: 'Lato', sans-serif;
+    font-size: 40px;
+    font-weight: 300;
+    line-height: 58px;
+    margin: 20px auto 10px auto;
+    width: auto;
+    text-align: center;
 }
 
 /* "Start button" dans la page d'accueil */
 div#startbutton {
-  width: 650px;
-  margin: 20px auto;
+    width: 650px;
+    margin: 20px auto;
 }
 div#startbutton > .button {
-  width: auto;
-  margin: auto;
+    width: auto;
+    margin: auto;
 }
 
 .button {
@@ -398,24 +398,24 @@ div#startbutton > .button {
     }
 
     #stats {
-      width: auto;
+        width: auto;
     }
 
     #main {
-      min-width: 273px;
+        min-width: 273px;
     }
 
     #exams {
-      width: auto;
-      margin-bottom: 20px;
+        width: auto;
+        margin-bottom: 20px;
     }
 
     #fieldinput, #nbquestioninput  {
-      width: 90%;
+        width: 90%;
     }
 
     #nbquestion {
-      width: 90%;
+        width: 90%;
     }
 
     .question {
@@ -423,16 +423,16 @@ div#startbutton > .button {
     }
 
     .question label {
-      min-width: 0;
-      width: auto;
+        min-width: 0;
+        width: auto;
     }
 
     div.polaroid {
-      width: auto;
+        width: auto;
     }
 
     div#startbutton {
-      width: auto;
+        width: auto;
     }
 
     #instructions {
@@ -440,8 +440,8 @@ div#startbutton > .button {
     }
 
     #result {
-      margin: 100px auto 0;
-      width: auto;
+        margin: 100px auto 0;
+        width: auto;
     }
 }
 
@@ -450,9 +450,9 @@ div#startbutton > .button {
 @media all and (max-width: 425px)
 {
     #main {
-      position: absolute;
-      left: 0;
-      top: 165px;
+        position: absolute;
+        left: 0;
+        top: 165px;
     }
 
     nav {
@@ -469,24 +469,24 @@ div#startbutton > .button {
     }
 
     #stats {
-      width: auto;
+        width: auto;
     }
 
     #main {
-      min-width: 273px;
+        min-width: 273px;
     }
 
     #exams {
-      width: auto;
-      margin-bottom: 20px;
+        width: auto;
+        margin-bottom: 20px;
     }
 
     #fieldinput, #nbquestioninput {
-      width: 90%;
+        width: 90%;
     }
 
     #nbquestion {
-      width: 90%;
+        width: 90%;
     }
 
     .question {
@@ -494,17 +494,17 @@ div#startbutton > .button {
     }
 
     .question label {
-      min-width: 0;
-      width: auto;
+        min-width: 0;
+        width: auto;
     }
 
     div.polaroid {
-      width: auto;
+        width: auto;
     }
 
     div#startbutton {
-      width: auto;
-      padding-bottom: 30px;
+        width: auto;
+        padding-bottom: 30px;
     }
 
     #instructions {
@@ -513,8 +513,8 @@ div#startbutton > .button {
     }
 
     #result {
-      margin: 100px auto 0;
-      width: auto;
+        margin: 100px auto 0;
+        width: auto;
     }
 
     .popup{

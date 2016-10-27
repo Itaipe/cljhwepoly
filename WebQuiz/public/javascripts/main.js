@@ -41,8 +41,8 @@ $(function(){
             $("#domaine").text(data.domaine);
             $("#enonce").text(data.enonce);
             for (i = 0; i < data.nbreponses; i++) {
-              $('.answer').prepend("<label draggable='true' ondragstart='drag(event)' id=\"answer" + i + "\" for=\"" + i + "\"><input type=\"hidden\" name=\"answer\" value=\"" + (i+1) + "\" id=\"" + i + "\"><span id=\"span" + i + "\"></span></label><br>");
-              $('#span'+i).text("  " + data.reponses[i]);
+                $('.answer').prepend("<label draggable='true' ondragstart='drag(event)' id=\"answer" + i + "\" for=\"" + i + "\"><input type=\"hidden\" name=\"answer\" value=\"" + (i+1) + "\" id=\"" + i + "\"><span id=\"span" + i + "\"></span></label><br>");
+                $('#span'+i).text("  " + data.reponses[i]);
             }
         });
     }
@@ -231,10 +231,10 @@ $(function(){
         //console.log("La bonne réponse: " + laBonneReponse);
         if (laBonneReponse != reponseCourante)
         {
-          console.log("Mauvaise réponse !");
+            console.log("Mauvaise réponse !");
         } else {
-          console.log("Bonne réponse !");
-          note++;
+            console.log("Bonne réponse !");
+            note++;
         }
         console.log(">>>>> Note: " + note);
 
@@ -244,26 +244,26 @@ $(function(){
 
         // On fait la redirection vers le resutat du coté du client car passer par le serveur n'est pas nécessaire /!\
         if (nbquestionsexamrestantes === 0) {
-          sessionStorage.setItem("note", note);
-          sessionStorage.setItem("examcourantabandonne", "false");
-          document.location.href="/examinationResult";
+            sessionStorage.setItem("note", note);
+            sessionStorage.setItem("examcourantabandonne", "false");
+            document.location.href="/examinationResult";
         }
         else {
-          $.getJSON("/ajax/next", function(data) {
-              //alert(numeroquestion);
-              $('label, .answer br').remove();
-              $("#nbquestionposees").text(nbquestionexam - data.id);
-              $("#idquestion").text(nbquestionexam - data.id + 1);
-              $("#domaine").text(data.domaine);
-              $("#enonce").text(data.enonce);
-              $("#nbquestionreussies").text(note);
-              laBonneReponse = data.bonnerep;
-              sessionStorage.setItem("bonneReponse", laBonneReponse);
-              for (i = 0; i < data.nbreponses; i++) {
-                  $('.answer').prepend("<label draggable='true' ondragstart='drag(event)' id=\"answer" + i + "\" for=\"" + i + "\"><input type=\"hidden\" name=\"answer\" value=\"" + (i+1) + "\" id=\"" + i + "\"><span id=\"span" + i + "\"></span></label><br>");
-                  $('#span'+i).text("  " + data.reponses[i]);
-              }
-          });
+            $.getJSON("/ajax/next", function(data) {
+                //alert(numeroquestion);
+                $('label, .answer br').remove();
+                $("#nbquestionposees").text(nbquestionexam - data.id);
+                $("#idquestion").text(nbquestionexam - data.id + 1);
+                $("#domaine").text(data.domaine);
+                $("#enonce").text(data.enonce);
+                $("#nbquestionreussies").text(note);
+                laBonneReponse = data.bonnerep;
+                sessionStorage.setItem("bonneReponse", laBonneReponse);
+                for (i = 0; i < data.nbreponses; i++) {
+                    $('.answer').prepend("<label draggable='true' ondragstart='drag(event)' id=\"answer" + i + "\" for=\"" + i + "\"><input type=\"hidden\" name=\"answer\" value=\"" + (i+1) + "\" id=\"" + i + "\"><span id=\"span" + i + "\"></span></label><br>");
+                    $('#span'+i).text("  " + data.reponses[i]);
+                }
+            });
         }
     });
 
@@ -283,7 +283,7 @@ $(function(){
 
 
     //Quand on clique sur "remise à zéro : on efface tout le contenu du localstorage
-     $('#remiseazero').on('click', function(e){
+    $('#remiseazero').on('click', function(e){
         localStorage.clear();
         sessionStorage.clear();
         //On change dynamiquement le contenu (pour que l'utilisateur ait un retour sans avoir à recharger la page)

@@ -17,7 +17,7 @@ block content
                   option(value='javascript') JavaScript
                 br
                 label(for='nbquestion') Nombre de questions
-                input#nbquestioninput(type='number', name='nbquestion', value='10', min='1', max='10', required='')
+                input#nbquestioninput(type='number', name='nbquestion', value='5', min='1', max='10', required='')
                 br
                 input.button#commencerexamen(type='submit', value='Commencer')
 
@@ -45,9 +45,9 @@ block content
           section.section0
             h2 Examens officiels
             ul
-              li
-                | Votre moyenne pour les examens est de :
-                strong 15.2/20
+              li.tauxexamphrase
+                strong.tauxexam 
+                | de réussite pour les examens effectués
               li
                 strong 
                    span.nb_exam_effectues 0
@@ -56,10 +56,13 @@ block content
                 strong
                     span.nb_exam_abandonnes 0
                 |  examens officiels abandonnés
-          section
+          section.flex
             form(action='#results')
                 p#details
                   input.button(type='submit', value='Details')
+            form(action='')
+                p#remiseazero
+                  input.button(type='submit', value='Remise à zéro')
     article#results
         div.popup
             a(href='#nowhere')
@@ -67,7 +70,7 @@ block content
             h1 Résultats
             section
                 h2 HTML
-                table
+                table#htmlresults
                     tr
                         td
                             strong Note
@@ -75,17 +78,9 @@ block content
                             strong Date
                         td
                             strong Heure
-                    tr
-                        td 12/20
-                        td 01/01/2016
-                        td 14:35:00
-                    tr
-                        td 15/20
-                        td 05/02/2016
-                        td 19:26:54
             section
                 h2 CSS
-                table
+                table#cssresults
                     tr
                         td
                             strong Note
@@ -93,17 +88,9 @@ block content
                             strong Date
                         td
                             strong Heure
-                    tr
-                        td 9/20
-                        td 05/03/2016
-                        td 07:17:42
-                    tr
-                        td 13/20
-                        td 16/04/2016
-                        td 11:46:11
             section
                 h2 JavaScript
-                table
+                table#javascriptresults
                     tr
                         td
                             strong Note
@@ -111,11 +98,3 @@ block content
                             strong Date
                         td
                             strong Heure
-                    tr
-                        td 16/20
-                        td 20/08/2016
-                        td 10:06:57
-                    tr
-                        td 19/20
-                        td 12/09/2016
-                        td 12:40:23

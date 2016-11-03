@@ -51,7 +51,7 @@ router.get('/next', function(req, res, next) {
 
 });
 
-
+//COpier coller pour l'instnat, à compléter ???
 router.get('/postquestion', function(req, res, next) {
     var nbquestion = req.param("nbquestion");
     //nbquestion = req.param("nbquestion");

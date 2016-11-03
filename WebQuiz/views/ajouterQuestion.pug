@@ -1,0 +1,20 @@
+extends layout
+
+block content
+    div#exams.box
+        h1 Ajouter une nouvelle question
+        form(action='')
+            p
+                i Remplissez les champs ci-dessous
+            label(for='field') Domaine
+            select#fieldinput(name='field')
+                option(value='html') HTML
+                option(value='css') CSS
+                option(value='javascript') JavaScript
+            br
+            label(for='enonce') Enoncé
+            input.input(type='text', name='enonce', required='')
+            br
+            label(for='nbquestion') Nombre de réponses
+            input.input(type='number', name='nbreponse', value='3', min='2', max='10', required='')
+            input.button#commencerexamen(type='submit', value='Ajouter la question')

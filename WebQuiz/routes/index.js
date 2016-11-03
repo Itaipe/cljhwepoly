@@ -38,4 +38,8 @@ router.get('/instructions', function(req, res, next) {
   res.render('instructions', { title: 'WebQuiz : Instructions', nav: 'true'});
 });
 
+router.get('/ajouterQuestion', function(req, res, next) {
+  res.render('ajouterQuestion', { title: 'WebQuiz : Ajouter Question', nav: 'true'});
+});
+
 module.exports = router;

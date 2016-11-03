@@ -216,7 +216,7 @@ div.container {
 }
 
 /* Format de l'input du thème de l'examen */
-#fieldinput, #nbquestioninput {
+#fieldinput, #nbquestioninput, .input {
     width: 595px;
     height: 40px;
     border: none;

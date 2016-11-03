@@ -51,4 +51,13 @@ router.get('/next', function(req, res, next) {
 
 });
 
+
+router.get('/postquestion', function(req, res, next) {
+    var nbquestion = req.param("nbquestion");
+    //nbquestion = req.param("nbquestion");
+    questionsrestantes = nbquestion - 1 + 10;
+    console.log(questionsrestantes);
+    res.json(eval(questions[questionsrestantes]));
+});
+
 module.exports = router;

@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 require('./../data');
+require('./../lib/db.js');
 
 var questionsrestantes = 0;
 
@@ -52,12 +53,13 @@ router.get('/next', function(req, res, next) {
 });
 
 //COpier coller pour l'instnat, à compléter ???
-router.get('/postquestion', function(req, res, next) {
-    var nbquestion = req.param("nbquestion");
+router.post('/ajoutquestion', function(req, res, next) {
+    createquestion(req, res);
+    //var nbquestion = req.param("nbquestion");
     //nbquestion = req.param("nbquestion");
-    questionsrestantes = nbquestion - 1 + 10;
-    console.log(questionsrestantes);
-    res.json(eval(questions[questionsrestantes]));
+    //questionsrestantes = nbquestion - 1 + 10;
+    //console.log(questionsrestantes);
+    //res.json(eval(questions[questionsrestantes]));
 });
 
 module.exports = router;

@@ -5,25 +5,25 @@
  */
 
 var mongoose = require('mongoose');
-//var Schema = mongoose.Schema;
+var Schema = mongoose.Schema;
 
-/*var Todo = new Schema({
-    user_id : String,
-    content : String,
-    updated_at : Date
-});*/
+var Question = new Schema({
+    domaine : String,
+    enonce : String
+});
 
-//mongoose.model('Question', Todo);
-var Question = mongoose.model('Question');
+mongoose.model('Question', Question);
+//var Question = mongoose.model('Question');
 
 mongoose.connect('mongodb://user:pass@ds143737.mlab.com:43737/tp4');
 
-exports.create = function(req, res) {
+createquestion = function(req, res) {
+    alert("debut create !!!");
     new Question({
         domaine : "html",
-        updated_at : Date.now()
+        enonce : "a"
     }).save(function(err, todo, count){
-        res.render('/dashboard');
+        res.redirect('/dashboard');
         //Retourner l'objet créer si err=null, sinon retourner une erreur : 400, 404 ect selon la situation
     });
 };

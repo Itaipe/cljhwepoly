@@ -2,15 +2,16 @@ var express = require('express');
 var router = express.Router();
 require('./../data');
 
-//var db = require('../lib/db');
+var db = require('../lib/db');
 
 var questionsrestantes = 0;
 
 router.get('/fasttest', function(req, res, next) {
-  var numquestion = Math.floor(Math.random() * 29) + 1; //a genere aleatoirement entre 0 et 29
-  console.log(numquestion);
-  res.json(eval(questions[numquestion]));
-  console.log(questions[numquestion]);
+    db.getRandomQuestion(req, res);
+    //console.log("db : " + result); 
+    //res.json();
+    //res.json(eval(questions[numquestion]));
+    //console.log(questions[numquestion]);
 });
 
 

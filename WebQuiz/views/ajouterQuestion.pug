@@ -4,11 +4,10 @@ block content
     div#exams.box
         h1 Ajouter une nouvelle question
         div
-            form(method="post")
                 p
                     i Remplissez les champs ci-dessous
                 label(for='field') Domaine
-                select#fieldinput(name='field')
+                select#domaineinput(name='field')
                     option(value='html') HTML
                     option(value='css') CSS
                     option(value='javascript') JavaScript
@@ -18,4 +17,5 @@ block content
                 br
                 label(for='nbquestion') Nombre de réponses
                 input.input(type='number', name='nbreponse', value='3', min='2', max='10', required='')
-                input.button#ajouterquestion(type="submit", value="Enregistrer")
+
+                button#ajouterquestion.button Ajouter

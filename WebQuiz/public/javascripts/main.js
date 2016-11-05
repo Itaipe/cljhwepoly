@@ -321,26 +321,29 @@ $(function(){
 
     //TP 4 :
 
-    /*
-
     $('#ajouterquestion').on('click', function(e){
-        //var field = $('#fieldinput').val();
-        //var enonce = $('#enonceinput').val();
+
+        var domaine = $('#domaineinput').val();
+        var enonce = $('#enonceinput').val();
 
         var question = {
-            "domaine"    : "HTML",
-            "enonce"     : "Quelle est la dernière version de HTML ?",
+            domaine    : domaine,
+            enonce     : enonce,
         }
-        alert(question);
 
-        $.post("/ajax/ajoutquestion", question, function(res) {
-            //alert("dedans");
-            // Do something with the request
-        }, 'json');
-        //alert("fin");
+        $.ajax({
+            type: 'POST',
+            url: '/ajax/aaa',
+            data: question,
+            success: function(newQuestion) {
+                alert('Question saved successfully');
+            },
+            error: function() {
+                alert('Error saving question');
+            }
+        });
     });
 
-    */
 
 });
 

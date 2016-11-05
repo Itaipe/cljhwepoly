@@ -1,10 +1,13 @@
 var express = require('express');
 var router = express.Router();
+var bodyParser = require('body-parser');
 require('./../data');
 
-//var db = require('../lib/db');
+var db = require('../lib/db');
 
 var questionsrestantes = 0;
+
+router.use(bodyParser.json());
 
 router.get('/fasttest', function(req, res, next) {
   var numquestion = Math.floor(Math.random() * 29) + 1; //a genere aleatoirement entre 0 et 29
@@ -55,13 +58,9 @@ router.get('/next', function(req, res, next) {
 
 //TP 4 :
 
-/*router.post('/ajouterQuestion', function(req, res, next) {
-    console.log("debut ajax post ajout question");
-    db.createquestion(req, res);
-    var domaine = req.param("field");
-    console.log("ajax domaine : " + domaine);
-    var enonce = req.param("enonce");
-    console.log("ajax enonce : " + enonce);
-});*/
+router.post('/aaa', function(req, res, next) {
+    db.createquestion(req,res);
+});
+
 
 module.exports = router;

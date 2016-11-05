@@ -15,13 +15,7 @@ var questionSchema = new Schema({
 
 questionSchema.plugin(random);
 
-
-var Todo = mongoose.model('Tests', Questionschema);
-
 var Question = mongoose.model('questions', questionSchema);
-
-
-//var Question = mongoose.model('Question');
 
 mongoose.connect('mongodb://user:pass@ds143737.mlab.com:43737/tp4');
 

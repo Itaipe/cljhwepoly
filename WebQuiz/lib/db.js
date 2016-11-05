@@ -2,13 +2,24 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var bodyParser = require('body-parser');
 
-var Questionschema = new Schema({
+var random = require('mongoose-simple-random');
+
+var questionSchema = new Schema({
+    id : Number,
     domaine : String,
-    enonce : String
+    enonce : String,
+    nbreponses : Number,
+    reponses : [String],
+    bonnerep : Number
 });
+
+questionSchema.plugin(random);
 
 
 var Todo = mongoose.model('Tests', Questionschema);
+
+var Question = mongoose.model('questions', questionSchema);
+
 
 //var Question = mongoose.model('Question');
 
@@ -20,7 +31,7 @@ exports.createquestion = function(req, res) {
     console.log("db domaine : " + domaine);
     var enonce = req.body.enonce;
     console.log("db enonce : " + enonce);
-    new Todo({
+    new Question({
         domaine : domaine,
         enonce : enonce
     }).save(function(err, todo, count){
@@ -31,5 +42,14 @@ exports.createquestion = function(req, res) {
         res.send("Données push avec succès dans la base de donnée");
 
         // Il faut aussi gérer le cas ou il y a une erreur
+    });
+};
+
+exports.getRandomQuestion = function(req, res) {
+    Question.findOneRandom(function(err, results) {
+        if (!err) {
+           res.json(results);
+           console.log("db : " + results);
+        }
     });
 };

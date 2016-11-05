@@ -320,6 +320,9 @@ $(function(){
     }
 
     //TP 4 :
+
+    /*
+
     $('#ajouterquestion').on('click', function(e){
         //var field = $('#fieldinput').val();
         //var enonce = $('#enonceinput').val();
@@ -336,6 +339,8 @@ $(function(){
         }, 'json');
         //alert("fin");
     });
+
+    */
 
 });
 

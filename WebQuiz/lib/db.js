@@ -1,9 +1,3 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
@@ -13,6 +7,7 @@ var Question = new Schema({
 });
 
 mongoose.model('Question', Question);
+
 //var Question = mongoose.model('Question');
 
 mongoose.connect('mongodb://user:pass@ds143737.mlab.com:43737/tp4');

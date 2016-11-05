@@ -54,12 +54,16 @@ router.get('/next', function(req, res, next) {
 
 //COpier coller pour l'instnat, à compléter ???
 router.post('/ajoutquestion', function(req, res, next) {
+
+
     createquestion(req, res);
     //var nbquestion = req.param("nbquestion");
     //nbquestion = req.param("nbquestion");
     //questionsrestantes = nbquestion - 1 + 10;
     //console.log(questionsrestantes);
     //res.json(eval(questions[questionsrestantes]));
+
+
 });
 
 module.exports = router;

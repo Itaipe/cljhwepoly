@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var questions = equire('./../lib/db.js');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -41,5 +42,6 @@ router.get('/instructions', function(req, res, next) {
 router.get('/ajouterQuestion', function(req, res, next) {
   res.render('ajouterQuestion', { title: 'WebQuiz : Ajouter Question', nav: 'true'});
 });
+
 
 module.exports = router;

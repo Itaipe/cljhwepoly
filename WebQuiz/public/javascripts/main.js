@@ -318,24 +318,25 @@ $(function(){
             }
         }
     }
-    
+
     //TP 4 :
-    
     $('#ajouterquestion').on('click', function(e){
-        var field = $('#fieldinput').val();
-        var enonce = $('#enonceinput').val();
+        //var field = $('#fieldinput').val();
+        //var enonce = $('#enonceinput').val();
+
         var question = {
             "domaine"    : "HTML",
             "enonce"     : "Quelle est la dernière version de HTML ?",
         }
         alert(question);
+
         $.post("/ajax/ajoutquestion", question, function(res) {
-            alert("dedans");
+            //alert("dedans");
             // Do something with the request
         }, 'json');
-        alert("fin");
+        //alert("fin");
     });
-    
+
 });
 
 function allowDrop(ev) {

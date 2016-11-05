@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
 require('./../data');
-require('./../lib/db.js');
+
+//var db = require('../lib/db');
 
 var questionsrestantes = 0;
 
@@ -52,14 +53,16 @@ router.get('/next', function(req, res, next) {
 
 });
 
-//COpier coller pour l'instnat, à compléter ???
-router.post('/ajoutquestion', function(req, res, next) {
-    createquestion(req, res);
-    //var nbquestion = req.param("nbquestion");
-    //nbquestion = req.param("nbquestion");
-    //questionsrestantes = nbquestion - 1 + 10;
-    //console.log(questionsrestantes);
-    //res.json(eval(questions[questionsrestantes]));
-});
+
+//TP 4 :
+
+/*router.post('/ajouterQuestion', function(req, res, next) {
+    console.log("debut ajax post ajout question");
+    db.createquestion(req, res);
+    var domaine = req.param("field");
+    console.log("ajax domaine : " + domaine);
+    var enonce = req.param("enonce");
+    console.log("ajax enonce : " + enonce);
+});*/
 
 module.exports = router;

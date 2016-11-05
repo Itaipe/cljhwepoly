@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var db = require('../lib/db');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -38,8 +39,17 @@ router.get('/instructions', function(req, res, next) {
   res.render('instructions', { title: 'WebQuiz : Instructions', nav: 'true'});
 });
 
+
+//TP 4 : 
+
 router.get('/ajouterQuestion', function(req, res, next) {
+    console.log("router.get ajouterquestion")
   res.render('ajouterQuestion', { title: 'WebQuiz : Ajouter Question', nav: 'true'});
+});
+
+router.post('/ajouterQuestion', function(req, res){
+    console.log("router.post ajouter question");
+    db.createquestion(req,res);
 });
 
 module.exports = router;

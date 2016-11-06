@@ -47,10 +47,5 @@ router.get('/ajouterQuestion', function(req, res, next) {
   res.render('ajouterQuestion', { title: 'WebQuiz : Ajouter Question', nav: 'true'});
 });
 
-/*router.post('/ajouterQuestion', function(req, res){
-    console.log("router.post ajouter question");
-    db.createquestion(req,res);
-});*/
-
 
 module.exports = router;

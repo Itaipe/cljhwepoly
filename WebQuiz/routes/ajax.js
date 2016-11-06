@@ -77,7 +77,7 @@ router.get('/next', function(req, res, next) {
 
 //TP 4 :
 
-router.post('/aaa', function(req, res, next) {
+router.post('/ajoutquestion', function(req, res, next) {
     db.createquestion(req,res);
 });
 

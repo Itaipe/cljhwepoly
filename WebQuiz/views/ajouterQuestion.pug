@@ -4,8 +4,9 @@ block content
     div#exams.box
         h1 Ajouter une nouvelle question
         div
+                div#formulaireQuestion
                 p
-                    i Remplissez les champs ci-dessous
+                    i#italicAjoutQuestion Remplissez les champs ci-dessous
                 label(for='field') Domaine
                 select#domaineinput(name='field')
                     option(value='html') HTML
@@ -15,7 +16,28 @@ block content
                 label(for='enonce') Enoncé
                 input.input#enonceinput(type='text', name='enonce', required='')
                 br
-                label(for='nbquestion') Nombre de réponses
-                input.input(type='number', name='nbreponse', value='3', min='2', max='10', required='')
+                p#nombreMinDeQuestion Votre question doit avoir au moins deux réponses.
+                br
+
+                div#reponsesAjoutees
+                    label(for='reponse1') Réponse 1
+                    input.input#reponse1(type='text', name='reponse1', required='')
+                    br
+                    label(for='reponse2') Réponse 2
+                    input.input#reponse2(type='text', name='reponse2', required='')
+
+                div#boutonAjouterReponse Ajouter une réponse en plus
+
+                br
+                br
+                label(for='bonnereponse') Numéro de la bonne réponse
+                select.input#selectbonnereponse
+                    option(value='1', selected='') 1
+                    option(value='2') 2
+
+
+                div#formulaireQuestion1
 
                 button#ajouterquestion.button Ajouter
+                span &nbsp
+                button#initilizeFormAddQuestion.button Initialiser le formulaire

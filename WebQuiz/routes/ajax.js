@@ -5,19 +5,28 @@ require('./../data');
 
 var db = require('../lib/db');
 
-var questionsrestantes = 0;
+//var questionsrestantes = 0;
+var questioncourante = 0;
+//var nbquestion = 0;
 
 router.use(bodyParser.json());
 
+
 router.get('/fasttest', function(req, res, next) {
     db.getRandomQuestion(req, res);
-    //console.log("db : " + result); 
-    //res.json();
-    //res.json(eval(questions[numquestion]));
-    //console.log(questions[numquestion]);
 });
 
+router.get('/exam', function(req, res, next) {
+    console.log("debutexam");
+    //nbquestion = req.param("nbquestion");
+    questioncourante = 0;
+    //On met à jour le nombre de questions de l'examen sur la base de données
+    db.setNombreQuestionsRestantes(req, res, parseInt(req.param("nbquestion")));
+    db.getExamQuestions(req, res, questioncourante);
+    
+});
 
+/* TP3 : 
 router.get('/examhtml', function(req, res, next) {
     var nbquestion = req.param("nbquestion");
     //nbquestion = req.param("nbquestion");
@@ -41,10 +50,10 @@ router.get('/examjavascript', function(req, res, next) {
     questionsrestantes = nbquestion - 1 + 20;
     console.log(questionsrestantes);
     res.json(eval(questions[questionsrestantes]));
-});
+});*/
 
 router.get('/next', function(req, res, next) {
-  questionsrestantes = questionsrestantes - 1;
+  /*questionsrestantes = questionsrestantes - 1;
   if (questionsrestantes === -1 || questionsrestantes === 9 || questionsrestantes === 19) {
     //console.log("fin de l'examen");
     //COMPLETER LACTION A FAIRE
@@ -53,14 +62,27 @@ router.get('/next', function(req, res, next) {
   } else {
     res.json(eval(questions[questionsrestantes]));
     console.log(questions[questionsrestantes]);
-  }
-
+  }*/
+    //Condition d'arrêt de l'examen (côté serveur)
+   /* if (parseInt(questioncourante) === parseInt(nbquestion)-1) {
+        console.log("render");
+        document.location.href="/examinationResult";
+        //res.render('examinationResult', { title: 'WebQuiz : Resulat examen', nav: 'true'});
+    } else {*/
+      //  console.log("else");
+        questioncourante = questioncourante + 1;
+        db.getExamQuestions(req, res, questioncourante);   
+    //}
 });
 
 //TP 4 :
 
 router.post('/aaa', function(req, res, next) {
     db.createquestion(req,res);
+});
+
+router.get('/getnbquestionsrestantes', function(req, res, next) {
+    db.getNombreQuestionsRestantes(req,res);
 });
 
 

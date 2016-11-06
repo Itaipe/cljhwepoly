@@ -127,3 +127,11 @@ exports.getNombreQuestionsRestantes = function(req, res) {
         });
     });
 };
+
+exports.getNombreMaxQuestions = function(req, res) {
+    var domaine = req.param("field");
+    nombreQuestions.find({domaine : domaine}, function (err, results) {
+        if (err) { throw err; }
+        res.json(results);
+    });
+};

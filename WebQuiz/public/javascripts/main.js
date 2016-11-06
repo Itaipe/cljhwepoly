@@ -215,16 +215,27 @@ $(function(){
     $('#commencerexamen').on('click', function(e){
         var field = $('#fieldinput').val();
         nbquestionexam = $('#nbquestioninput').val();
-        //alert(field);
-        //alert(nbquestion);
-        if(typeof(Storage) !== "undefined"){
-            //alert("nbr de clefs stockees avant : " + sessionStorage.length);
-            sessionStorage.setItem("field", field);
-            sessionStorage.setItem("nbquestion", nbquestionexam);
-            //alert("nbr de clefs stockees apres : " + sessionStorage.length);
-        } else {
-            alert("Votre navigateur n'est pas compatible avec le stockage local");
-        }
+        
+        //On récupère sur le serveur le nombre maximum de questions en fonction du domaine
+        $.getJSON("/ajax/nombremaxquestions?field=" + field, function(data) {
+            var nombremaxquestion = data[0].nombrequestions;
+            
+            if (nbquestionexam > nombremaxquestion) {
+                //Si le nombre fourni est trop grand, on envoie un message d'erreur et on reste sur la meme page
+                alert("Vous ne pouvez avoir qu'au plus " + nombremaxquestion + " questions d'examen pour le domaine " + field + ".");
+            } else {
+                //Sinon, on stocke le domaine et nombre questions en localstorage (car non critiques vu que saisies par l'utilisateur) et on va sur la page examen
+                if(typeof(Storage) !== "undefined"){
+                    //alert("nbr de clefs stockees avant : " + sessionStorage.length);
+                    sessionStorage.setItem("field", field);
+                    sessionStorage.setItem("nbquestion", nbquestionexam);
+                    //alert("nbr de clefs stockees apres : " + sessionStorage.length);
+                } else {
+                    alert("Votre navigateur n'est pas compatible avec le stockage local");
+                }
+                document.location.href="/examination";
+            }
+        });
     });
 
     //Quand on est déja en examen, pour obtenir une nouvelle question lorsqu'on valide

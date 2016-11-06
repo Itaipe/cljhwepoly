@@ -26,56 +26,10 @@ router.get('/exam', function(req, res, next) {
     
 });
 
-/* TP3 : 
-router.get('/examhtml', function(req, res, next) {
-    var nbquestion = req.param("nbquestion");
-    //nbquestion = req.param("nbquestion");
-    questionsrestantes = nbquestion - 1;
-    console.log(nbquestion);
-    res.json(eval(questions[questionsrestantes]));
-    console.log(questions[questionsrestantes]);
-});
-
-router.get('/examcss', function(req, res, next) {
-    var nbquestion = req.param("nbquestion");
-    //nbquestion = req.param("nbquestion");
-    questionsrestantes = nbquestion - 1 + 10;
-    console.log(questionsrestantes);
-    res.json(eval(questions[questionsrestantes]));
-});
-
-router.get('/examjavascript', function(req, res, next) {
-    var nbquestion = req.param("nbquestion");
-    //nbquestion = req.param("nbquestion");
-    questionsrestantes = nbquestion - 1 + 20;
-    console.log(questionsrestantes);
-    res.json(eval(questions[questionsrestantes]));
-});*/
-
 router.get('/next', function(req, res, next) {
-  /*questionsrestantes = questionsrestantes - 1;
-  if (questionsrestantes === -1 || questionsrestantes === 9 || questionsrestantes === 19) {
-    //console.log("fin de l'examen");
-    //COMPLETER LACTION A FAIRE
-    // /!\/!\ On fait la redirection vers la page du résultat du coté du client,
-    // pas besoin de passer par le serveur (On ne doit récupérer aucune information, la note est du coté client !)
-  } else {
-    res.json(eval(questions[questionsrestantes]));
-    console.log(questions[questionsrestantes]);
-  }*/
-    //Condition d'arrêt de l'examen (côté serveur)
-   /* if (parseInt(questioncourante) === parseInt(nbquestion)-1) {
-        console.log("render");
-        document.location.href="/examinationResult";
-        //res.render('examinationResult', { title: 'WebQuiz : Resulat examen', nav: 'true'});
-    } else {*/
-      //  console.log("else");
         questioncourante = questioncourante + 1;
         db.getExamQuestions(req, res, questioncourante);   
-    //}
 });
-
-//TP 4 :
 
 router.post('/ajoutquestion', function(req, res, next) {
     db.createquestion(req,res);
@@ -85,5 +39,10 @@ router.get('/getnbquestionsrestantes', function(req, res, next) {
     db.getNombreQuestionsRestantes(req,res);
 });
 
+router.get('/nombremaxquestions', function(req, res, next) {
+    console.log("debut ajax");
+   db.getNombreMaxQuestions(req, res); 
+   console.log("fin ajax");
+});
 
 module.exports = router;

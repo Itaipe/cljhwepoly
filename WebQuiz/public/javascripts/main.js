@@ -1,5 +1,8 @@
 $(function(){
 
+    // pour la page ajout de question.
+    var r = 2; // c'est le numero de la reponse de la question qui est en train d'etre ajouter par un administrateur.
+
     var titre = $(document).attr('title');
     //alert(titre);
     var nbquestionexam = 0;
@@ -321,29 +324,81 @@ $(function(){
 
     //TP 4 :
 
+    // Supprime les message d'alerte lorsque l'on essaye de réctifier le probleme
+    $('input').on('click', function(e) {
+        $('#formulaireQuestion').html("");
+        $('#formulaireQuestion1').html("");
+    });
+
     $('#ajouterquestion').on('click', function(e){
+
+        var a = 0;
+
+        $('.input').each(function(){
+            if ($(this).val() === "") a++;
+        });
+
+        // Ceci alerte l'utilisateur qu'aucun des champs ne doit etre vide
+        if(a != 0) {
+            $('#formulaireQuestion').html("<span id='messageAlerteAjoutQuestionNOK'>Aucun des champs ne doit être vide</span>");
+            $('#formulaireQuestion1').html("<br><span id='messageAlerteAjoutQuestionNOK'>Aucun des champs ne doit être vide</span><br><br>");
+            return;
+        }
+        $('#formulaireQuestion').html("");
+        $('#formulaireQuestion1').html("");
 
         var domaine = $('#domaineinput').val();
         var enonce = $('#enonceinput').val();
+        var nbreponses = $('#selectbonnereponse option').last().attr('value');
+        var bonnerep = $('#selectbonnereponse option:selected').val();
 
         var question = {
-            domaine    : domaine,
-            enonce     : enonce,
+            domaine : domaine,
+            enonce : enonce,
+            nbreponses : nbreponses,
+            reponses: [],
+            bonnerep : bonnerep
         }
+
+        for(i=0; i<nbreponses; i++) {
+            var j = $("#reponse" + (i+1)).val();
+            question.reponses.push(j);
+        }
+
+        console.log(question);
 
         $.ajax({
             type: 'POST',
-            url: '/ajax/aaa',
+            url: '/ajax/ajoutquestion',
+            dataType: 'json',
             data: question,
-            success: function(newQuestion) {
-                alert('Question saved successfully');
+            success: function(data) {
+                initializeFormAddQuestion(r);
+                r = 2;
+                console.log('SUCCESS : Save done : ' + data.data);
+                $('#formulaireQuestion').html("<span id='messageAlerteAjoutQuestionOK'>Votre question a été ajouté avec succès</span>");
+                $('#formulaireQuestion1').html("<br><span id='messageAlerteAjoutQuestionOK'>Votre question a été ajouté avec succès</span><br><br>");
             },
             error: function() {
-                alert('Error saving question');
+                console.log('ERROR : Save not done');
+                $('#formulaireQuestion').html("<span id='messageAlerteAjoutQuestionNOK'>Votre question n'a pas pu être ajouté</span>");
+                $('#formulaireQuestion1').html("<br><span id='messageAlerteAjoutQuestionNOK'>Votre question n'a pas pu être ajouté</span><br><br>");
             }
         });
     });
 
+    $('#initilizeFormAddQuestion').on('click', function(e) {
+        initializeFormAddQuestion(r);
+        r = 2;
+    });
+
+
+    // Ajout d'un input text pour ajouter des réponses en plus
+    $('#boutonAjouterReponse').on('click', function(e) {
+        r++;
+        $('#reponsesAjoutees').append("<br><label for='reponse" + r + "'>Réponse " + r + " <input class='input' id='reponse" + r + "' type='text' name='reponse" + r  + "' required=''>");
+        $('#selectbonnereponse').append("<option value='" + r + "'>" + r + "</option>");
+    });
 
 });
 
@@ -390,4 +445,16 @@ function drop(ev) {
     } else {
         $('#chosenAnswer').css('background-color', '#90EE90');
     }
+}
+
+// Fonction qui initialise le formulaire
+function initializeFormAddQuestion(r) {
+    for (i=r; i>2; i--){
+        $('#reponsesAjoutees label').last().remove();
+        $('#reponsesAjoutees br').last().remove();
+        $('#selectbonnereponse option').last().remove();
+    }
+    $('#enonceinput').val("");
+    $('#reponse1').val("");
+    $('#reponse2').val("");
 }

@@ -11,7 +11,7 @@ router.use(bodyParser.json());
 
 router.get('/fasttest', function(req, res, next) {
     db.getRandomQuestion(req, res);
-    //console.log("db : " + result); 
+    //console.log("db : " + result);
     //res.json();
     //res.json(eval(questions[numquestion]));
     //console.log(questions[numquestion]);
@@ -59,7 +59,7 @@ router.get('/next', function(req, res, next) {
 
 //TP 4 :
 
-router.post('/aaa', function(req, res, next) {
+router.post('/ajoutquestion', function(req, res, next) {
     db.createquestion(req,res);
 });
 

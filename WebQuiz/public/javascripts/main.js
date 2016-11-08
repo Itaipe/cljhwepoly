@@ -4,9 +4,11 @@ $(function(){
     var r = 2; // c'est le numero de la reponse de la question qui est en train d'etre ajouter par un administrateur.
 
     var titre = $(document).attr('title');
-    //alert(titre);
+    
+    /*Nombre de questions total de l'examen, demandé par l'utilisateur
+      (stocké en localstorage car pas critique vu que c'est l'utilisateur lui même qui le renseigne) */
     var nbquestionexam = 0;
-    var nbquestionsexamrestantes = 0; // Le nombre de questions restantes au fur et a mesure que l'utilisateur répond
+     
     var laBonneReponse = 0; // La variable qui contient la bonne réponse d'une quesiton
     var note = 0; // Variable contenant la note
 
@@ -54,20 +56,21 @@ $(function(){
         if(typeof(Storage) !== "undefined"){
             var field = sessionStorage.getItem("field");
             nbquestionexam = sessionStorage.getItem("nbquestion");
-            nbquestionsexamrestantes = nbquestionexam;
+            //nbquestionsexamrestantes = nbquestionexam;
         } else {
             alert("Votre navigateur n'est pas compatible avec le stockage dans une session local");
         }
         //alert("field : " + field);
         //alert("nbquestion : " + nbquestion);
-        $.getJSON("/ajax/exam" + field + "?nbquestion=" + nbquestionexam, function(data) {
+        //$.getJSON("/ajax/exam" + field + "?nbquestion=" + nbquestionexam, function(data) { //Modif TP4
+        $.getJSON("/ajax/exam" + "?nbquestion=" + nbquestionexam + "&field=" + field, function(data) {
             laBonneReponse = data.bonnerep;
 
             sessionStorage.setItem("bonneReponse", laBonneReponse);
             // Cette variable est mise dans la sessionStorage pour pouvoir la récupérer dans les fonctions qui permettent de gérer le drag and drop
 
             $("#nombrequestion").text(nbquestionexam);
-            $("#idquestion").text(nbquestionexam - data.id + 1);
+            $("#idquestion").text(1);
             $("#domaine").text(data.domaine);
             //On stocke le domaine courant dans la session pour que l'on puisse l'afficher ensuite dans la bonne catégorie sur la page de résultats (détails)
             var domaine = data.domaine;
@@ -212,16 +215,27 @@ $(function(){
     $('#commencerexamen').on('click', function(e){
         var field = $('#fieldinput').val();
         nbquestionexam = $('#nbquestioninput').val();
-        //alert(field);
-        //alert(nbquestion);
-        if(typeof(Storage) !== "undefined"){
-            //alert("nbr de clefs stockees avant : " + sessionStorage.length);
-            sessionStorage.setItem("field", field);
-            sessionStorage.setItem("nbquestion", nbquestionexam);
-            //alert("nbr de clefs stockees apres : " + sessionStorage.length);
-        } else {
-            alert("Votre navigateur n'est pas compatible avec le stockage local");
-        }
+        
+        //On récupère sur le serveur le nombre maximum de questions en fonction du domaine
+        $.getJSON("/ajax/nombremaxquestions?field=" + field, function(data) {
+            var nombremaxquestion = data[0].nombrequestions;
+            
+            if (nbquestionexam > nombremaxquestion) {
+                //Si le nombre fourni est trop grand, on envoie un message d'erreur et on reste sur la meme page
+                alert("Vous ne pouvez avoir qu'au plus " + nombremaxquestion + " questions d'examen pour le domaine " + field + ".");
+            } else {
+                //Sinon, on stocke le domaine et nombre questions en localstorage (car non critiques vu que saisies par l'utilisateur) et on va sur la page examen
+                if(typeof(Storage) !== "undefined"){
+                    //alert("nbr de clefs stockees avant : " + sessionStorage.length);
+                    sessionStorage.setItem("field", field);
+                    sessionStorage.setItem("nbquestion", nbquestionexam);
+                    //alert("nbr de clefs stockees apres : " + sessionStorage.length);
+                } else {
+                    alert("Votre navigateur n'est pas compatible avec le stockage local");
+                }
+                document.location.href="/examination";
+            }
+        });
     });
 
     //Quand on est déja en examen, pour obtenir une nouvelle question lorsqu'on valide
@@ -241,33 +255,39 @@ $(function(){
         }
         console.log(">>>>> Note: " + note);
 
-        //console.log("Le nombre de questions choisi par l'utilisateur: " + nbquestionexam);
-        nbquestionsexamrestantes = nbquestionsexamrestantes - 1 ;
-        //console.log("Nombre des questions restantes: " + nbquestionsexamrestantes);
-
-        // On fait la redirection vers le resutat du coté du client car passer par le serveur n'est pas nécessaire /!\
-        if (nbquestionsexamrestantes === 0) {
-            sessionStorage.setItem("note", note);
-            sessionStorage.setItem("examcourantabandonne", "false");
-            document.location.href="/examinationResult";
-        }
-        else {
-            $.getJSON("/ajax/next", function(data) {
-                //alert(numeroquestion);
-                $('label, .answer br').remove();
-                $("#nbquestionposees").text(nbquestionexam - data.id);
-                $("#idquestion").text(nbquestionexam - data.id + 1);
-                $("#domaine").text(data.domaine);
-                $("#enonce").text(data.enonce);
-                $("#nbquestionreussies").text(note);
-                laBonneReponse = data.bonnerep;
-                sessionStorage.setItem("bonneReponse", laBonneReponse);
-                for (i = 0; i < data.nbreponses; i++) {
-                    $('.answer').prepend("<label draggable='true' ondragstart='drag(event)' id=\"answer" + i + "\" for=\"" + i + "\"><input type=\"hidden\" name=\"answer\" value=\"" + (i+1) + "\" id=\"" + i + "\"><span id=\"span" + i + "\"></span></label><br>");
-                    $('#span'+i).text("  " + data.reponses[i]);
-                }
-            });
-        }
+        /*On récupère l'avancée de l'examen sur le serveur (et l'appel de cette fonction
+          décrémente le nombre de questions automatiquement côté serveur) */
+        $.get("/ajax/getnbquestionsrestantes", function(data, status){
+            //alert("Data: " + data + "\nStatus: " + status);
+            var nbquestionsexamrestantes = data[0].nbquestionsexamrestantes;
+            
+            // Si l'examen est fini, on va sur la page de fin d'examen
+            if (parseInt(nbquestionsexamrestantes) - 1 === 0) {
+                sessionStorage.setItem("note", note);
+                sessionStorage.setItem("examcourantabandonne", "false");
+                document.location.href="/examinationResult";
+            }
+            else {
+                var field = sessionStorage.getItem("field");
+                $.getJSON("/ajax/next?field=" + field, function(data) {
+                    //alert(numeroquestion);
+                    $('label, .answer br').remove();
+                    //$("#nbquestionposees").text(nbquestionexam - data.id);
+                    $("#nbquestionposees").text(nbquestionexam - nbquestionsexamrestantes + 1);
+                    //$("#idquestion").text(nbquestionexam - data.id + 1);
+                    $("#idquestion").text(nbquestionexam - nbquestionsexamrestantes + 2);
+                    $("#domaine").text(data.domaine);
+                    $("#enonce").text(data.enonce);
+                    $("#nbquestionreussies").text(note);
+                    laBonneReponse = data.bonnerep;
+                    sessionStorage.setItem("bonneReponse", laBonneReponse);
+                    for (i = 0; i < data.nbreponses; i++) {
+                        $('.answer').prepend("<label draggable='true' ondragstart='drag(event)' id=\"answer" + i + "\" for=\"" + i + "\"><input type=\"hidden\" name=\"answer\" value=\"" + (i+1) + "\" id=\"" + i + "\"><span id=\"span" + i + "\"></span></label><br>");
+                        $('#span'+i).text("  " + data.reponses[i]);
+                    }
+                });
+            }
+        });
     });
 
     //Si on abandonne un examen, on va à la page terminale avec la note 0

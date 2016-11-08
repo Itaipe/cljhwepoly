@@ -14,7 +14,7 @@ var questionSchema = new Schema({
     bonnerep : Number
 });
 questionSchema.plugin(random);
-var Question = mongoose.model('tests', questionSchema);
+var Question = mongoose.model('questions', questionSchema);
 
 //Modèle représentant le nombre de questions par domaine dans la BD (dans la collection nombrequestions)
 var nombreQuestionsSchema = new Schema ({
@@ -22,6 +22,13 @@ var nombreQuestionsSchema = new Schema ({
    nombrequestions : Number
 });
 var nombreQuestions = mongoose.model('nombrequestions', nombreQuestionsSchema);
+
+
+var statsSchema = new Schema ({
+    id : String,
+    nbquestionsexamrestantes : Number
+});
+var stats = mongoose.model('stats', statsSchema);
 
 //Connexion à la base de données mongodb hébergée sur mongolab, avec l'utilisateur "user" ayant pour password : "pass"
 mongoose.connect('mongodb://user:pass@ds143737.mlab.com:43737/tp4');
@@ -84,5 +91,48 @@ exports.getRandomQuestion = function(req, res) {
         if (!err) {
            res.json(results);
         }
+    });
+};
+
+exports.getExamQuestions = function(req, res, questioncouranteexam) {
+    //console.log("debut getquestions");
+    var field = req.param("field");
+    //console.log("field : " + field);
+    var query = Question.find({domaine : field});
+    
+    query.exec(function(err, results) {
+        if (!err) {
+           //console.log("results quest courante : " + results[questioncouranteexam]);
+           res.json(results[questioncouranteexam]);
+        }
+    });
+};
+
+exports.setNombreQuestionsRestantes = function(req, res, nbquestion) {
+    stats.update({id: "questionsrestantes"}, {nbquestionsexamrestantes : nbquestion} , { multi : true }, function (err) {
+        if (err) { throw err; }
+        console.log('update ok');
+    });
+};
+
+exports.getNombreQuestionsRestantes = function(req, res) {
+    //On récupère le nombre de questions restantes qu'on envoie au client
+    stats.find({id: "questionsrestantes"}, function (err, data) {
+        if (err) { throw err; }
+        res.json(data);
+        //Puis on décrémente ce nombre (pour update l'avancée de l'examen)
+        var nouveaunombrequestions = parseInt(data[0].nbquestionsexamrestantes) - 1;
+        stats.update({id: "questionsrestantes"}, {nbquestionsexamrestantes : nouveaunombrequestions} , { multi : true }, function (err) {
+            if (err) { throw err; }
+            console.log('decrementation ok');
+        });
+    });
+};
+
+exports.getNombreMaxQuestions = function(req, res) {
+    var domaine = req.param("field");
+    nombreQuestions.find({domaine : domaine}, function (err, results) {
+        if (err) { throw err; }
+        res.json(results);
     });
 };

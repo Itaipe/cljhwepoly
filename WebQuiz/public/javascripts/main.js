@@ -379,8 +379,8 @@ $(function(){
                 $('#formulaireQuestion').html("<span id='messageAlerteAjoutQuestionOK'>Votre question a été ajouté avec succès</span>");
                 $('#formulaireQuestion1').html("<br><span id='messageAlerteAjoutQuestionOK'>Votre question a été ajouté avec succès</span><br><br>");
             },
-            error: function() {
-                console.log('ERROR : Save not done');
+            error: function(data) {
+                console.log('ERROR : Save not done : ' + data.data);
                 $('#formulaireQuestion').html("<span id='messageAlerteAjoutQuestionNOK'>Votre question n'a pas pu être ajouté</span>");
                 $('#formulaireQuestion1').html("<br><span id='messageAlerteAjoutQuestionNOK'>Votre question n'a pas pu être ajouté</span><br><br>");
             }

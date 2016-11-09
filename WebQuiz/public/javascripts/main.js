@@ -19,6 +19,13 @@ $(function(){
     $.getJSON("/ajax/getstats", function(data) {
         $(".nb_fasttest_effectues").text(data.nb_fasttest_effectues);
         $(".nb_fasttest_reussis").text(data.nb_fasttest_reussis);
+        $(".nb_exam_effectues").text(data.nb_exam_effectues);
+        $(".nb_exam_abandonnes").text(data.nb_exam_abandonnes);
+        if (data.tauxexam === null) {
+            $(".tauxexamphrase").text("Aucun examen n'a été effectué pour l'instant");
+        } else {
+            $(".tauxexam").text(data.tauxexam + " % ");
+        }
     });
     /*if (localStorage.getItem("nb_fasttest_effectues") !== null) {
         $(".nb_fasttest_effectues").text(localStorage.getItem("nb_fasttest_effectues"));
@@ -45,9 +52,9 @@ $(function(){
             //laBonneReponse = data.bonnerep;
             //On stocke dans la session courante l'id et le domaine de la question pour pouvoir ensuite récupérer la réponse associée
             //alert("idfasttestcourant set : " + data.id);
-            sessionStorage.setItem("idfasttestcourant", data.id);
+            sessionStorage.setItem("idquestioncourante", data.id);
             //alert("iddomainecourant set : " + data.domaine);
-            sessionStorage.setItem("domainefasttestcourant", data.domaine);
+            sessionStorage.setItem("domainecourant", data.domaine);
             
             //sessionStorage.setItem("bonneReponse", laBonneReponse);
             // Cette variable est mise dans la sessionStorage pour pouvoir la récupérer dans les fonctions qui permettent de gérer le drag and drop
@@ -75,11 +82,13 @@ $(function(){
         //alert("nbquestion : " + nbquestion);
         //$.getJSON("/ajax/exam" + field + "?nbquestion=" + nbquestionexam, function(data) { //Modif TP4
         $.getJSON("/ajax/exam" + "?nbquestion=" + nbquestionexam + "&field=" + field, function(data) {
-            laBonneReponse = data.bonnerep;
+            //laBonneReponse = data.bonnerep;
 
-            sessionStorage.setItem("bonneReponse", laBonneReponse);
+            //sessionStorage.setItem("bonneReponse", laBonneReponse);
             // Cette variable est mise dans la sessionStorage pour pouvoir la récupérer dans les fonctions qui permettent de gérer le drag and drop
 
+           sessionStorage.setItem("idquestioncourante", data.id);
+            
             $("#nombrequestion").text(nbquestionexam);
             $("#idquestion").text(1);
             $("#domaine").text(data.domaine);
@@ -88,6 +97,7 @@ $(function(){
             if (sessionStorage.getItem("domaine") !== domaine) {
                 sessionStorage.setItem("domaine", domaine);
             }
+            sessionStorage.setItem("domainecourant", data.domaine);
             $("#enonce").text(data.enonce);
             for (i = 0; i < data.nbreponses; i++) {
                 $('.answer').prepend("<label draggable='true' ondragstart='drag(event)' id=\"answer" + i + "\" for=\"" + i + "\"><input type=\"hidden\" name=\"answer\" value=\"" + (i+1) + "\" id=\"" + i + "\"><span id=\"span" + i + "\"></span></label><br>");
@@ -186,8 +196,8 @@ $(function(){
         
         var reponseJson = {
             reponsefournie : reponseCourante,
-            id : sessionStorage.getItem("idfasttestcourant"),
-            domaine : sessionStorage.getItem("domainefasttestcourant")
+            id : sessionStorage.getItem("idquestioncourante"),
+            domaine : sessionStorage.getItem("domainecourant")
         };
         $.ajax({
             type: 'POST',
@@ -227,13 +237,13 @@ $(function(){
         console.log(">>>>> Note: " + note);
         */
         $.getJSON("/ajax/fasttest", function(data) {
-            sessionStorage.setItem("idfasttestcourant", data.id); //On set l'ID de la question pour que l'on puisse ensuite l'envoyer au serveur pour qu'il cherche la réponse correspondante
+            sessionStorage.setItem("idquestioncourante", data.id); //On set l'ID de la question pour que l'on puisse ensuite l'envoyer au serveur pour qu'il cherche la réponse correspondante
             $('label, .answer br').remove();
             $("#nbquestionposees").text(nbquestionfasttest);
             nbquestionfasttest = nbquestionfasttest + 1;
             $("#idquestion").text(nbquestionfasttest);
             $("#domaine").text(data.domaine);
-            sessionStorage.setItem("domainefasttestcourant", data.domaine); //On set le domaine en local pour que le client puisse ensuite l'envoyer au serveur en meme temps que la réponse, pour que le serveur puisse savoir de quelle question il s'agit (avec l'id et le domaine)
+            sessionStorage.setItem("domainecourant", data.domaine); //On set le domaine en local pour que le client puisse ensuite l'envoyer au serveur en meme temps que la réponse, pour que le serveur puisse savoir de quelle question il s'agit (avec l'id et le domaine)
             $("#enonce").text(data.enonce);
             $("#nbquestionreussies").text(note);
             //laBonneReponse = data.bonnerep;
@@ -280,14 +290,34 @@ $(function(){
         var reponseCourante = $('#chosenAnswer input[name=answer]').val(); // La réponse de l'utilisateur
         //console.log("Réponse de l'utilisateur: " + reponseCourante);
         //console.log("La bonne réponse: " + laBonneReponse);
-        if (laBonneReponse != reponseCourante)
+        
+        
+        var reponseJson = {
+            reponsefournie : reponseCourante,
+            id : sessionStorage.getItem("idquestioncourante"),
+            domaine : sessionStorage.getItem("domainecourant")
+        };
+        $.ajax({
+            type: 'POST',
+            url: '/ajax/postexam',
+            dataType: 'json',
+            data: reponseJson,
+            success: function(data) {
+                console.log('SUCCESS : Save done : ' + data.data);
+            },
+            error: function() {
+                console.log('Erreur dans le post de la réponse courante');
+            }
+        });
+        
+       /* if (laBonneReponse != reponseCourante)
         {
             console.log("Mauvaise réponse !");
         } else {
             console.log("Bonne réponse !");
             note++;
         }
-        console.log(">>>>> Note: " + note);
+        console.log(">>>>> Note: " + note);*/
 
         /*On récupère l'avancée de l'examen sur le serveur (et l'appel de cette fonction
           décrémente le nombre de questions automatiquement côté serveur) */
@@ -313,6 +343,8 @@ $(function(){
                     $("#domaine").text(data.domaine);
                     $("#enonce").text(data.enonce);
                     $("#nbquestionreussies").text(note);
+                    sessionStorage.setItem("idquestioncourante", data.id);
+                    sessionStorage.setItem("domainecourant", data.domaine);
                     laBonneReponse = data.bonnerep;
                     sessionStorage.setItem("bonneReponse", laBonneReponse);
                     for (i = 0; i < data.nbreponses; i++) {
@@ -507,10 +539,10 @@ function drop(ev) {
     var reponsefournie = sessionStorage.getItem("reponseFournieDrag");
     //alert("reponse fournie drop : " + reponsefournie);
     
-    var id = sessionStorage.getItem("idfasttestcourant");
+    var id = sessionStorage.getItem("idquestioncourante");
     //alert("idfasttestcourant drop : " + id);
     
-    var domaine = sessionStorage.getItem("domainefasttestcourant");
+    var domaine = sessionStorage.getItem("domainecourant");
     //alert("domainefasttestcourant drop : " + domaine);
     
     ev.preventDefault();

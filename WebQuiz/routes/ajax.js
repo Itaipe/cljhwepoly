@@ -50,7 +50,11 @@ router.get('/nombremaxquestions', function(req, res, next) {
 });
 
 router.post('/validerfasttest', function(req, res, next) {
-    db.getReponse(req, res);
+    db.getReponseFastTest(req, res);
+});
+
+router.post('/repondreexam', function(req, res, next) {
+    db.postexam(req, res);
 });
 
 router.get('/getbooleanreponsejuste', function(req, res, next) {

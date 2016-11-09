@@ -154,7 +154,7 @@ exports.getNombreMaxQuestions = function(req, res) {
 };
 
 
-exports.getReponse = function(req, res) {
+exports.getReponseFastTest = function(req, res) {
     var domaine = req.body.domaine;
     var id = req.body.id;
     console.log("id stats : " + id);
@@ -208,6 +208,26 @@ exports.getReponse = function(req, res) {
     });
 };
 
+exports.postexam = function(req, res) {
+    var domaine = req.body.domaine;
+    var id = req.body.id;
+    var reponsefournie = req.body.reponsefournie;
+    
+    Reponse.find({domaine : domaine, id : id}, function (err, results) {
+        if (bonnerep != reponsefournie) {
+            console.log("Mauvaise réponse !");
+        } else {
+            stats.find({id: "noteexam"}, function(err, resultsnote) {
+                if (err) { throw err; };
+                var nouvellenote = parseInt(resultsnote[0].note) + 1;
+                stats.update({id: "noteexam"}, {note: nouvellenote}, {multi : true}, function (err) {
+                    if (err) { throw err; };
+                });
+            });
+        }
+    });
+};
+
 exports.getBooleanreponsejuste = function(req, res) {
     var domaine = req.param("domaine");
     console.log("domaine db : " + domaine);
@@ -242,16 +262,31 @@ exports.getstats = function(req, res) {
         stats.find({id: "nb_fasttest_reussis"}, function(err, resultsfasttestreussi) {
             if (err) { throw err; };
             var statvaluereussi = resultsfasttestreussi[0].statvalue;
-            var docjsonreturn = {
-                nb_fasttest_reussis : statvaluereussi,
-                nb_fasttest_effectues : statvalueeffectue
-            };
-            res.json(eval(docjsonreturn));
+            stats.find({id: "nb_exam_effectues"}, function(err, resultsexameffectue) {
+                if (err) { throw err; };
+                var statvalueexameff = resultsexameffectue[0].statvalue;
+                stats.find({id: "nb_exam_abandonnes"}, function(err, resultsexamabandon) {
+                    if (err) { throw err; };
+                    var statvalueexamabandon = resultsexamabandon[0].statvalue;
+                    stats.find({id: "tauxexam"}, function(err, resultstaux) {
+                        if (err) { throw err; };
+                        var taux = resultstaux[0].statvalue;
+                        var docjsonreturn = {
+                            nb_fasttest_reussis : statvaluereussi,
+                            nb_fasttest_effectues : statvalueeffectue,
+                            nb_exam_effectues : statvalueexameff,
+                            nb_exam_abandonnes : statvalueexamabandon,
+                            tauxexam : taux
+                        };
+                        res.json(eval(docjsonreturn));
+                    });
+                });
+            });
         });
     });
 };
-
-
+            
+            
 // Supprime toutes les questions de la base de donnée.
 exports.deleteBD = function(rea, res, next) {
     Tests.remove({}, function(err, removed){

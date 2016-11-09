@@ -175,8 +175,14 @@ exports.getReponse = function(req, res) {
 
                 //On vérifie que la réponse fournie est bonne
                 if (bonnerep != reponsefournie) {
+                    stats.find({id: "note"}, function(err, resultsnote) {
+                        if (err) { throw err; };
+                        nouvellenote = parseInt(resultsnote[0].note);
+                    });
+
                     var docjsonreturn = {
-                        nb_fasttest_effectues : nouvellestatvalueeffectue
+                        nb_fasttest_effectues : nouvellestatvalueeffectue,
+                        note_courante : nouvellenote
                     };
                     res.json(eval(docjsonreturn));
                     console.log("Mauvaise réponse !");
@@ -184,11 +190,12 @@ exports.getReponse = function(req, res) {
                     //Si c'est le cas, on récupère la note de l'utilsateur puis on l'incrémente
                     stats.find({id: "note"}, function(err, resultsnote) {
                         if (err) { throw err; };
-                        var nouvellenote = parseInt(resultsnote[0].note) + 1;
+                        nouvellenote = parseInt(resultsnote[0].note) + 1;
                         stats.update({id: "note"}, {note: nouvellenote}, {multi : true}, function (err) {
                             if (err) { throw err; };
                         })
                     });
+
                     //et On récupère le nombre de fasttest réussis puis on l'incrémente
                     stats.find({id: "nb_fasttest_reussis"}, function(err, resultsreussi) {
                         if (err) { throw err; };
@@ -197,7 +204,8 @@ exports.getReponse = function(req, res) {
                             if (err) { throw err; };
                             var docjsonreturn = {
                                 nb_fasttest_reussis : nouvellestatvaluereussi,
-                                nb_fasttest_effectues : nouvellestatvalueeffectue
+                                nb_fasttest_effectues : nouvellestatvalueeffectue,
+                                note_courante : nouvellenote
                             };
                             res.json(eval(docjsonreturn));
                         })
@@ -262,3 +270,13 @@ exports.deleteBD = function(rea, res, next) {
         }
     });
 };
+
+exports.initialize_note_to_zero = function() {
+    stats.find({id: "note"}, function(err, resultsnote) {
+        if (err) { throw err; };
+        nouvellenote = parseInt(resultsnote[0].note) + 1;
+        stats.update({id: "note"}, {note: 0}, {multi : true}, function (err) {
+            if (err) { throw err; };
+        })
+    });
+}

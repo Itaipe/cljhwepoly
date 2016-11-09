@@ -53,6 +53,10 @@ router.post('/validerfasttest', function(req, res, next) {
     db.getReponse(req, res);
 });
 
+router.post('/initialize_note_to_zero', function(req, res, next) {
+    db.initialize_note_to_zero(req, res);
+});
+
 router.get('/getbooleanreponsejuste', function(req, res, next) {
     db.getBooleanreponsejuste(req,res);
 });

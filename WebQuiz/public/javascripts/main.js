@@ -13,8 +13,8 @@ $(function(){
     var note = 0; // Variable contenant la note
 
     var nbquestionfasttest = 1;
-    
-    
+
+
     //Affichage des bonnes statistiques au chargement de la page
     $.getJSON("/ajax/getstats", function(data) {
         $(".nb_fasttest_effectues").text(data.nb_fasttest_effectues);
@@ -41,6 +41,10 @@ $(function(){
     //Si on vient de charger la page test rapide, on génère une question aléatoire
     if (titre === 'WebQuiz : Test Rapide') {
 
+        $.post('/ajax/initialize_note_to_zero', function() {
+
+        });
+
         $.getJSON("/ajax/fasttest", function(data) {
             //laBonneReponse = data.bonnerep;
             //On stocke dans la session courante l'id et le domaine de la question pour pouvoir ensuite récupérer la réponse associée
@@ -48,7 +52,7 @@ $(function(){
             sessionStorage.setItem("idfasttestcourant", data.id);
             //alert("iddomainecourant set : " + data.domaine);
             sessionStorage.setItem("domainefasttestcourant", data.domaine);
-            
+
             //sessionStorage.setItem("bonneReponse", laBonneReponse);
             // Cette variable est mise dans la sessionStorage pour pouvoir la récupérer dans les fonctions qui permettent de gérer le drag and drop
 
@@ -183,7 +187,7 @@ $(function(){
         var reponseCourante = $('#chosenAnswer input[name=answer]').val(); // La réponse de l'utilisateur
         //console.log("Réponse de l'utilisateur: " + reponseCourante);
         //console.log("La bonne réponse: " + laBonneReponse);
-        
+
         var reponseJson = {
             reponsefournie : reponseCourante,
             id : sessionStorage.getItem("idfasttestcourant"),
@@ -198,6 +202,7 @@ $(function(){
                 console.log('SUCCESS : Save done : ' + data.data);
                 $(".nb_fasttest_reussis").text(data.nb_fasttest_reussis);
                 $(".nb_fasttest_effectues").text(data.nb_fasttest_effectues);
+                $("#nbquestionreussies").text(data.note_courante);
             },
             error: function() {
                 console.log('Erreur dans le post de la réponse courante');
@@ -494,7 +499,7 @@ function drag(ev) {
     sessionStorage.setItem("reponseFournieDrag",reponseCourante);
     //Ceci pour pouvoir accéder à la variable dans les fonctions pour le drag and drop
     //le fait qu'elle soit stockée en local ne pose pas de problème car c'est l'utilisateur qui l'a renseignée
-    
+
     //alert("Réponse séléctionnée : " + reponseCourante);
 }
 
@@ -503,24 +508,24 @@ function drop(ev) {
     // On récupére les deux variables concernant la bonne réponse et la réponse choisi par l'utilisateur
     //var laBonneReponse = sessionStorage.getItem("bonneReponse");
     //A commenter la ligne au dessus
-    
+
     var reponsefournie = sessionStorage.getItem("reponseFournieDrag");
     //alert("reponse fournie drop : " + reponsefournie);
-    
+
     var id = sessionStorage.getItem("idfasttestcourant");
     //alert("idfasttestcourant drop : " + id);
-    
+
     var domaine = sessionStorage.getItem("domainefasttestcourant");
     //alert("domainefasttestcourant drop : " + domaine);
-    
+
     ev.preventDefault();
      $('#chosenAnswer input').remove();
         var data = ev.dataTransfer.getData("text");
         ev.target.appendChild(document.getElementById(data));
         $('label').attr("draggable", 'false');
         $('#drag_and_drop').remove();
-    $.getJSON("/ajax/getbooleanreponsejuste?id=" + id + "&domaine=" + domaine + "&reponsefournie=" + reponsefournie, function(data, status){      
-       
+    $.getJSON("/ajax/getbooleanreponsejuste?id=" + id + "&domaine=" + domaine + "&reponsefournie=" + reponsefournie, function(data, status){
+
         //console.log("_____________\nLa réponse : " + laBonneReponse + "\nRéponse choisie : " + reponseCourante);
 
         // On fixe la couleur en fonction de la réponse même avant de valider la réponse
@@ -530,7 +535,7 @@ function drop(ev) {
             $('#chosenAnswer').css('background-color', '#90EE90');
         }
     });
-    
+
 }
 
 // Fonction qui initialise le formulaire

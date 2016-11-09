@@ -36,9 +36,15 @@ $(function(){
     //Si on vient de charger la page test rapide, on génère une question aléatoire
     if (titre === 'WebQuiz : Test Rapide') {
         $.getJSON("/ajax/fasttest", function(data) {
-            laBonneReponse = data.bonnerep;
+            //laBonneReponse = data.bonnerep;
 
-            sessionStorage.setItem("bonneReponse", laBonneReponse);
+            //On stocke dans la session courante l'id et le domaine de la question pour pouvoir ensuite récupérer la réponse associée
+            //alert("idfasttestcourant set : " + data.id);
+            sessionStorage.setItem("idfasttestcourant", data.id);
+            //alert("iddomainecourant set : " + data.domaine);
+            sessionStorage.setItem("domainefasttestcourant", data.domaine);
+            
+            //sessionStorage.setItem("bonneReponse", laBonneReponse);
             // Cette variable est mise dans la sessionStorage pour pouvoir la récupérer dans les fonctions qui permettent de gérer le drag and drop
 
             nbquestionfasttest = 1;
@@ -85,6 +91,7 @@ $(function(){
         });
     }
 
+    //A MAJ
     if (titre === 'WebQuiz : Resulat examen') {
         var result = sessionStorage.getItem("note");
         var nombreTotaleDeQuestion = sessionStorage.getItem("nbquestion");
@@ -171,7 +178,27 @@ $(function(){
         var reponseCourante = $('#chosenAnswer input[name=answer]').val(); // La réponse de l'utilisateur
         //console.log("Réponse de l'utilisateur: " + reponseCourante);
         //console.log("La bonne réponse: " + laBonneReponse);
-        if (laBonneReponse != reponseCourante)
+        
+        var reponseJson = {
+            reponsefournie : reponseCourante,
+            id : sessionStorage.getItem("idfasttestcourant"),
+            domaine : sessionStorage.getItem("domainefasttestcourant")
+        };
+        $.ajax({
+            type: 'POST',
+            url: '/ajax/validerfasttest',
+            dataType: 'json',
+            data: reponseJson,
+            success: function(data) {
+                console.log('SUCCESS : Save done : ' + data.data);
+                $(".nb_fasttest_reussis").text(data.nb_fasttest_reussis);
+                $(".nb_fasttest_effectues").text(data.nb_fasttest_effectues);
+            },
+            error: function() {
+                console.log('Erreur dans le post de la réponse courante');
+            }
+        });
+        /*if (laBonneReponse != reponseCourante)
         {
             console.log("Mauvaise réponse !");
         } else {
@@ -193,8 +220,9 @@ $(function(){
         localStorage.setItem("nb_fasttest_effectues", nb_fasttest_effectues);
         $(".nb_fasttest_effectues").text(nb_fasttest_effectues);
         console.log(">>>>> Note: " + note);
-
+        */
         $.getJSON("/ajax/fasttest", function(data) {
+            sessionStorage.setItem("idfasttestcourant", data.id); //On set l'ID de la question pour que l'on puisse ensuite l'envoyer au serveur pour qu'il cherche la réponse correspondante
             $('label, .answer br').remove();
             $("#nbquestionposees").text(nbquestionfasttest);
             nbquestionfasttest = nbquestionfasttest + 1;
@@ -202,8 +230,8 @@ $(function(){
             $("#domaine").text(data.domaine);
             $("#enonce").text(data.enonce);
             $("#nbquestionreussies").text(note);
-            laBonneReponse = data.bonnerep;
-            sessionStorage.setItem("bonneReponse", laBonneReponse); // Pour l'appel des fonctions pour drag and drop
+            //laBonneReponse = data.bonnerep;
+            //sessionStorage.setItem("bonneReponse", laBonneReponse); // Pour l'appel des fonctions pour drag and drop
             for (i = 0; i < data.nbreponses; i++) {
                 $('.answer').prepend("<label draggable='true' ondragstart='drag(event)' id=\"answer" + i + "\" for=\"" + i + "\"><input type=\"hidden\" name=\"answer\" value=\"" + (i+1) + "\" id=\"" + i + "\"><span id=\"span" + i + "\"></span></label><br>");
                 $('#span'+i).text("  " + data.reponses[i]);
@@ -440,31 +468,46 @@ function drag(ev) {
     } else if (reponseCourante == "answer4") {
         reponseCourante = 5;
     }
-    sessionStorage.setItem("reponseCouranteDrag",reponseCourante); // Ceci pour pouvoir accéder à la variable dans les fonctions pour le drag and drop
-    console.log("Réponse séléctionnée : " + reponseCourante);
+    sessionStorage.setItem("reponseFournieDrag",reponseCourante);
+    //Ceci pour pouvoir accéder à la variable dans les fonctions pour le drag and drop
+    //le fait qu'elle soit stockée en local ne pose pas de problème car c'est l'utilisateur qui l'a renseignée
+    
+    //alert("Réponse séléctionnée : " + reponseCourante);
 }
 
 function drop(ev) {
 
     // On récupére les deux variables concernant la bonne réponse et la réponse choisi par l'utilisateur
-    var laBonneReponse = sessionStorage.getItem("bonneReponse");
-    var reponseCourante = sessionStorage.getItem("reponseCouranteDrag");
-
+    //var laBonneReponse = sessionStorage.getItem("bonneReponse");
+    //A commenter la ligne au dessus
+    
+    var reponsefournie = sessionStorage.getItem("reponseFournieDrag");
+    //alert("reponse fournie drop : " + reponsefournie);
+    
+    var id = sessionStorage.getItem("idfasttestcourant");
+    //alert("idfasttestcourant drop : " + id);
+    
+    var domaine = sessionStorage.getItem("domainefasttestcourant");
+    //alert("domainefasttestcourant drop : " + domaine);
+    
     ev.preventDefault();
-    $('#chosenAnswer input').remove();
-    var data = ev.dataTransfer.getData("text");
-    ev.target.appendChild(document.getElementById(data));
-    $('label').attr("draggable", 'false');
-    $('#drag_and_drop').remove();
-    console.log("_____________\nLa réponse : " + laBonneReponse + "\nRéponse choisie : " + reponseCourante);
+     $('#chosenAnswer input').remove();
+        var data = ev.dataTransfer.getData("text");
+        ev.target.appendChild(document.getElementById(data));
+        $('label').attr("draggable", 'false');
+        $('#drag_and_drop').remove();
+    $.getJSON("/ajax/getbooleanreponsejuste?id=" + id + "&domaine=" + domaine + "&reponsefournie=" + reponsefournie, function(data, status){      
+       
+        //console.log("_____________\nLa réponse : " + laBonneReponse + "\nRéponse choisie : " + reponseCourante);
 
-    // On fixe la couleur en fonction de la réponse même avant de valider la réponse
-    if (laBonneReponse != reponseCourante)
-    {
-        $('#chosenAnswer').css('background-color', '#FA8072');
-    } else {
-        $('#chosenAnswer').css('background-color', '#90EE90');
-    }
+        // On fixe la couleur en fonction de la réponse même avant de valider la réponse
+        if (data.questionbonne === false) {
+            $('#chosenAnswer').css('background-color', '#FA8072');
+        } else {
+            $('#chosenAnswer').css('background-color', '#90EE90');
+        }
+    });
+    
 }
 
 // Fonction qui initialise le formulaire

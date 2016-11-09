@@ -45,4 +45,12 @@ router.get('/nombremaxquestions', function(req, res, next) {
    console.log("fin ajax");
 });
 
+router.post('/validerfasttest', function(req, res, next) {
+    db.getReponse(req, res);
+});
+
+router.get('/getbooleanreponsejuste', function(req, res, next) {
+    db.getBooleanreponsejuste(req,res);
+});
+
 module.exports = router;

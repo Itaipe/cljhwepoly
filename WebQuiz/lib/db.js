@@ -16,6 +16,14 @@ var questionSchema = new Schema({
 questionSchema.plugin(random);
 var Question = mongoose.model('questions', questionSchema);
 
+//Modèle représentant les réponses aux questions fournies
+var reponseSchema = new Schema({
+   id : Number,
+   domaine : String,
+   bonnerep : Number
+});
+var Reponse = mongoose.model('reponses', reponseSchema);
+
 //Modèle représentant le nombre de questions par domaine dans la BD (dans la collection nombrequestions)
 var nombreQuestionsSchema = new Schema ({
    domaine : String,
@@ -26,7 +34,9 @@ var nombreQuestions = mongoose.model('nombrequestions', nombreQuestionsSchema);
 
 var statsSchema = new Schema ({
     id : String,
-    nbquestionsexamrestantes : Number
+    nbquestionsexamrestantes : Number,
+    note : Number,
+    statvalue : Number
 });
 var stats = mongoose.model('stats', statsSchema);
 
@@ -134,4 +144,81 @@ exports.getNombreMaxQuestions = function(req, res) {
         if (err) { throw err; }
         res.json(results);
     });
+};
+
+exports.getReponse = function(req, res) {
+    var domaine = req.body.domaine;
+    var id = req.body.id;
+    console.log("id stats : " + id);
+    var reponsefournie = req.body.reponsefournie;
+    console.log("reponsefournie stats : " + reponsefournie);
+    
+    //On récupère la réponse correspondant à la question courante
+    Reponse.find({domaine : domaine, id : id}, function (err, results) {
+        var bonnerep = results[0].bonnerep;
+        //On récupère le nombre de fasttest effectués puis on l'incrémente
+        stats.find({id: "nb_fasttest_effectues"}, function(err, resultsfasttesteffectue) {
+            if (err) { throw err; };
+            var nouvellestatvalueeffectue = parseInt(resultsfasttesteffectue[0].statvalue) + 1;
+            stats.update({id: "nb_fasttest_effectues"}, {statvalue: nouvellestatvalueeffectue}, {multi : true}, function (err) {
+                if (err) { throw err; };
+                
+                console.log("bonnerep stats : " + bonnerep);
+
+                //On vérifie que la réponse fournie est bonne
+                if (bonnerep != reponsefournie) {
+                    console.log("Mauvaise réponse !");
+                } else {
+                    //Si c'est le cas, on récupère la note de l'utilsateur puis on l'incrémente
+                    stats.find({id: "note"}, function(err, resultsnote) {
+                        if (err) { throw err; };
+                        var nouvellenote = parseInt(resultsnote[0].note) + 1;
+                        stats.update({id: "note"}, {note: nouvellenote}, {multi : true}, function (err) {
+                            if (err) { throw err; };
+                        })
+                    });
+                    //et On récupère le nombre de fasttest réussis puis on l'incrémente
+                    stats.find({id: "nb_fasttest_reussis"}, function(err, resultsreussi) {
+                        if (err) { throw err; };
+                        var nouvellestatvaluereussi = parseInt(resultsreussi[0].statvalue) + 1;
+                        stats.update({id: "nb_fasttest_reussis"}, {statvalue: nouvellestatvaluereussi}, {multi : true}, function (err) {
+                            if (err) { throw err; };
+                            var docjsonreturn = {
+                                nb_fasttest_reussis : nouvellestatvaluereussi,
+                                nb_fasttest_effectues : nouvellestatvalueeffectue
+                            };
+                            res.json(docjsonreturn);
+                        })
+                    });
+                }                
+            })
+        });
+    });
+};
+
+exports.getBooleanreponsejuste = function(req, res) {
+    var domaine = req.param("domaine");
+    console.log("domaine db : " + domaine);
+    var id = req.param("id");
+    console.log("id db : " + id);
+    var reponsefournie = req.param("reponsefournie");
+    console.log("rep fournie db : " + reponsefournie);
+    
+    Reponse.find({domaine : domaine, id : id}, function (err, results) {
+        console.log("bonnerep db : " + results[0].bonnerep);
+        if (results[0].bonnerep != reponsefournie) {
+            //var jsonresult = {"questionbonne" : false};
+            //console.log("false : " + jsonresult);
+            ///res.json(jsonresult);
+            console.log("false");
+            res.json({questionbonne : false});   
+        } else {
+            //var jsonresult = {"questionbonne" : true};
+            //console.log("true : " + jsonresult);
+            //res.json(jsonresult);
+            console.log("true");
+            res.json({questionbonne : true});   
+        }
+    });
+    console.log("fin bd bollean");
 };

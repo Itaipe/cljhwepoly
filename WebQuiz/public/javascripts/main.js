@@ -233,6 +233,7 @@ $(function(){
             nbquestionfasttest = nbquestionfasttest + 1;
             $("#idquestion").text(nbquestionfasttest);
             $("#domaine").text(data.domaine);
+            sessionStorage.setItem("domainefasttestcourant", data.domaine); //On set le domaine en local pour que le client puisse ensuite l'envoyer au serveur en meme temps que la réponse, pour que le serveur puisse savoir de quelle question il s'agit (avec l'id et le domaine)
             $("#enonce").text(data.enonce);
             $("#nbquestionreussies").text(note);
             //laBonneReponse = data.bonnerep;

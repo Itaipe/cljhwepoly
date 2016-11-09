@@ -4,11 +4,11 @@ $(function(){
     var r = 2; // c'est le numero de la reponse de la question qui est en train d'etre ajouter par un administrateur.
 
     var titre = $(document).attr('title');
-    
+
     /*Nombre de questions total de l'examen, demandé par l'utilisateur
       (stocké en localstorage car pas critique vu que c'est l'utilisateur lui même qui le renseigne) */
     var nbquestionexam = 0;
-     
+
     var laBonneReponse = 0; // La variable qui contient la bonne réponse d'une quesiton
     var note = 0; // Variable contenant la note
 
@@ -215,11 +215,11 @@ $(function(){
     $('#commencerexamen').on('click', function(e){
         var field = $('#fieldinput').val();
         nbquestionexam = $('#nbquestioninput').val();
-        
+
         //On récupère sur le serveur le nombre maximum de questions en fonction du domaine
         $.getJSON("/ajax/nombremaxquestions?field=" + field, function(data) {
             var nombremaxquestion = data[0].nombrequestions;
-            
+
             if (nbquestionexam > nombremaxquestion) {
                 //Si le nombre fourni est trop grand, on envoie un message d'erreur et on reste sur la meme page
                 alert("Vous ne pouvez avoir qu'au plus " + nombremaxquestion + " questions d'examen pour le domaine " + field + ".");
@@ -260,7 +260,7 @@ $(function(){
         $.get("/ajax/getnbquestionsrestantes", function(data, status){
             //alert("Data: " + data + "\nStatus: " + status);
             var nbquestionsexamrestantes = data[0].nbquestionsexamrestantes;
-            
+
             // Si l'examen est fini, on va sur la page de fin d'examen
             if (parseInt(nbquestionsexamrestantes) - 1 === 0) {
                 sessionStorage.setItem("note", note);
@@ -364,6 +364,7 @@ $(function(){
             $('#formulaireQuestion1').html("<br><span id='messageAlerteAjoutQuestionNOK'>Aucun des champs ne doit être vide</span><br><br>");
             return;
         }
+
         $('#formulaireQuestion').html("");
         $('#formulaireQuestion1').html("");
 

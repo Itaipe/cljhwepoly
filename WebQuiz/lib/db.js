@@ -40,13 +40,20 @@ exports.createquestion = function(req, res, next) {
     var nbreponses = req.body.nbreponses;
     var reponses = req.body['reponses[]'];
 
-    /*
-    if ( !(domaine === "HTML" || domaine === "CSS" || domaine === "JavaScript")
-    || (enonce === "") || (parseInt(nbreponses) < 2) || (nbreponses === "") || (bonnerep === "")
-    || (parseInt(bonnerep) < 1) || (parseInt(nbreponses) > parseInt(nbreponses)) || (reponses.length < 2) ) {
+    console.log(enonce);
+
+    // Validation du formulaire de création de question (Côté serveur)
+    if ( enonce === "" || domaine==="" || reponses.length < 2 || reponses[0] === ""
+    || reponses[1] === "" || nbreponses === "" || bonnerep === ""  || parseInt(bonnerep) < 1
+    || parseInt(bonnerep) > parseInt(nbreponses) ) {
+
+        console.log("Erreur 400 envoyée au client");
         res.status(400);
+        res.end();
+
     } else {
-    */
+
+        console.log("NOK");
         //détermination de l'id de la question en fonction du domaine
         nombreQuestions.find({domaine : domaine}, function (err, comms) {
             if (err) { throw err; }
@@ -80,9 +87,7 @@ exports.createquestion = function(req, res, next) {
             });
 
         });
-    /*
     }
-    */
 };
 
 //Récupère une question aléatoire de la base de données (pour les tests rapides)

@@ -23,16 +23,20 @@ router.get('/exam', function(req, res, next) {
     //On met à jour le nombre de questions de l'examen sur la base de données
     db.setNombreQuestionsRestantes(req, res, parseInt(req.param("nbquestion")));
     db.getExamQuestions(req, res, questioncourante);
-    
+
 });
 
 router.get('/next', function(req, res, next) {
         questioncourante = questioncourante + 1;
-        db.getExamQuestions(req, res, questioncourante);   
+        db.getExamQuestions(req, res, questioncourante);
 });
 
 router.post('/ajoutquestion', function(req, res, next) {
     db.createquestion(req,res);
+});
+
+router.post('/deleteBD', function(req, res, next) {
+    db.deleteBD(req,res);
 });
 
 router.get('/getnbquestionsrestantes', function(req, res, next) {
@@ -41,7 +45,7 @@ router.get('/getnbquestionsrestantes', function(req, res, next) {
 
 router.get('/nombremaxquestions', function(req, res, next) {
     console.log("debut ajax");
-   db.getNombreMaxQuestions(req, res); 
+   db.getNombreMaxQuestions(req, res);
    console.log("fin ajax");
 });
 

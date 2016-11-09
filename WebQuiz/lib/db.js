@@ -14,7 +14,7 @@ var questionSchema = new Schema({
     bonnerep : Number
 });
 questionSchema.plugin(random);
-var Question = mongoose.model('questions', questionSchema);
+var Tests = mongoose.model('tests', questionSchema);
 
 //Modèle représentant les réponses aux questions fournies
 var reponseSchema = new Schema({
@@ -43,6 +43,7 @@ var stats = mongoose.model('stats', statsSchema);
 //Connexion à la base de données mongodb hébergée sur mongolab, avec l'utilisateur "user" ayant pour password : "pass"
 mongoose.connect('mongodb://user:pass@ds143737.mlab.com:43737/tp4');
 
+
 exports.createquestion = function(req, res, next) {
     var domaine = req.body.domaine;
     var enonce = req.body.enonce;
@@ -50,19 +51,25 @@ exports.createquestion = function(req, res, next) {
     var nbreponses = req.body.nbreponses;
     var reponses = req.body['reponses[]'];
 
-    /*
-    if ( !(domaine === "HTML" || domaine === "CSS" || domaine === "JavaScript")
-    || (enonce === "") || (parseInt(nbreponses) < 2) || (nbreponses === "") || (bonnerep === "")
-    || (parseInt(bonnerep) < 1) || (parseInt(nbreponses) > parseInt(nbreponses)) || (reponses.length < 2) ) {
+    console.log(enonce);
+
+    // Validation du formulaire de création de question (Côté serveur)
+    if ( enonce === "" || domaine==="" || reponses.length < 2 || reponses[0] === ""
+    || reponses[1] === "" || nbreponses === "" || bonnerep === ""  || parseInt(bonnerep) < 1
+    || parseInt(bonnerep) > parseInt(nbreponses) ) {
+
+        console.log("Erreur 400 envoyée au client");
         res.status(400);
+        res.end();
+
     } else {
-    */
+
         //détermination de l'id de la question en fonction du domaine
         nombreQuestions.find({domaine : domaine}, function (err, comms) {
             if (err) { throw err; }
             var id = parseInt(comms[0].nombrequestions) + 1;
             //Création de l'objet Question puis insertion dans la base de données
-            new Question({
+            new Tests({
                 id : id,
                 domaine : domaine,
                 enonce : enonce,
@@ -72,7 +79,7 @@ exports.createquestion = function(req, res, next) {
             }).save(function(err, todo, count){
 
                 if(err!==null) {
-                    //Si il y a une erreur, on la gère
+                    //Si il y a une erreur
                     console.log('ERROR : Save not done');
 
                 } else {
@@ -90,9 +97,7 @@ exports.createquestion = function(req, res, next) {
             });
 
         });
-    /*
     }
-    */
 };
 
 //Récupère une question aléatoire de la base de données (pour les tests rapides)
@@ -109,7 +114,7 @@ exports.getExamQuestions = function(req, res, questioncouranteexam) {
     var field = req.param("field");
     //console.log("field : " + field);
     var query = Question.find({domaine : field});
-    
+
     query.exec(function(err, results) {
         if (!err) {
            //console.log("results quest courante : " + results[questioncouranteexam]);
@@ -146,6 +151,7 @@ exports.getNombreMaxQuestions = function(req, res) {
         res.json(results);
     });
 };
+
 
 exports.getReponse = function(req, res) {
     var domaine = req.body.domaine;
@@ -222,4 +228,15 @@ exports.getBooleanreponsejuste = function(req, res) {
         }
     });
     console.log("fin bd bollean");
+};
+
+// Supprime toutes les questions de la base de donnée.
+exports.deleteBD = function(rea, res, next) {
+    Tests.remove({}, function(err, removed){
+        if(err != null) {
+            res.json(eval({'data': 'Error : BD can not be deleted'}));
+        } else {
+            res.json(eval({'data': 'Success : BD deleted'}));
+        }
+    });
 };

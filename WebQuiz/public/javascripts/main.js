@@ -41,9 +41,7 @@ $(function(){
     //Si on vient de charger la page test rapide, on génère une question aléatoire
     if (titre === 'WebQuiz : Test Rapide') {
 
-        $.post('/ajax/initialize_note_to_zero', function() {
-
-        });
+        $.post('/ajax/initialize_note_to_zero', function() {});
 
         $.getJSON("/ajax/fasttest", function(data) {
             //laBonneReponse = data.bonnerep;
@@ -68,6 +66,9 @@ $(function(){
     }
 
     if (titre === 'WebQuiz : Examen') {
+
+        $.post('/ajax/initialize_note_to_zero', function() {});
+
         if(typeof(Storage) !== "undefined"){
             var field = sessionStorage.getItem("field");
             nbquestionexam = sessionStorage.getItem("nbquestion");

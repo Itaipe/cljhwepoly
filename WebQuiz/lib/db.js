@@ -14,7 +14,7 @@ var questionSchema = new Schema({
     bonnerep : Number
 });
 questionSchema.plugin(random);
-var Question = mongoose.model('questions', questionSchema);
+var Question = mongoose.model('tests', questionSchema);
 
 //Modèle représentant le nombre de questions par domaine dans la BD (dans la collection nombrequestions)
 var nombreQuestionsSchema = new Schema ({
@@ -99,7 +99,7 @@ exports.getExamQuestions = function(req, res, questioncouranteexam) {
     var field = req.param("field");
     //console.log("field : " + field);
     var query = Question.find({domaine : field});
-    
+
     query.exec(function(err, results) {
         if (!err) {
            //console.log("results quest courante : " + results[questioncouranteexam]);

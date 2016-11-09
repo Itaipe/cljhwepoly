@@ -175,6 +175,10 @@ exports.getReponse = function(req, res) {
 
                 //On vérifie que la réponse fournie est bonne
                 if (bonnerep != reponsefournie) {
+                    var docjsonreturn = {
+                        nb_fasttest_effectues : nouvellestatvalueeffectue
+                    };
+                    res.json(eval(docjsonreturn));
                     console.log("Mauvaise réponse !");
                 } else {
                     //Si c'est le cas, on récupère la note de l'utilsateur puis on l'incrémente
@@ -230,6 +234,23 @@ exports.getBooleanreponsejuste = function(req, res) {
     });
     console.log("fin bd bollean");
 };
+
+exports.getstats = function(req, res) {
+    stats.find({id: "nb_fasttest_effectues"}, function(err, resultsfasttesteffectue) {
+        if (err) { throw err; };
+        var statvalueeffectue = resultsfasttesteffectue[0].statvalue;
+        stats.find({id: "nb_fasttest_reussis"}, function(err, resultsfasttestreussi) {
+            if (err) { throw err; };
+            var statvaluereussi = resultsfasttestreussi[0].statvalue;
+            var docjsonreturn = {
+                nb_fasttest_reussis : statvaluereussi,
+                nb_fasttest_effectues : statvalueeffectue
+            };
+            res.json(eval(docjsonreturn));
+        });
+    });
+};
+
 
 // Supprime toutes les questions de la base de donnée.
 exports.deleteBD = function(rea, res, next) {

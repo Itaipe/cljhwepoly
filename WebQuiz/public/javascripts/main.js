@@ -13,9 +13,14 @@ $(function(){
     var note = 0; // Variable contenant la note
 
     var nbquestionfasttest = 1;
-
+    
+    
     //Affichage des bonnes statistiques au chargement de la page
-    if (localStorage.getItem("nb_fasttest_effectues") !== null) {
+    $.getJSON("/ajax/getstats", function(data) {
+        $(".nb_fasttest_effectues").text(data.nb_fasttest_effectues);
+        $(".nb_fasttest_reussis").text(data.nb_fasttest_reussis);
+    });
+    /*if (localStorage.getItem("nb_fasttest_effectues") !== null) {
         $(".nb_fasttest_effectues").text(localStorage.getItem("nb_fasttest_effectues"));
     }
     if (localStorage.getItem("nb_fasttest_reussis") !== null) {
@@ -31,7 +36,7 @@ $(function(){
         $(".tauxexamphrase").text("Aucun examen n'a été effectué pour l'instant");
     } else {
         $(".tauxexam").text(localStorage.getItem("tauxexam") + " % ");
-    }
+    }*/
 
     //Si on vient de charger la page test rapide, on génère une question aléatoire
     if (titre === 'WebQuiz : Test Rapide') {

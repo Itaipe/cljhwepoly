@@ -57,4 +57,8 @@ router.get('/getbooleanreponsejuste', function(req, res, next) {
     db.getBooleanreponsejuste(req,res);
 });
 
+router.get('/getstats', function(req, res, next) {
+    db.getstats(req,res);
+});
+
 module.exports = router;

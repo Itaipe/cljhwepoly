@@ -15,6 +15,7 @@ var questionSchema = new Schema({
 });
 questionSchema.plugin(random);
 var Tests = mongoose.model('tests', questionSchema);
+var Question = mongoose.model('questions', questionSchema);
 
 //Modèle représentant les réponses aux questions fournies
 var reponseSchema = new Schema({
@@ -159,7 +160,7 @@ exports.getReponse = function(req, res) {
     console.log("id stats : " + id);
     var reponsefournie = req.body.reponsefournie;
     console.log("reponsefournie stats : " + reponsefournie);
-    
+
     //On récupère la réponse correspondant à la question courante
     Reponse.find({domaine : domaine, id : id}, function (err, results) {
         var bonnerep = results[0].bonnerep;
@@ -169,7 +170,7 @@ exports.getReponse = function(req, res) {
             var nouvellestatvalueeffectue = parseInt(resultsfasttesteffectue[0].statvalue) + 1;
             stats.update({id: "nb_fasttest_effectues"}, {statvalue: nouvellestatvalueeffectue}, {multi : true}, function (err) {
                 if (err) { throw err; };
-                
+
                 console.log("bonnerep stats : " + bonnerep);
 
                 //On vérifie que la réponse fournie est bonne
@@ -194,10 +195,10 @@ exports.getReponse = function(req, res) {
                                 nb_fasttest_reussis : nouvellestatvaluereussi,
                                 nb_fasttest_effectues : nouvellestatvalueeffectue
                             };
-                            res.json(docjsonreturn);
+                            res.json(eval(docjsonreturn));
                         })
                     });
-                }                
+                }
             })
         });
     });
@@ -210,7 +211,7 @@ exports.getBooleanreponsejuste = function(req, res) {
     console.log("id db : " + id);
     var reponsefournie = req.param("reponsefournie");
     console.log("rep fournie db : " + reponsefournie);
-    
+
     Reponse.find({domaine : domaine, id : id}, function (err, results) {
         console.log("bonnerep db : " + results[0].bonnerep);
         if (results[0].bonnerep != reponsefournie) {
@@ -218,13 +219,13 @@ exports.getBooleanreponsejuste = function(req, res) {
             //console.log("false : " + jsonresult);
             ///res.json(jsonresult);
             console.log("false");
-            res.json({questionbonne : false});   
+            res.json({questionbonne : false});
         } else {
             //var jsonresult = {"questionbonne" : true};
             //console.log("true : " + jsonresult);
             //res.json(jsonresult);
             console.log("true");
-            res.json({questionbonne : true});   
+            res.json({questionbonne : true});
         }
     });
     console.log("fin bd bollean");

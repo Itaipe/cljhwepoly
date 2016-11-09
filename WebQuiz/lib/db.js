@@ -14,7 +14,7 @@ var questionSchema = new Schema({
     bonnerep : Number
 });
 questionSchema.plugin(random);
-var Question = mongoose.model('tests', questionSchema);
+var Tests = mongoose.model('tests', questionSchema);
 
 //Modèle représentant le nombre de questions par domaine dans la BD (dans la collection nombrequestions)
 var nombreQuestionsSchema = new Schema ({
@@ -32,6 +32,7 @@ var stats = mongoose.model('stats', statsSchema);
 
 //Connexion à la base de données mongodb hébergée sur mongolab, avec l'utilisateur "user" ayant pour password : "pass"
 mongoose.connect('mongodb://user:pass@ds143737.mlab.com:43737/tp4');
+
 
 exports.createquestion = function(req, res, next) {
     var domaine = req.body.domaine;
@@ -53,13 +54,12 @@ exports.createquestion = function(req, res, next) {
 
     } else {
 
-        console.log("NOK");
         //détermination de l'id de la question en fonction du domaine
         nombreQuestions.find({domaine : domaine}, function (err, comms) {
             if (err) { throw err; }
             var id = parseInt(comms[0].nombrequestions) + 1;
             //Création de l'objet Question puis insertion dans la base de données
-            new Question({
+            new Tests({
                 id : id,
                 domaine : domaine,
                 enonce : enonce,
@@ -69,7 +69,7 @@ exports.createquestion = function(req, res, next) {
             }).save(function(err, todo, count){
 
                 if(err!==null) {
-                    //Si il y a une erreur, on la gère
+                    //Si il y a une erreur
                     console.log('ERROR : Save not done');
 
                 } else {
@@ -139,5 +139,16 @@ exports.getNombreMaxQuestions = function(req, res) {
     nombreQuestions.find({domaine : domaine}, function (err, results) {
         if (err) { throw err; }
         res.json(results);
+    });
+};
+
+// Supprime toutes les questions de la base de donnée.
+exports.deleteBD = function(rea, res, next) {
+    Tests.remove({}, function(err, removed){
+        if(err != null) {
+            res.json(eval({'data': 'Error : BD can not be deleted'}));
+        } else {
+            res.json(eval({'data': 'Success : BD deleted'}));
+        }
     });
 };

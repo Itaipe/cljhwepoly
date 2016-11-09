@@ -35,7 +35,8 @@ $(function(){
 
     //Si on vient de charger la page test rapide, on génère une question aléatoire
     if (titre === 'WebQuiz : Test Rapide') {
-        $.getJSON("/ajax/fasttest", function(data) {
+
+        JSON("/ajax/fasttest", function(data) {
             laBonneReponse = data.bonnerep;
 
             sessionStorage.setItem("bonneReponse", laBonneReponse);
@@ -408,6 +409,22 @@ $(function(){
         });
     });
 
+    // Suppression de la base de donnée
+    $('#supprimeBD').on('click', function(e){
+        $.post('/ajax/deleteBD', function(data){
+            console.log(data.data);
+        })
+            .done(function(){ // OK
+                $('#formulaireQuestion').html("<span id='messageAlerteAjoutQuestionOK'>Base de donnée supprimée</span>");
+                $('#formulaireQuestion1').html("<br><span id='messageAlerteAjoutQuestionOK'>Base de donnée supprimée</span><br><br>");
+            })
+            .fail(function(){ // NOK
+                $('#formulaireQuestion').html("<span id='messageAlerteAjoutQuestionNOK'>Erreur : Base de donnée non supprimée</span>");
+                $('#formulaireQuestion1').html("<br><span id='messageAlerteAjoutQuestionNOK'>Erreur : Base de donnée non supprimée</span><br><br>");
+            })
+    });
+
+    // Initialisation du formulaire "Ajout de Question"
     $('#initilizeFormAddQuestion').on('click', function(e) {
         initializeFormAddQuestion(r);
         r = 2;

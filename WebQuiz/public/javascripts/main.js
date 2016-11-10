@@ -412,10 +412,11 @@ $(function(){
         if (localStorage.getItem("nb_exam_abandonnes") === null) {
             localStorage.setItem("nb_exam_abandonnes", 0);
         }
+        */
         var nb_exam_abandonnes = parseInt(localStorage.getItem("nb_exam_abandonnes")) + 1;
         localStorage.setItem("nb_exam_abandonnes", nb_exam_abandonnes);
         sessionStorage.setItem("examcourantabandonne", "true");
-        */
+
         $.post('/ajax/abandonne', function() {});
         document.location.href="/examinationResult";
         //On incrémente le nombre d'examen abandonnés
@@ -446,7 +447,7 @@ $(function(){
     if (titre === 'WebQuiz : Tableau de bord') {
         $.getJSON("/ajax/getnbexaneffectue", function(data, status){
             var nb_totaux_exam_effectues = data.nb_totaux_exam_effectues;
-            
+
             for(i=1; i < parseInt(nb_totaux_exam_effectues)+1; i++) {
                 //alert("i " + i);
                 $.getJSON("/ajax/getligneexam?id=" + i, function(data, status){
@@ -465,7 +466,7 @@ $(function(){
         });
         //var nb_totaux_exam_effectues = localStorage.getItem("nb_exam_effectues");
         //alert("nb totaux : " + nb_totaux_exam_effectues);
-        
+
     }
 
     //TP 4 :

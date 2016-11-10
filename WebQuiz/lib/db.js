@@ -354,7 +354,49 @@ exports.remiseazero = function() {
     stats.update({id : "tauxexam"}, {statvalue: null}, {multi : true}, function (err) {
         if (err) { throw err; }
     });
-    stats.update({id : "tauxexam"}, {statvalue: null}, {multi : true}, function (err) {
+    stats.update({id : "nb_question_exam_correctes"}, {statvalue: 0}, {multi : true}, function (err) {
+        if (err) { throw err; }
+    });
+    stats.update({id : "nb_question_exam_totales"}, {statvalue: 0}, {multi : true}, function (err) {
         if (err) { throw err; }
     });
 }
+
+exports.getnoteexam = function(req, res) {
+    stats.find({id: "noteexam"}, function(err, note) {
+        if (err) { throw err; };
+        stats.find({id: "nb_question_exam_correctes"}, function(err, nbcorrect) {
+            if (err) { throw err; };
+            stats.find({id: "nb_question_exam_totales"}, function(err, nbtotal) {
+                if (err) { throw err; };
+                stats.find({id: "nb_exam_effectues"}, function(err, nbexam) {
+                    if (err) { throw err; };
+                    res.json({noteexam : note[0].note, nb_question_exam_correctes : nbcorrect[0].statvalue, nb_question_exam_totales : nbtotal[0].statvalue, nb_exam_effectues : nbexam[0].statvalue});
+                });
+            });
+        });
+    });
+};
+
+exports.majstatexam = function(req, res) {
+    var nb_exam_effectues = req.body.nb_exam_effectues;
+    var nb_question_exam_correctes = req.body.nb_question_exam_correctes;
+    var nb_question_exam_totales = req.body.nb_question_exam_totales;
+    var tauxexam = req.body.tauxexam;
+    
+    stats.update({id : "nb_exam_effectues"}, {statvalue: nb_exam_effectues}, {multi : true}, function (err) {
+        if (err) { throw err; }
+    });
+    
+    stats.update({id : "nb_question_exam_correctes"}, {statvalue: nb_question_exam_correctes}, {multi : true}, function (err) {
+        if (err) { throw err; }
+    });
+    
+    stats.update({id : "nb_question_exam_totales"}, {statvalue: nb_question_exam_totales}, {multi : true}, function (err) {
+        if (err) { throw err; }
+    });
+    
+    stats.update({id : "tauxexam"}, {statvalue: tauxexam}, {multi : true}, function (err) {
+        if (err) { throw err; }
+    });
+};

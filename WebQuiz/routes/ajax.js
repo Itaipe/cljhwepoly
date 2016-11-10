@@ -74,8 +74,16 @@ router.get('/getstats', function(req, res, next) {
 });
 
 router.post('/remiseazero', function(req, res, next) {
-    console.log("ajax");
     db.remiseazero(req,res);    
+});
+
+router.get('/getnoteexam', function(req, res, next) {
+    db.getnoteexam(req,res);
+});
+
+
+router.post('/majstatexam', function(req, res, next) {
+    db.majstatexam(req,res);    
 });
 
 module.exports = router;

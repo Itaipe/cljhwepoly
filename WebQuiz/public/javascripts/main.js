@@ -113,81 +113,102 @@ $(function(){
 
     //A MAJ
     if (titre === 'WebQuiz : Resulat examen') {
-        var result = sessionStorage.getItem("note");
-        var nombreTotaleDeQuestion = sessionStorage.getItem("nbquestion");
-        // ICI IL RESTE PLUS QU'A SAUVEGARDER LA note DANS LA SESSION AFIN QU'ELLE APPARAISSE DANS LES STATS
-        $("#noteFinale").text(result + "/" + nombreTotaleDeQuestion);
-
-        //Si l'examen a été abandonné (n'a pas été effectué), on ne fait rien
-        if(sessionStorage.getItem("examcourantabandonne")==="true") {
-            sessionStorage.setItem("examcourantabandonne", "false");
-            $("#message").text("Vous avez abandonné l'examen. Il ne sera donc pas pris en compte pour la moyenne des examens effectués.");
-        } else {
-            //Si c'est le premier examen effectué, on met la variable initiale à 0
-            if (localStorage.getItem("nb_exam_effectues") === null) {
-                localStorage.setItem("nb_exam_effectues", 0);
-            }
-            //On incrémente de 1 le nombre d'examens effetués
-            var nb_exam_effectues = parseInt(localStorage.getItem("nb_exam_effectues")) + 1;
-            localStorage.setItem("nb_exam_effectues", nb_exam_effectues);
-            $(".nb_exam_effectues").text(nb_exam_effectues);
-
-            //Affichage du message de fin d'examen
-            var notemessage = parseInt(100 * (parseInt(result) / parseInt(nombreTotaleDeQuestion)));
-            if (notemessage < 25) {
-                $("#message").text("Aïe, ça ne vas pas du tout !");
-            } else if (notemessage < 50) {
-                $("#message").text("Votre note n'est pas très bonne, vous pouvez progresser!");
-            } else if (notemessage < 75) {
-                $("#message").text("C'est bien mais vous pouvez encore mieux faire!");
+        
+        $.getJSON("/ajax/getnoteexam", function(data) {
+            var result = data.noteexam;
+            var nombreTotaleDeQuestion = sessionStorage.getItem("nbquestion");
+            $("#noteFinale").text(result + "/" + nombreTotaleDeQuestion);
+            
+            //Si l'examen a été abandonné (n'a pas été effectué), on ne fait rien
+            if(sessionStorage.getItem("examcourantabandonne")==="true") {
+                sessionStorage.setItem("examcourantabandonne", "false");
+                $("#message").text("Vous avez abandonné l'examen. Il ne sera donc pas pris en compte pour la moyenne des examens effectués.");
             } else {
-                $("#message").text("Excellent, félicitations !");
-            }
+                
+                //On incrémente de 1 le nombre d'examens effetués
+                var nb_exam_effectues = parseInt(data.nb_exam_effectues) + 1;
+                /*localStorage.setItem("nb_exam_effectues", nb_exam_effectues);*/
+                $(".nb_exam_effectues").text(data.nb_exam_effectues);
 
-            //Calcul du nouveau taux de réussite des examens effectués
-            if(localStorage.getItem("nb_question_exam_correctes")===null){
-                var nb_question_exam_correctes = parseInt(result);
-            } else {
-                var nb_question_exam_correctes = parseInt(result) + parseInt(localStorage.getItem("nb_question_exam_correctes"));
-            }
-            if (localStorage.getItem("nb_question_exam_totales")===null) {
-                var nb_question_exam_totales = nombreTotaleDeQuestion;
-            } else {
-                var nb_question_exam_totales = parseInt(nombreTotaleDeQuestion) + parseInt(localStorage.getItem("nb_question_exam_totales"));
-            }
-            localStorage.setItem("nb_question_exam_correctes", nb_question_exam_correctes);
-            localStorage.setItem("nb_question_exam_totales", nb_question_exam_totales);
-            var tauxexam = parseInt(100 * (nb_question_exam_correctes / nb_question_exam_totales));
-            localStorage.setItem("tauxexam", tauxexam);
-            $(".tauxexam").text(tauxexam + " % ");
+                //Affichage du message de fin d'examen
+                var notemessage = parseInt(100 * (parseInt(result) / parseInt(nombreTotaleDeQuestion)));
+                if (notemessage < 25) {
+                    $("#message").text("Aïe, ça ne vas pas du tout !");
+                } else if (notemessage < 50) {
+                    $("#message").text("Votre note n'est pas très bonne, vous pouvez progresser!");
+                } else if (notemessage < 75) {
+                    $("#message").text("C'est bien mais vous pouvez encore mieux faire!");
+                } else {
+                    $("#message").text("Excellent, félicitations !");
+                }
 
-            var now = new Date();
-            var annee   = now.getFullYear();
-            var mois    = now.getMonth() + 1;
-            var jour    = now.getDate();
-            var heure   = now.getHours();
-            if (parseInt(heure) < 10) {
-                heure = "0"+heure;
+                //Calcul du nouveau taux de réussite des examens effectués
+                var nb_question_exam_correctes = parseInt(result) + parseInt(data.nb_question_exam_correctes);
+                var nb_question_exam_totales = parseInt(nombreTotaleDeQuestion) + parseInt(data.nb_question_exam_totales);
+                /*if(localStorage.getItem("nb_question_exam_correctes")===null){
+                    var nb_question_exam_correctes = parseInt(result);
+                } else {
+                    var nb_question_exam_correctes = parseInt(result) + parseInt(localStorage.getItem("nb_question_exam_correctes"));
+                }
+                if (localStorage.getItem("nb_question_exam_totales")===null) {
+                    var nb_question_exam_totales = nombreTotaleDeQuestion;
+                } else {
+                    var nb_question_exam_totales = parseInt(nombreTotaleDeQuestion) + parseInt(localStorage.getItem("nb_question_exam_totales"));
+                }*/
+                //localStorage.setItem("nb_question_exam_correctes", nb_question_exam_correctes);
+                //localStorage.setItem("nb_question_exam_totales", nb_question_exam_totales);
+                var tauxexam = parseInt(100 * (nb_question_exam_correctes / nb_question_exam_totales));
+                //localStorage.setItem("tauxexam", tauxexam);
+                $(".tauxexam").text(tauxexam + " % ");
+
+                //On envoie les nouvelles valeur des stats au serveur
+                var statsamaj = {
+                    nb_exam_effectues : nb_exam_effectues,
+                    nb_question_exam_correctes : nb_question_exam_correctes,
+                    nb_question_exam_totales : nb_question_exam_totales,
+                    tauxexam : tauxexam
+                };
+                $.ajax({
+                    type: 'POST',
+                    url: '/ajax/majstatexam',
+                    dataType: 'json',
+                    data: statsamaj,
+                    success: function(data) {
+                        console.log('SUCCESS : Save done : ' + data.data);
+                    },
+                    error: function() {
+                        console.log('Erreur dans le post de la réponse courante');
+                    }
+                });
+                
+                var now = new Date();
+                var annee   = now.getFullYear();
+                var mois    = now.getMonth() + 1;
+                var jour    = now.getDate();
+                var heure   = now.getHours();
+                if (parseInt(heure) < 10) {
+                    heure = "0"+heure;
+                }
+                var minute  = now.getMinutes();
+                if (parseInt(minute) < 10) {
+                    minute = "0"+minute;
+                }
+                var seconde = now.getSeconds();
+                if (parseInt(seconde) < 10) {
+                    seconde = "0"+seconde;
+                }
+                var domaine = sessionStorage.getItem("domaine");
+                //Insertion de l'examen dans la BD localStorage
+                var ligne_exam = {
+                    domaine : domaine,
+                    note : result + "/" + nombreTotaleDeQuestion,
+                    date : jour + "/" + mois + "/" + annee,
+                    heure : heure + ":" + minute + ":" + seconde
+                };
+                var ligne_exam_json = JSON.stringify(ligne_exam);
+                localStorage.setItem("ligne_exam_" + localStorage.getItem("nb_exam_effectues"), ligne_exam_json);
             }
-            var minute  = now.getMinutes();
-            if (parseInt(minute) < 10) {
-                minute = "0"+minute;
-            }
-            var seconde = now.getSeconds();
-            if (parseInt(seconde) < 10) {
-                seconde = "0"+seconde;
-            }
-            var domaine = sessionStorage.getItem("domaine");
-            //Insertion de l'examen dans la BD localStorage
-            var ligne_exam = {
-                domaine : domaine,
-                note : result + "/" + nombreTotaleDeQuestion,
-                date : jour + "/" + mois + "/" + annee,
-                heure : heure + ":" + minute + ":" + seconde
-            };
-            var ligne_exam_json = JSON.stringify(ligne_exam);
-            localStorage.setItem("ligne_exam_" + localStorage.getItem("nb_exam_effectues"), ligne_exam_json);
-        }
+        });        
     }
 
     //Quand on est déja en test rapide, pour obtenir une nouvelle question lorsqu'on valide

@@ -37,15 +37,15 @@ var statsSchema = new Schema ({
     id : String,
     nbquestionsexamrestantes : Number,
     note : Number,
-    statvalue : Number,
+    statvalue : Number
 });
 var stats = mongoose.model('stats', statsSchema);
 
-var ligneexam = new Schema ({
+var ligneExamen = new Schema ({
     id : Number,
     ligne : String
 });
-var ligneexam = mongoose.model('listeexam', ligneexam);
+var ligneexam = mongoose.model('listeexam', ligneExamen);
 
 //Connexion à la base de données mongodb hébergée sur mongolab, avec l'utilisateur "user" ayant pour password : "pass"
 mongoose.connect('mongodb://user:pass@ds143737.mlab.com:43737/tp4');
@@ -354,7 +354,6 @@ exports.initialize_exam_note = function() {
 }
 
 exports.remiseazero = function() {
-    console.log("aaa");
     stats.update({id : "nb_fasttest_reussis"}, {statvalue: 0}, {multi : true}, function (err) {
         if (err) { throw err; }
     });
@@ -431,12 +430,13 @@ exports.majstatexam = function(req, res) {
 };
 
 exports.insererexam = function (req, res) {
+    console.log("insere exam");
     var id = req.body.id;
     var ligne = req.body.ligne;
 
     new ligneexam({
         id : id,
-        ligne : ligne,
+        ligne : ligne
     }).save(function(err) {
         if (err !== null) { throw err; }
     });

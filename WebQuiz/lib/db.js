@@ -38,7 +38,6 @@ var statsSchema = new Schema ({
     nbquestionsexamrestantes : Number,
     note : Number,
     statvalue : Number,
-    finished : Boolean
 });
 var stats = mongoose.model('stats', statsSchema);
 
@@ -328,12 +327,11 @@ exports.initialize_note_to_zero = function() {
     });
 }
 
-exports.exam_in_progress = function() {
-    console.log('exports.exam_in_progress = function() {');
-    stats.find({id: "is_finished"}, function(err, results) {
+
+exports.initialize_exam_note = function() {
+    stats.find({id: "noteexam"}, function(err, resultsnote) {
         if (err) { throw err; };
-        stats.update({id: "is_finished"}, {finished: false}, {multi : true}, function (err) {
-            console.log("Update \"finieshed\"");
+        stats.update({id: "noteexam"}, {note: 0}, {multi : true}, function (err) {
             if (err) { throw err; };
         });
     });

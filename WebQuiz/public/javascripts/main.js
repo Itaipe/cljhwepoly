@@ -74,7 +74,7 @@ $(function(){
 
     if (titre === 'WebQuiz : Examen') {
 
-        $.post('/ajax/exam_in_progress', function(req, res) {});
+        $.post('/ajax/initialize_exam_note', function(req, res) {});
 
         if(typeof(Storage) !== "undefined"){
             var field = sessionStorage.getItem("field");
@@ -363,8 +363,11 @@ $(function(){
         });
     });
 
+    //$('#exittemporary').on('click', function(e){});
+
     //Si on abandonne un examen, on va à la page terminale avec la note 0
     $('#abandonexam').on('click', function(e){
+
         sessionStorage.setItem("note", 0);
         //Si c'est le premier examen abandonné, on set la variable à 0
         if (localStorage.getItem("nb_exam_abandonnes") === null) {

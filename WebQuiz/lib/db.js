@@ -4,7 +4,6 @@ var bodyParser = require('body-parser');
 
 var random = require('mongoose-simple-random');
 
-var nouvellenote = 0;
 
 //Modèle représentant une question dans la collection "questions" de la BD
 var questionSchema = new Schema({
@@ -241,6 +240,7 @@ exports.postexam = function(req, res) {
         if (bonnerep != reponsefournie) {
             stats.find({id: "noteexam"}, function(err, resultsnote) {
                 if (err) { throw err; };
+                nouvellenote = parseInt(resultsnote[0].note);
                 var docjsonreturn = {
                     note_courante : nouvellenote
                 };

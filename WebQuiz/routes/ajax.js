@@ -74,7 +74,7 @@ router.get('/getstats', function(req, res, next) {
 });
 
 router.post('/remiseazero', function(req, res, next) {
-    db.remiseazero(req,res);    
+    db.remiseazero(req,res);
 });
 
 router.get('/getnoteexam', function(req, res, next) {
@@ -83,7 +83,11 @@ router.get('/getnoteexam', function(req, res, next) {
 
 
 router.post('/majstatexam', function(req, res, next) {
-    db.majstatexam(req,res);    
+    db.majstatexam(req,res);
+});
+
+router.post('/insererexam', function(req, res, next) {
+    db.insererexam(req,res);
 });
 
 module.exports = router;

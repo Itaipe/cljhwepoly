@@ -86,6 +86,11 @@ router.post('/majstatexam', function(req, res, next) {
     db.majstatexam(req,res);
 });
 
+
+router.post('/abandonne', function(req, res, next) {
+    db.abandonne(req,res);
+});
+
 router.post('/insererexam', function(req, res, next) {
     db.insererexam(req,res);
 });

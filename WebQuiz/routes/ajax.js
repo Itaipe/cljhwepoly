@@ -81,6 +81,13 @@ router.get('/getnoteexam', function(req, res, next) {
     db.getnoteexam(req,res);
 });
 
+router.get('/getnbexaneffectue', function(req, res, next) {
+    db.getnbexaneffectue(req,res);
+});
+
+router.get('/getligneexam', function(req, res, next) {
+    db.getligneexam(req,res);
+});
 
 router.post('/majstatexam', function(req, res, next) {
     db.majstatexam(req,res);
@@ -94,5 +101,6 @@ router.post('/abandonne', function(req, res, next) {
 router.post('/insererexam', function(req, res, next) {
     db.insererexam(req,res);
 });
+
 
 module.exports = router;

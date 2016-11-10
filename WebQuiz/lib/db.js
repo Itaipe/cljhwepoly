@@ -69,6 +69,15 @@ exports.createquestion = function(req, res, next) {
         nombreQuestions.find({domaine : domaine}, function (err, comms) {
             if (err) { throw err; }
             var id = parseInt(comms[0].nombrequestions) + 1;
+
+            new Reponse({
+                id : id,
+                domaine : domaine,
+                bonnerep : bonnerep
+            }).save(function(err) {
+                if (err !== null) { throw err; }
+            });
+
             //Création de l'objet Question puis insertion dans la base de données
             new Tests({
                 id : id,

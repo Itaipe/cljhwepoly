@@ -4,6 +4,8 @@ var bodyParser = require('body-parser');
 
 var random = require('mongoose-simple-random');
 
+var nouvellenote = 0;
+
 //Modèle représentant une question dans la collection "questions" de la BD
 var questionSchema = new Schema({
     id : Number,

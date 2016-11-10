@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 
 var random = require('mongoose-simple-random');
 
-var nouvellenote = 0;
+//var nouvellenote = 0;
 
 //Modèle représentant une question dans la collection "questions" de la BD
 var questionSchema = new Schema({
@@ -343,6 +343,7 @@ exports.initialize_exam_note = function() {
     stats.find({id: "noteexam"}, function(err, resultsnote) {
         if (err) { throw err; };
         stats.update({id: "noteexam"}, {note: 0}, {multi : true}, function (err) {
+            console.log("--------------------------------------------");
             if (err) { throw err; };
         });
     });
@@ -394,19 +395,19 @@ exports.majstatexam = function(req, res) {
     var nb_question_exam_correctes = req.body.nb_question_exam_correctes;
     var nb_question_exam_totales = req.body.nb_question_exam_totales;
     var tauxexam = req.body.tauxexam;
-    
+
     stats.update({id : "nb_exam_effectues"}, {statvalue: nb_exam_effectues}, {multi : true}, function (err) {
         if (err) { throw err; }
     });
-    
+
     stats.update({id : "nb_question_exam_correctes"}, {statvalue: nb_question_exam_correctes}, {multi : true}, function (err) {
         if (err) { throw err; }
     });
-    
+
     stats.update({id : "nb_question_exam_totales"}, {statvalue: nb_question_exam_totales}, {multi : true}, function (err) {
         if (err) { throw err; }
     });
-    
+
     stats.update({id : "tauxexam"}, {statvalue: tauxexam}, {multi : true}, function (err) {
         if (err) { throw err; }
     });

@@ -340,7 +340,7 @@ exports.initialize_note_to_zero = function() {
             if (err) { throw err; };
         });
     });
-}
+};
 
 
 exports.initialize_exam_note = function() {
@@ -351,7 +351,7 @@ exports.initialize_exam_note = function() {
             if (err) { throw err; };
         });
     });
-}
+};
 
 exports.remiseazero = function() {
     stats.update({id : "nb_fasttest_reussis"}, {statvalue: 0}, {multi : true}, function (err) {
@@ -375,7 +375,10 @@ exports.remiseazero = function() {
     stats.update({id : "nb_question_exam_totales"}, {statvalue: 0}, {multi : true}, function (err) {
         if (err) { throw err; }
     });
-}
+    
+    ligneexam.remove({}, function(err, removed){
+    });
+};
 
 exports.getnoteexam = function(req, res) {
     stats.find({id: "noteexam"}, function(err, note) {
@@ -433,7 +436,8 @@ exports.insererexam = function (req, res) {
     console.log("insere exam");
     var id = req.body.id;
     var ligne = req.body.ligne;
-
+    console.log(id);
+    console.log(ligne);
     new ligneexam({
         id : id,
         ligne : ligne

@@ -338,3 +338,25 @@ exports.exam_in_progress = function() {
         });
     });
 }
+
+exports.remiseazero = function() {
+    console.log("aaa");
+    stats.update({id : "nb_fasttest_reussis"}, {statvalue: 0}, {multi : true}, function (err) {
+        if (err) { throw err; }
+    });
+    stats.update({id : "nb_fasttest_effectues"}, {statvalue: 0}, {multi : true}, function (err) {
+        if (err) { throw err; }
+    });
+    stats.update({id : "nb_exam_effectues"}, {statvalue: 0}, {multi : true}, function (err) {
+        if (err) { throw err; }
+    });
+    stats.update({id : "nb_exam_abandonnes"}, {statvalue: 0}, {multi : true}, function (err) {
+        if (err) { throw err; }
+    });
+    stats.update({id : "tauxexam"}, {statvalue: null}, {multi : true}, function (err) {
+        if (err) { throw err; }
+    });
+    stats.update({id : "tauxexam"}, {statvalue: null}, {multi : true}, function (err) {
+        if (err) { throw err; }
+    });
+}

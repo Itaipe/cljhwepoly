@@ -74,4 +74,9 @@ router.get('/getstats', function(req, res, next) {
     db.getstats(req,res);
 });
 
+router.post('/remiseazero', function(req, res, next) {
+    console.log("ajax");
+    db.remiseazero(req,res);    
+});
+
 module.exports = router;

@@ -380,14 +380,16 @@ $(function(){
 
     //Quand on clique sur "remise à zéro : on efface tout le contenu du localstorage
     $('#remiseazero').on('click', function(e){
-        localStorage.clear();
+        $.post('/ajax/remiseazero', function(req, res) {});
+        alert("Vous avez remis à zéro");
+        /*localStorage.clear();
         sessionStorage.clear();
         //On change dynamiquement le contenu (pour que l'utilisateur ait un retour sans avoir à recharger la page)
         $(".nb_fasttest_effectues").text("0");
         $(".nb_fasttest_reussis").text("0");
         $(".nb_exam_effectues").text("0");
         $(".nb_exam_abandonnes").text("0");
-        $(".tauxexamphrase").text("Aucun examen n'a été effectué pour l'instant");
+        $(".tauxexamphrase").text("Aucun examen n'a été effectué pour l'instant");*/
 
         //On réinitialise la liste des résultats des examens (details)
         $("#htmlresults").html("<tr><td><strong>Note</strong></td><td><strong>Date</strong></td><td><strong>Heure</strong></td></tr>");

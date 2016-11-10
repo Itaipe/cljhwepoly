@@ -220,16 +220,28 @@ exports.postexam = function(req, res) {
     var domaine = req.body.domaine;
     var id = req.body.id;
     var reponsefournie = req.body.reponsefournie;
-    
+
     Reponse.find({domaine : domaine, id : id}, function (err, results) {
+        var bonnerep = results[0].bonnerep;
         if (bonnerep != reponsefournie) {
+            stats.find({id: "noteexam"}, function(err, resultsnote) {
+                if (err) { throw err; };
+                var docjsonreturn = {
+                    note_courante : nouvellenote
+                };
+                res.json(eval(docjsonreturn));
+            });
             console.log("Mauvaise réponse !");
         } else {
             stats.find({id: "noteexam"}, function(err, resultsnote) {
                 if (err) { throw err; };
-                var nouvellenote = parseInt(resultsnote[0].note) + 1;
+                nouvellenote = parseInt(resultsnote[0].note) + 1;
                 stats.update({id: "noteexam"}, {note: nouvellenote}, {multi : true}, function (err) {
                     if (err) { throw err; };
+                    var docjsonreturn = {
+                        note_courante : nouvellenote
+                    };
+                    res.json(eval(docjsonreturn));
                 });
             });
         }
@@ -293,8 +305,8 @@ exports.getstats = function(req, res) {
         });
     });
 };
-            
-            
+
+
 // Supprime toutes les questions de la base de donnée.
 exports.deleteBD = function(rea, res, next) {
     Tests.remove({}, function(err, removed){
@@ -309,8 +321,18 @@ exports.deleteBD = function(rea, res, next) {
 exports.initialize_note_to_zero = function() {
     stats.find({id: "note"}, function(err, resultsnote) {
         if (err) { throw err; };
-        nouvellenote = parseInt(resultsnote[0].note) + 1;
         stats.update({id: "note"}, {note: 0}, {multi : true}, function (err) {
+            if (err) { throw err; };
+        })
+    });
+}
+
+exports.exam_in_progress = function() {
+    console.log('exports.exam_in_progress = function() {');
+    stats.find({id: "is_finished"}, function(err, resultsnote) {
+        if (err) { throw err; };
+        stats.update({id: "is_finished"}, {finished: false}, {multi : true}, function (err) {
+            console.log("Update \"finieshed\"");
             if (err) { throw err; };
         })
     });

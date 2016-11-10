@@ -57,7 +57,7 @@ $(function(){
             sessionStorage.setItem("idquestioncourante", data.id);
             //alert("iddomainecourant set : " + data.domaine);
             sessionStorage.setItem("domainecourant", data.domaine);
-            
+
             //sessionStorage.setItem("bonneReponse", laBonneReponse);
             // Cette variable est mise dans la sessionStorage pour pouvoir la récupérer dans les fonctions qui permettent de gérer le drag and drop
 
@@ -74,7 +74,7 @@ $(function(){
 
     if (titre === 'WebQuiz : Examen') {
 
-        $.post('/ajax/initialize_note_to_zero', function() {});
+        $.post('/ajax/exam_in_progress', function() {});
 
         if(typeof(Storage) !== "undefined"){
             var field = sessionStorage.getItem("field");
@@ -93,7 +93,7 @@ $(function(){
             // Cette variable est mise dans la sessionStorage pour pouvoir la récupérer dans les fonctions qui permettent de gérer le drag and drop
 
            sessionStorage.setItem("idquestioncourante", data.id);
-            
+
             $("#nombrequestion").text(nbquestionexam);
             $("#idquestion").text(1);
             $("#domaine").text(data.domaine);
@@ -296,8 +296,8 @@ $(function(){
         var reponseCourante = $('#chosenAnswer input[name=answer]').val(); // La réponse de l'utilisateur
         //console.log("Réponse de l'utilisateur: " + reponseCourante);
         //console.log("La bonne réponse: " + laBonneReponse);
-        
-        
+
+
         var reponseJson = {
             reponsefournie : reponseCourante,
             id : sessionStorage.getItem("idquestioncourante"),
@@ -305,17 +305,18 @@ $(function(){
         };
         $.ajax({
             type: 'POST',
-            url: '/ajax/postexam',
+            url: '/ajax/repondreexam',
             dataType: 'json',
             data: reponseJson,
             success: function(data) {
+                $("#nbquestionreussies").text(data.note_courante);
                 console.log('SUCCESS : Save done : ' + data.data);
             },
             error: function() {
                 console.log('Erreur dans le post de la réponse courante');
             }
         });
-        
+
        /* if (laBonneReponse != reponseCourante)
         {
             console.log("Mauvaise réponse !");
@@ -348,7 +349,7 @@ $(function(){
                     $("#idquestion").text(nbquestionexam - nbquestionsexamrestantes + 2);
                     $("#domaine").text(data.domaine);
                     $("#enonce").text(data.enonce);
-                    $("#nbquestionreussies").text(note);
+                    //$("#nbquestionreussies").text(note);
                     sessionStorage.setItem("idquestioncourante", data.id);
                     sessionStorage.setItem("domainecourant", data.domaine);
                     laBonneReponse = data.bonnerep;
@@ -544,10 +545,10 @@ function drop(ev) {
 
     var reponsefournie = sessionStorage.getItem("reponseFournieDrag");
     //alert("reponse fournie drop : " + reponsefournie);
-    
+
     var id = sessionStorage.getItem("idquestioncourante");
     //alert("idfasttestcourant drop : " + id);
-    
+
     var domaine = sessionStorage.getItem("domainecourant");
 
     //alert("domainefasttestcourant drop : " + domaine);

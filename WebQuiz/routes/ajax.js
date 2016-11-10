@@ -57,6 +57,11 @@ router.post('/repondreexam', function(req, res, next) {
     db.postexam(req, res);
 });
 
+router.post('/exam_in_progress', function(req, res, next) {
+    console.log("router.post('/exam_in_progress', function(req, res, next) {");
+    db.exam_in_progress(req, res);
+});
+
 router.post('/initialize_note_to_zero', function(req, res, next) {
     db.initialize_note_to_zero(req, res);
 });

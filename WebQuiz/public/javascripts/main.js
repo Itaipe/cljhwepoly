@@ -74,7 +74,7 @@ $(function(){
 
     if (titre === 'WebQuiz : Examen') {
 
-        $.post('/ajax/exam_in_progress', function() {});
+        $.post('/ajax/exam_in_progress', function(req, res) {});
 
         if(typeof(Storage) !== "undefined"){
             var field = sessionStorage.getItem("field");

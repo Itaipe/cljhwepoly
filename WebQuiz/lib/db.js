@@ -442,3 +442,13 @@ exports.insererexam = function (req, res) {
         if (err !== null) { throw err; }
     });
 };
+
+exports.abandonne = function(req, res) {
+    stats.find({id: "nb_exam_abandonnes"}, function(err, data) {
+        if (err) { throw err; };
+        var nb = parseInt(data[0].statvalue) + 1;
+        stats.update({id: "nb_exam_abandonnes"}, {statvalue: nb}, {multi : true}, function (err) {
+            if (err) { throw err; };
+        });
+    });
+}

@@ -113,18 +113,18 @@ $(function(){
 
     //A MAJ
     if (titre === 'WebQuiz : Resulat examen') {
-        
+
         $.getJSON("/ajax/getnoteexam", function(data) {
             var result = data.noteexam;
             var nombreTotaleDeQuestion = sessionStorage.getItem("nbquestion");
             $("#noteFinale").text(result + "/" + nombreTotaleDeQuestion);
-            
+
             //Si l'examen a été abandonné (n'a pas été effectué), on ne fait rien
             if(sessionStorage.getItem("examcourantabandonne")==="true") {
                 sessionStorage.setItem("examcourantabandonne", "false");
                 $("#message").text("Vous avez abandonné l'examen. Il ne sera donc pas pris en compte pour la moyenne des examens effectués.");
             } else {
-                
+
                 //On incrémente de 1 le nombre d'examens effetués
                 var nb_exam_effectues = parseInt(data.nb_exam_effectues) + 1;
                 /*localStorage.setItem("nb_exam_effectues", nb_exam_effectues);*/
@@ -180,7 +180,7 @@ $(function(){
                         console.log('Erreur dans le post de la réponse courante');
                     }
                 });
-                
+
                 var now = new Date();
                 var annee   = now.getFullYear();
                 var mois    = now.getMonth() + 1;
@@ -206,7 +206,7 @@ $(function(){
                     heure : heure + ":" + minute + ":" + seconde
                 };
                 var ligne_exam_json = JSON.stringify(ligne_exam);
-                
+
                 var exam = {
                     id : nb_exam_effectues,
                     ligne : ligne_exam_json
@@ -225,7 +225,7 @@ $(function(){
                 });
                 //localStorage.setItem("ligne_exam_" + localStorage.getItem("nb_exam_effectues"), ligne_exam_json);
             }
-        });        
+        });
     }
 
     //Quand on est déja en test rapide, pour obtenir une nouvelle question lorsqu'on valide
@@ -407,6 +407,7 @@ $(function(){
     $('#abandonexam').on('click', function(e){
 
         sessionStorage.setItem("note", 0);
+        /*
         //Si c'est le premier examen abandonné, on set la variable à 0
         if (localStorage.getItem("nb_exam_abandonnes") === null) {
             localStorage.setItem("nb_exam_abandonnes", 0);
@@ -414,6 +415,8 @@ $(function(){
         var nb_exam_abandonnes = parseInt(localStorage.getItem("nb_exam_abandonnes")) + 1;
         localStorage.setItem("nb_exam_abandonnes", nb_exam_abandonnes);
         sessionStorage.setItem("examcourantabandonne", "true");
+        */
+        $.post('/ajax/abandonne', function() {});
         document.location.href="/examinationResult";
         //On incrémente le nombre d'examen abandonnés
     });

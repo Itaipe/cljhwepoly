@@ -441,21 +441,28 @@ $(function(){
     //Si on est sur la page du tableau de bord (ou sont les détails des résultats), on charge la BD (localStorage) des examens effectués pour les afficher
     //$('#details').on('click', function(e){
     if (titre === 'WebQuiz : Tableau de bord') {
-        var nb_totaux_exam_effectues = localStorage.getItem("nb_exam_effectues");
-        //alert("nb totaux : " + nb_totaux_exam_effectues);
-        for(i=1; i < parseInt(nb_totaux_exam_effectues)+1; i++) {
-            //alert("i " + i);
-            var ligne_exam_courant_json = localStorage.getItem("ligne_exam_" + i);
-            var ligne_exam_courant = JSON.parse(ligne_exam_courant_json);
-            var domaine = ligne_exam_courant.domaine;
-            if (domaine === "HTML") {
-                $("#htmlresults").append("<tr><td>" + ligne_exam_courant.note + "</td><td>" + ligne_exam_courant.date + "</td><td>" + ligne_exam_courant.heure + "</td></tr>");
-            } else if (domaine === "CSS") {
-                $("#cssresults").append("<tr><td>" + ligne_exam_courant.note + "</td><td>" + ligne_exam_courant.date + "</td><td>" + ligne_exam_courant.heure + "</td></tr>");
-            } else if (domaine === "JavaScript") {
-                $("#javascriptresults").append("<tr><td>" + ligne_exam_courant.note + "</td><td>" + ligne_exam_courant.date + "</td><td>" + ligne_exam_courant.heure + "</td></tr>");
+        $.getJSON("/ajax/getnbexaneffectue", function(data, status){
+            var nb_totaux_exam_effectues = data.nb_totaux_exam_effectues;
+            
+            for(i=1; i < parseInt(nb_totaux_exam_effectues)+1; i++) {
+                //alert("i " + i);
+                $.getJSON("/ajax/getligneexam?id=" + i, function(data, status){
+                    var ligne_exam_courant_json = data.ligne;
+                    var ligne_exam_courant = JSON.parse(ligne_exam_courant_json);
+                    var domaine = ligne_exam_courant.domaine;
+                    if (domaine === "HTML") {
+                        $("#htmlresults").append("<tr><td>" + ligne_exam_courant.note + "</td><td>" + ligne_exam_courant.date + "</td><td>" + ligne_exam_courant.heure + "</td></tr>");
+                    } else if (domaine === "CSS") {
+                        $("#cssresults").append("<tr><td>" + ligne_exam_courant.note + "</td><td>" + ligne_exam_courant.date + "</td><td>" + ligne_exam_courant.heure + "</td></tr>");
+                    } else if (domaine === "JavaScript") {
+                        $("#javascriptresults").append("<tr><td>" + ligne_exam_courant.note + "</td><td>" + ligne_exam_courant.date + "</td><td>" + ligne_exam_courant.heure + "</td></tr>");
+                    }
+                });
             }
-        }
+        });
+        //var nb_totaux_exam_effectues = localStorage.getItem("nb_exam_effectues");
+        //alert("nb totaux : " + nb_totaux_exam_effectues);
+        
     }
 
     //TP 4 :

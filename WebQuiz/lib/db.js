@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 
 var random = require('mongoose-simple-random');
 
-//var nouvellenote = 0;
+var nouvellenote = 0;
 
 //Modèle représentant une question dans la collection "questions" de la BD
 var questionSchema = new Schema({
@@ -391,6 +391,19 @@ exports.getnoteexam = function(req, res) {
                 });
             });
         });
+    });
+};
+
+exports.getnbexaneffectue = function(req, res) {
+    stats.find({id: "nb_exam_effectues"}, function(err, nbexam) {
+       res.json({nb_totaux_exam_effectues: nbexam[0].statvalue});  
+    });
+};
+
+exports.getligneexam = function(req, res) {
+    var id = req.param("id");
+    ligneexam.find({id: id}, function(err, lignes) {
+       res.json({ligne : lignes[0].ligne});  
     });
 };
 

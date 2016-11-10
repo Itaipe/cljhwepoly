@@ -86,4 +86,8 @@ router.post('/majstatexam', function(req, res, next) {
     db.majstatexam(req,res);    
 });
 
+router.post('/insererexam', function(req, res, next) {
+    db.insererexam(req,res);    
+});
+
 module.exports = router;

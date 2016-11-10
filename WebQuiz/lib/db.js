@@ -13,7 +13,6 @@ var questionSchema = new Schema({
     enonce : String,
     nbreponses : Number,
     reponses : [String],
-    bonnerep : Number
 });
 questionSchema.plugin(random);
 var Tests = mongoose.model('tests', questionSchema);
@@ -42,6 +41,12 @@ var statsSchema = new Schema ({
     statvalue : Number,
 });
 var stats = mongoose.model('stats', statsSchema);
+
+var ligneexam = new Schema ({
+    id : Number,
+    ligne : String
+});
+var ligneexam = mongoose.model('listeexam', ligneexam);
 
 //Connexion à la base de données mongodb hébergée sur mongolab, avec l'utilisateur "user" ayant pour password : "pass"
 mongoose.connect('mongodb://user:pass@ds143737.mlab.com:43737/tp4');
@@ -85,7 +90,6 @@ exports.createquestion = function(req, res, next) {
                 id : id,
                 domaine : domaine,
                 enonce : enonce,
-                bonnerep: bonnerep,
                 nbreponses: nbreponses,
                 reponses: reponses
             }).save(function(err, todo, count){
@@ -409,5 +413,17 @@ exports.majstatexam = function(req, res) {
     
     stats.update({id : "tauxexam"}, {statvalue: tauxexam}, {multi : true}, function (err) {
         if (err) { throw err; }
+    });
+};
+
+exports.insererexam = function (req, res) {
+    var id = req.body.id;
+    var ligne = req.body.ligne;
+    
+    new ligneexam({
+        id : id,
+        ligne : ligne,
+    }).save(function(err) {
+        if (err !== null) { throw err; }
     });
 };

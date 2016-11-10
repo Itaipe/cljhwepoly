@@ -206,7 +206,24 @@ $(function(){
                     heure : heure + ":" + minute + ":" + seconde
                 };
                 var ligne_exam_json = JSON.stringify(ligne_exam);
-                localStorage.setItem("ligne_exam_" + localStorage.getItem("nb_exam_effectues"), ligne_exam_json);
+                
+                var exam = {
+                    id : nb_exam_effectues,
+                    ligne : ligne_exam_json
+                };
+                $.ajax({
+                    type: 'POST',
+                    url: '/ajax/insererexam',
+                    dataType: 'json',
+                    data: exam,
+                    success: function(data) {
+                        console.log('SUCCESS : Save done : ' + data.data);
+                    },
+                    error: function() {
+                        console.log('Erreur dans le post de la réponse courante');
+                    }
+                });
+                //localStorage.setItem("ligne_exam_" + localStorage.getItem("nb_exam_effectues"), ligne_exam_json);
             }
         });        
     }

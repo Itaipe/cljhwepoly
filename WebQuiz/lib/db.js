@@ -433,7 +433,8 @@ exports.insererexam = function (req, res) {
     console.log("insere exam");
     var id = req.body.id;
     var ligne = req.body.ligne;
-
+    console.log(id);
+    console.log(ligne);
     new ligneexam({
         id : id,
         ligne : ligne
